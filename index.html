@@ -5,38 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ishaan Koradia</title>
   <style>
-    /* Full-page gradient background */
+    /* Ensure full-screen background */
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+      overflow: hidden;
       font-family: Arial, sans-serif;
       color: white;
       text-align: center;
-      overflow: hidden; /* Prevent scrolling */
     }
 
-    /* Gradient animation */
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+    /* tsParticles container */
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Send particles behind the content */
     }
 
     /* Centered content */
     .container {
-      z-index: 1; /* Ensures content is above the background */
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     h1 {
@@ -52,9 +45,76 @@
   </style>
 </head>
 <body>
+  <!-- Particles Background -->
+  <div id="tsparticles"></div>
+
+  <!-- Content -->
   <div class="container">
     <h1>Ishaan Koradia</h1>
     <p>Check out my socials down below!</p>
   </div>
+
+  <!-- tsParticles Library -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
+
+  <!-- Initialize tsParticles -->
+  <script>
+    tsParticles.load("tsparticles", {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#ffffff"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 0.7,
+          random: true
+        },
+        size: {
+          value: 5,
+          random: true
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          outMode: "bounce"
+        }
+      },
+      interactivity: {
+        detectsOn: "canvas",
+        events: {
+          onHover: {
+            enable: true,
+            mode: "grab"
+          },
+          onClick: {
+            enable: true,
+            mode: "push"
+          }
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            lineLinked: {
+              opacity: 0.5
+            }
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
 </body>
 </html>
