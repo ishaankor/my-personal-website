@@ -27,47 +27,46 @@
 
     .container {
       position: relative;
-      height: 100vh; 
+      height: 100vh; /* Full viewport height */
       display: flex;
-      flex-direction: column; 
-      justify-content: space-between; 
-      align-items: center; 
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: center; /* Center the entire content */
+      align-items: center; /* Center horizontally */
     }
-
+    
     h1 {
       margin: 0;
-      padding: 20px 0; 
+      padding: 20px 0; /* Padding for consistent spacing */
       font-size: 4rem;
       text-shadow: 2px 2px 5px black;
     }
-
+    
     p {
       margin: 0;
-      padding: 10px 0; 
+      padding: 20px 0; /* Same padding as <h1> for equal spacing */
       font-size: 1.5rem;
       text-shadow: 1px 1px 3px black;
     }
-
-    /* Icon styles */
+    
     .icons {
       display: flex;
-      justify-content: space-evenly; 
+      justify-content: space-evenly; /* Equal horizontal spacing */
       align-items: center;
-      width: 100%; 
-      padding-bottom: 20px; 
+      width: 100%; /* Full width for icons alignment */
+      margin-top: 20px; /* Same vertical spacing */
     }
-
+    
     .icons img {
-      width: 100px; 
-      height: 100px; 
-      object-fit: contain; 
-      transition: transform 0.3s ease; 
+      width: 100px; /* Standard width */
+      height: 100px; /* Standard height */
+      object-fit: contain; /* Prevent distortion */
+      transition: transform 0.3s ease; /* Smooth hover effect */
     }
-
+    
     .icons img:hover {
-      transform: scale(1.2); 
+      transform: scale(1.2); /* Slight enlargement on hover */
     }
-
+    
     a {
       text-decoration: none;
       outline: none;
