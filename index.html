@@ -5,17 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ishaan Koradia</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  
+  <!-- Content -->
   <div class="container">
     <h1>Ishaan Koradia</h1>
-    <p>I'm a Developer.</p>
+    <p>I'm an aspiring AI Engineer with an intense passion for all things Data Science!</p>
     <div class="icons">
-      <a href="https://github.com/ishaankor" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/ishaankoradia" target="_blank">LinkedIn</a>
-      <a href="mailto:ishaankor@gmail.com">Email</a>
+      <a href="https://github.com/ishaankor" target="_blank">
+        <img src="github-icon.svg" alt="GitHub" class="icon">
+      </a>
+      <a href="https://linkedin.com/in/ishaankoradia" target="_blank">
+        <img src="linkedin-icon.svg" alt="LinkedIn" class="icon">
+      </a>
+      <a href="mailto:ishaankor@gmail.com">
+        <img src="email-icon.svg" alt="Email" class="icon">
+      </a>
     </div>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Initialize Particles.js -->
+  <script>
+    particlesJS.load('particles-js', 'particles-config.json', function() {
+      console.log('Particles.js loaded!');
+    });
+  </script>
 </body>
 </html>
