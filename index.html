@@ -9,7 +9,7 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background-color: #000; 
+/*       background-color: #000;  */
       font-family: Lato, sans-serif;
       color: white; 
       text-align: center;
@@ -84,12 +84,21 @@
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
   <script>
     tsParticles.load("tsparticles", {
+      background: {
+        // color: {
+        //   value: "#1e1e1e" /* Custom background color */
+        // },
+        image: "url('./assets/website-wallpaper.png')", 
+        position: "50% 50%",
+        repeat: "no-repeat", 
+        size: "cover"
+      },
       particles: {
         number: {
-          value: 100, 
+          value: 10, 
           density: {
             enable: true,
-            value_area: 1000 
+            value_area: 850 
           }
         },
         color: {
