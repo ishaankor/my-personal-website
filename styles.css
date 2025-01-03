@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  margin-top: 20%;
+}
+
+.icons a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.icons a:hover {
+  text-decoration: underline;
+}
