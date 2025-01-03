@@ -9,13 +9,11 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background-color: #000; /* Black background */
+      background-color: #000; 
       font-family: Lato, sans-serif;
-      color: white; /* White text for contrast */
+      color: white; 
       text-align: center;
     }
-
-    /* tsParticles container */
     #tsparticles {
       position: fixed;
       top: 0;
@@ -24,49 +22,42 @@
       height: 100%;
       z-index: -1; 
     }
-
     .container {
       position: relative;
-      height: 100vh; /* Full viewport height */
+      height: 100vh; 
       display: flex;
-      flex-direction: column; /* Stack elements vertically */
-      justify-content: center; /* Center the entire content */
-      align-items: center; /* Center horizontally */
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
     }
-    
     h1 {
       margin: 0;
-      padding: 20px 0; /* Padding for consistent spacing */
+      padding: 20px 0;
       font-size: 4rem;
       text-shadow: 2px 2px 5px black;
     }
-    
     p {
       margin: 0;
-      padding: 20px 0; /* Same padding as <h1> for equal spacing */
+      padding: 20px 0; 
       font-size: 1.5rem;
       text-shadow: 1px 1px 3px black;
     }
-    
     .icons {
       display: flex;
-      justify-content: space-evenly; /* Equal horizontal spacing */
+      justify-content: space-evenly; 
       align-items: center;
-      width: 100%; /* Full width for icons alignment */
-      margin-top: 20px; /* Same vertical spacing */
+      width: 100%; 
+      margin-top: 20px;
     }
-    
     .icons img {
-      width: 100px; /* Standard width */
-      height: 100px; /* Standard height */
-      object-fit: contain; /* Prevent distortion */
-      transition: transform 0.3s ease; /* Smooth hover effect */
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
     }
-    
     .icons img:hover {
-      transform: scale(1.2); /* Slight enlargement on hover */
+      transform: scale(1.2);
     }
-    
     a {
       text-decoration: none;
       outline: none;
@@ -74,10 +65,7 @@
   </style>
 </head>
 <body>
-  <!-- Particles Background -->
   <div id="tsparticles"></div>
-
-  <!-- Content -->
   <div class="container">
     <h1>Ishaan Koradia</h1>
     <p>Check out my socials down below!</p>
@@ -93,40 +81,36 @@
       </a>
     </div>
   </div>
-
-  <!-- tsParticles Library -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
-
-  <!-- Initialize tsParticles -->
   <script>
     tsParticles.load("tsparticles", {
       particles: {
         number: {
-          value: 100, /* Number of particles */
+          value: 100, 
           density: {
             enable: true,
-            value_area: 1000 /* Adjust space between particles */
+            value_area: 1000 
           }
         },
         color: {
-          value: "#ffffff" /* White particles */
+          value: "#ffffff"
         },
         shape: {
-          type: "circle" /* Shape of particles */
+          type: "star"
         },
         opacity: {
           value: 0.7,
-          random: true /* Randomized opacity */
+          random: true
         },
         size: {
           value: 5,
-          random: true /* Randomized size */
+          random: true
         },
         move: {
           enable: true,
           speed: 2,
           direction: "none",
-          outMode: "bounce" /* Particles bounce off edges */
+          outMode: "bounce"
         }
       },
       interactivity: {
@@ -134,11 +118,11 @@
         events: {
           onHover: {
             enable: true,
-            mode: "grab" /* Connect particles on hover */
+            mode: "grab"
           },
           onClick: {
             enable: true,
-            mode: "push" /* Add particles on click */
+            mode: "push"
           }
         },
         modes: {
