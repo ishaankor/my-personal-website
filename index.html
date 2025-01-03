@@ -5,32 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ishaan Koradia</title>
   <style>
+    /* Full-page gradient background */
     body {
       margin: 0;
       height: 100vh;
-      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
       font-family: Arial, sans-serif;
       color: white;
       text-align: center;
-      overflow: hidden;
+      overflow: hidden; /* Prevent scrolling */
     }
-    #particles-js {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+
+    /* Gradient animation */
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
+
+    /* Centered content */
     .container {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
+      z-index: 1; /* Ensures content is above the background */
     }
+
     h1 {
-      font-size: 3rem;
+      font-size: 4rem;
       text-shadow: 2px 2px 5px black;
     }
+
     p {
       font-size: 1.5rem;
       margin-top: 10px;
@@ -39,23 +52,9 @@
   </style>
 </head>
 <body>
-  <!-- Particles Background -->
-  <div id="particles-js"></div>
-
-  <!-- Content -->
   <div class="container">
     <h1>Ishaan Koradia</h1>
-    <p>Check out my socials down below:</p>
+    <p>Check out my socials down below!</p>
   </div>
-
-  <!-- Particles.js Library -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
-  <!-- Initialize Particles.js -->
-  <script>
-    particlesJS.load('particles-js', 'particles-config.json', function() {
-      console.log('Particles.js loaded!');
-    });
-  </script>
 </body>
 </html>
