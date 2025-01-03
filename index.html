@@ -7,13 +7,19 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
       overflow: hidden;
-      background: url('./assets/website-wallpaper.gif') no-repeat center center fixed;
-      background-size: cover;
-      font-family: Lato, sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
       text-align: center;
+    }
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
     .container {
       position: relative;
@@ -21,45 +27,50 @@
       transform: translateY(-50%);
     }
     h1 {
-      font-size: 3rem;
-      text-shadow: 2px 2px 5px black;
+      font-size: 4rem;
+      text-shadow: 3px 3px 5px black;
+    }
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px black;
     }
     .icons img {
       width: 50px;
       height: 50px;
-      margin: 0 10px;
+      margin: 0 15px;
       object-fit: contain;
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
     }
     .icons img:hover {
-      transform: scale(1.2);
+      transform: scale(1.3);
     }
     a {
-      outline: none;
       text-decoration: none;
-    }
-    a:focus {
       outline: none;
-    }
-    .icons img[onerror] {
-      background: url('./assets/fallback-image.png') no-repeat center center;
-      background-size: contain;
     }
   </style>
 </head>
 <body>
+  <!-- Video background -->
+  <video class="video-background" autoplay loop muted playsinline>
+    <source src="./assets/website-wallpaper.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Content -->
   <div class="container">
     <h1>Ishaan Koradia</h1>
     <p>Check out my social links below:</p>
     <div class="icons">
       <a href="https://github.com/ishaankor" target="_blank">
-        <img src="./assets/github-icon.png" alt="GitHub">
+        <img src="./assets/github-icon.gif" alt="GitHub">
       </a>
       <a href="https://linkedin.com/in/ishaankoradia" target="_blank">
-        <img src="./assets/linkedin-icon.png" alt="LinkedIn">
+        <img src="./assets/linkedin-icon.gif" alt="LinkedIn">
       </a>
       <a href="mailto:ishaankor@gmail.com">
-        <img src="./assets/gmail-icon.png" alt="Email">
+        <img src="./assets/gmail-icon.gif" alt="Email">
       </a>
     </div>
   </div>
