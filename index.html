@@ -4,69 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ishaan Koradia</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: white; 
-      text-align: center;
-    }
-    #tsparticles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; 
-    }
-    .container {
-      position: absolute;
-      top: 10%; 
-      left: 50%;
-      transform: translate(-50%, 0);
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 4rem;
-      text-shadow: 0 0 10px
-                   0 0 20px
-                   0 0 30px
-    }
-    p {
-      margin: 0;
-      margin-top: 10px;
-      font-size: 1.5rem;
-      text-shadow: 0 0 5px
-                   0 0 10px
-    }
-    .icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-    }
-    .icons img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      margin: 0 10px;
-      transition: transform 0.3s ease;
-    }
-    .icons img:hover {
-      transform: scale(1.2);
-    }
-    a {
-      text-decoration: none;
-      outline: none;
-    }
-  </style>
+  <link href="./style.css" rel="stylesheet">
 </head>
 <body>
   <div id="tsparticles"></div>
-  <div class="container">
+
+  <!-- Intro Section -->
+  <section id="intro" class="active">
     <h1>Ishaan Koradia</h1>
     <p>Connect with me here!</p>
     <div class="icons">
@@ -80,7 +24,20 @@
         <img src="./assets/gmail-icon.png" alt="Gmail">
       </a>
     </div>
-  </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a developer passionate about building interactive and engaging web applications.</p>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <p>Check out my latest work on GitHub and LinkedIn.</p>
+  </section>
+
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
   <script>
     tsParticles.load("tsparticles", {
@@ -146,5 +103,50 @@
       retina_detect: true
     });
   </script>
+
+  <!-- JavaScript for Section Scrolling with Smooth Fade and Move -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll("section");
+        let currentIndex = 0;
+        let isScrolling = false; // Prevents multiple triggers
+
+        function updateSections(index) {
+            sections.forEach((section, i) => {
+                section.classList.remove("active", "prev", "next");
+
+                if (i === index) {
+                    section.classList.add("active");
+                } else if (i < index) {
+                    section.classList.add("prev");
+                } else {
+                    section.classList.add("next");
+                }
+            });
+        }
+
+        function scrollHandler(event) {
+            if (isScrolling) return;
+            isScrolling = true;
+
+            if (event.deltaY > 0 && currentIndex < sections.length - 1) {
+                currentIndex++;
+            } else if (event.deltaY < 0 && currentIndex > 0) {
+                currentIndex--;
+            }
+
+            updateSections(currentIndex);
+
+            // Reset scroll flag after animation duration
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
+        }
+
+        document.addEventListener("wheel", scrollHandler);
+        updateSections(currentIndex);
+    });
+  </script>
+
 </body>
 </html>
