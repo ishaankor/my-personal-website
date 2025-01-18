@@ -109,7 +109,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const sections = document.querySelectorAll("section");
         let currentIndex = 0;
-        let isScrolling = false; // Prevents multiple triggers
+        let isScrolling = false; 
 
         function updateSections(index) {
             sections.forEach((section, i) => {
@@ -136,8 +136,6 @@
             }
 
             updateSections(currentIndex);
-
-            // Reset scroll flag after animation duration
             setTimeout(() => {
                 isScrolling = false;
             }, 1000);

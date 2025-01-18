@@ -1,14 +1,12 @@
-/* General Styles */
 body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: white;
     text-align:center;
     background: black;
-    overflow: hidden; /* Prevents default scrolling */
+    overflow: hidden; 
 }
 
-/* Background Particles */
 #tsparticles {
     position: fixed;
     top: 0;
@@ -18,7 +16,6 @@ body {
     z-index: -1;
 }
 
-/* Full-page Sections */
 section {
     position: absolute;
     width: 100%;
@@ -31,13 +28,11 @@ section {
     opacity: 0;
 }
 
-/* Active Section - Fully Visible */
 section.active {
     transform: translateY(0);
     opacity: 1;
 }
 
-/* Preparing Sections to Move */
 section.prev {
     transform: translateY(-20%);
     opacity: 0;
@@ -48,18 +43,16 @@ section.next {
     opacity: 0;
 }
 
-/* Ensure the first section is positioned at the top */
 #intro, #about, #projects {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Horizontally center */
-    justify-content: flex-start; /* Align content to the top */
+    align-items: center;
+    justify-content: flex-start; 
     height: 100vh;
     text-align: center;
-    padding-top: 10vh; /* Adjust this to move it higher or lower */
+    padding-top: 10vh; 
 }
 
-/* Header Styling */
 h1 {
     font-size: 4rem;
     font-weight: bold;
@@ -67,25 +60,22 @@ h1 {
     margin-bottom: 5px;
 }
 
-/* Adjust the spacing of the "Connect with me here!" text */
 p {
     font-size: 1.5rem;
     font-weight: bold;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-    margin-bottom: 15px; /* Reduce space below */
+    margin-bottom: 15px; 
     margin-top: 10px;
 }
 
-/* Adjust the spacing of the icons */
 .icons {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    gap: 15px; /* Space between icons */
+    gap: 15px; 
 }
 
-/* Reduce icon size slightly */
 .icons img {
     width: 50px;
     height: 50px;
