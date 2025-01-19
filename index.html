@@ -145,6 +145,11 @@
         document.addEventListener("wheel", scrollHandler);
         updateSections(currentIndex);
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const tsparticles = document.getElementById("tsparticles");
+        tsparticles.style.pointerEvents = "none"; 
+    });
   </script>
 
 </body>
