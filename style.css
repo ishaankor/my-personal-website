@@ -34,12 +34,12 @@ section.active {
 }
 
 section.prev {
-    transform: translateY(-20%);
+    transform: translateY(-30%);
     opacity: 0;
 }
 
 section.next {
-    transform: translateY(20%);
+    transform: translateY(30%);
     opacity: 0;
 }
 
@@ -50,7 +50,7 @@ section.next {
     justify-content: flex-start; 
     height: 100vh;
     text-align: center;
-    padding-top: 10vh; 
+    padding-top: 20vh; 
 }
 
 h1 {
