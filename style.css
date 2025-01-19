@@ -46,6 +46,60 @@ section.next {
     opacity: 0;
 }
 
+.scroll-indicator-container {
+    position: absolute;
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent; 
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+
+.scroll-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    opacity: 0; 
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    gap: 5px; 
+    min-width: 120px;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    visibility: hidden; 
+    position: absolute;
+    bottom: 10px; 
+}
+
+.scroll-indicator.visible {
+    opacity: 0.5;
+    visibility: visible;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+.scroll-indicator .arrow {
+    font-size: 1.2rem;
+    opacity: 0.5;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
 #intro, #about, #projects {
     display: flex;
     flex-direction: column;
