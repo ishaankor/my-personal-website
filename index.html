@@ -39,6 +39,18 @@
     <p>Check out my latest work on GitHub and LinkedIn.</p>
   </section>
 
+  <!-- Scroll Indicator Container -->
+  <div class="scroll-indicator-container">
+    <div id="scroll-down" class="scroll-indicator visible">
+        <span>Scroll Down</span>
+        <div class="arrow">↓</div>
+    </div>
+    <div id="scroll-up" class="scroll-indicator">
+        <span>Scroll Up</span>
+        <div class="arrow">↑</div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
   <script>
     tsParticles.load("tsparticles", {
@@ -108,48 +120,69 @@
   <!-- JavaScript for Section Scrolling with Smooth Fade and Move -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const sections = document.querySelectorAll("section");
-        let currentIndex = 0;
-        let isScrolling = false; 
+      const sections = document.querySelectorAll("section");
+      const scrollDown = document.getElementById("scroll-down");
+      const scrollUp = document.getElementById("scroll-up");
+      let currentIndex = 0;
+      let isScrolling = false; 
 
-        function updateSections(index) {
-            sections.forEach((section, i) => {
-                section.classList.remove("active", "prev", "next");
+      function updateSections(index) {
+          sections.forEach((section, i) => {
+              section.classList.remove("active", "prev", "next");
 
-                if (i === index) {
-                    section.classList.add("active");
-                } else if (i < index) {
-                    section.classList.add("prev");
-                } else {
-                    section.classList.add("next");
-                }
-            });
-        }
+              if (i === index) {
+                  section.classList.add("active");
+              } else if (i < index) {
+                  section.classList.add("prev");
+              } else {
+                  section.classList.add("next");
+              }
+          });
 
-        function scrollHandler(event) {
-            if (isScrolling) return;
-            isScrolling = true;
+          setTimeout(checkScrollIndicators, 500);
+      }
 
-            if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-                currentIndex++;
-            } else if (event.deltaY < 0 && currentIndex > 0) {
-                currentIndex--;
-            }
+      function checkScrollIndicators() {
+          if (currentIndex === 0) {
+              scrollDown.classList.add("visible");
+              scrollUp.classList.remove("visible");
+          } else if (currentIndex === sections.length - 1) {
+              scrollDown.classList.remove("visible");
+              scrollUp.classList.add("visible");
+          } else {
+              scrollDown.classList.remove("visible");
+              scrollUp.classList.remove("visible");
+          }
+      } 
 
-            updateSections(currentIndex);
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
-        }
+      function scrollHandler(event) {
+          if (isScrolling) return;
+          isScrolling = true;
 
-        document.addEventListener("wheel", scrollHandler);
-        updateSections(currentIndex);
-    });
+          if (event.deltaY > 0 && currentIndex < sections.length - 1) {
+              currentIndex++;
+          } else if (event.deltaY < 0 && currentIndex > 0) {
+              currentIndex--;
+          }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const tsparticles = document.getElementById("tsparticles");
-        tsparticles.style.pointerEvents = "none"; 
-    });
+          updateSections(currentIndex);
+
+          setTimeout(() => {
+              isScrolling = false;
+          }, 1000);
+      }
+
+      document.addEventListener("wheel", scrollHandler);
+      updateSections(currentIndex);
+      checkScrollIndicators();
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const tsparticles = document.getElementById("tsparticles");
+    tsparticles.style.pointerEvents = "none"; 
+  });
+  
   </script>
 
 </body>
