@@ -123,8 +123,26 @@
       const sections = document.querySelectorAll("section");
       const scrollDown = document.getElementById("scroll-down");
       const scrollUp = document.getElementById("scroll-up");
+      const scrollDownText = document.getElementById("scroll-down-text");
+      const scrollUpText = document.getElementById("scroll-up-text");
       let currentIndex = 0;
-      let isScrolling = false; 
+      let isScrolling = false;
+
+      // Detect if the user is on a mobile device
+      function isMobileDevice() {
+          return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      }
+
+      // Change text based on device type
+      function updateScrollText() {
+          if (isMobileDevice()) {
+              scrollDownText.textContent = "Swipe Down";
+              scrollUpText.textContent = "Swipe Up";
+          } else {
+              scrollDownText.textContent = "Scroll Down";
+              scrollUpText.textContent = "Scroll Up";
+          }
+      }
 
       function updateSections(index) {
           sections.forEach((section, i) => {
@@ -139,6 +157,7 @@
               }
           });
 
+          // Fade in/out indicators AFTER section is loaded
           setTimeout(checkScrollIndicators, 500);
       }
 
@@ -153,7 +172,7 @@
               scrollDown.classList.remove("visible");
               scrollUp.classList.remove("visible");
           }
-      } 
+      }
 
       function scrollHandler(event) {
           if (isScrolling) return;
@@ -172,11 +191,47 @@
           }, 1000);
       }
 
+      // Detect touch gestures for scrolling on mobile
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      function handleTouchStart(event) {
+          touchStartY = event.touches[0].clientY;
+      }
+
+      function handleTouchMove(event) {
+          touchEndY = event.touches[0].clientY;
+      }
+
+      function handleTouchEnd() {
+          if (isScrolling) return;
+
+          if (touchStartY - touchEndY > 50 && currentIndex < sections.length - 1) {
+              // Swipe up (next section)
+              currentIndex++;
+          } else if (touchEndY - touchStartY > 50 && currentIndex > 0) {
+              // Swipe down (previous section)
+              currentIndex--;
+          }
+
+          updateSections(currentIndex);
+          checkScrollIndicators();
+
+          isScrolling = true;
+          setTimeout(() => {
+              isScrolling = false;
+          }, 1000);
+      }
+
       document.addEventListener("wheel", scrollHandler);
+      document.addEventListener("touchstart", handleTouchStart);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchEnd);
+
       updateSections(currentIndex);
       checkScrollIndicators();
+      updateScrollText(); // Update text based on device type
   });
-
 
   document.addEventListener("DOMContentLoaded", function () {
     const tsparticles = document.getElementById("tsparticles");
