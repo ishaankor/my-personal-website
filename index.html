@@ -41,15 +41,18 @@
 
   <!-- Scroll Indicator Container -->
   <div class="scroll-indicator-container">
+    <!-- Scroll Down Indicator -->
     <div id="scroll-down" class="scroll-indicator visible">
-        <span>Scroll Down</span>
+        <span id="scroll-down-text">Scroll Down</span>
         <div class="arrow">↓</div>
     </div>
+    <!-- Scroll Up Indicator -->
     <div id="scroll-up" class="scroll-indicator">
-        <span>Scroll Up</span>
+        <span id="scroll-up-text">Scroll Up</span>
         <div class="arrow">↑</div>
     </div>
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
   <script>
@@ -128,12 +131,10 @@
       let currentIndex = 0;
       let isScrolling = false;
 
-      // Detect if the user is on a mobile device
       function isMobileDevice() {
           return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
       }
 
-      // Change text based on device type
       function updateScrollText() {
           if (isMobileDevice()) {
               scrollDownText.textContent = "Swipe Down";
@@ -157,7 +158,6 @@
               }
           });
 
-          // Fade in/out indicators AFTER section is loaded
           setTimeout(checkScrollIndicators, 500);
       }
 
@@ -191,7 +191,6 @@
           }, 1000);
       }
 
-      // Detect touch gestures for scrolling on mobile
       let touchStartY = 0;
       let touchEndY = 0;
 
@@ -207,10 +206,8 @@
           if (isScrolling) return;
 
           if (touchStartY - touchEndY > 50 && currentIndex < sections.length - 1) {
-              // Swipe up (next section)
               currentIndex++;
           } else if (touchEndY - touchStartY > 50 && currentIndex > 0) {
-              // Swipe down (previous section)
               currentIndex--;
           }
 
@@ -230,12 +227,7 @@
 
       updateSections(currentIndex);
       checkScrollIndicators();
-      updateScrollText(); // Update text based on device type
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const tsparticles = document.getElementById("tsparticles");
-    tsparticles.style.pointerEvents = "none"; 
+      updateScrollText(); 
   });
   
   </script>
