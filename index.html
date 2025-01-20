@@ -43,12 +43,12 @@
   <div class="scroll-indicator-container">
     <!-- Scroll Down Indicator -->
     <div id="scroll-down" class="scroll-indicator visible">
-        <span id="scroll-down-text">Scroll Down</span>
+        <span id="scroll-down-text"></span> <!-- Text will be set instantly -->
         <div class="arrow">↓</div>
     </div>
     <!-- Scroll Up Indicator -->
     <div id="scroll-up" class="scroll-indicator">
-        <span id="scroll-up-text">Scroll Up</span>
+        <span id="scroll-up-text"></span> <!-- Text will be set instantly -->
         <div class="arrow">↑</div>
     </div>
   </div>
@@ -131,19 +131,32 @@
       let currentIndex = 0;
       let isScrolling = false;
 
-      function isMobileDevice() {
-          return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      function hasCursor() {
+          return window.matchMedia("(pointer: fine)").matches && navigator.maxTouchPoints === 0;
       }
 
-      function updateScrollText() {
-          if (isMobileDevice()) {
-              scrollDownText.textContent = "Swipe Down";
-              scrollUpText.textContent = "Swipe Up";
+      function isTouchOnlyDevice() {
+          return 'ontouchstart' in window && navigator.maxTouchPoints > 0 && !hasCursor();
+      }
+
+      function setInitialScrollText() {
+          const scrollDownText = document.getElementById("scroll-down-text");
+          const scrollUpText = document.getElementById("scroll-up-text");
+
+          if (isTouchOnlyDevice()) {
+              scrollDownText.innerHTML = "Swipe Down";
+              scrollUpText.innerHTML = "Swipe Up";
           } else {
-              scrollDownText.textContent = "Scroll Down";
-              scrollUpText.textContent = "Scroll Up";
+              scrollDownText.innerHTML = "Scroll Down";
+              scrollUpText.innerHTML = "Scroll Up";
           }
       }
+
+      setInitialScrollText();
+
+      document.addEventListener("DOMContentLoaded", setInitialScrollText);
+
+      window.matchMedia("(pointer: fine)").addEventListener("change", setInitialScrollText);
 
       function updateSections(index) {
           sections.forEach((section, i) => {
