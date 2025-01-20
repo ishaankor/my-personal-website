@@ -47,18 +47,19 @@ section.next {
 }
 
 .scroll-indicator-container {
-    position: absolute;
-    bottom: 10px; 
-    left: 50%;
+    position: fixed;  
+    bottom: 20px; 
+    left: 50%; 
     transform: translateX(-50%); 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: transparent; 
+    background: transparent;
     width: auto;
     height: auto;
     padding: 0;
+    z-index: 1000; 
 }
 
 .scroll-indicator {
@@ -73,10 +74,9 @@ section.next {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     gap: 5px; 
     min-width: 120px;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     visibility: hidden; 
-    position: absolute;
-    bottom: 10px; 
+    position: relative;         
 }
 
 .scroll-indicator.visible {
@@ -90,6 +90,7 @@ section.next {
     opacity: 0.5;
     animation: bounce 2s infinite ease-in-out;
 }
+
 
 @keyframes bounce {
     0%, 100% {

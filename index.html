@@ -123,126 +123,123 @@
   <!-- JavaScript for Section Scrolling with Smooth Fade and Move -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const sections = document.querySelectorAll("section");
-      const scrollDown = document.getElementById("scroll-down");
-      const scrollUp = document.getElementById("scroll-up");
-      const scrollDownText = document.getElementById("scroll-down-text");
-      const scrollUpText = document.getElementById("scroll-up-text");
-      let currentIndex = 0;
-      let isScrolling = false;
+        const sections = document.querySelectorAll("section");
+        const scrollDown = document.getElementById("scroll-down");
+        const scrollUp = document.getElementById("scroll-up");
+        const scrollDownText = document.getElementById("scroll-down-text");
+        const scrollUpText = document.getElementById("scroll-up-text");
+        let currentIndex = 0;
+        let isScrolling = false;
 
-      function hasCursor() {
-          return window.matchMedia("(pointer: fine)").matches && navigator.maxTouchPoints === 0;
-      }
-
-      function isTouchOnlyDevice() {
-          return 'ontouchstart' in window && navigator.maxTouchPoints > 0 && !hasCursor();
-      }
-
-      function setInitialScrollText() {
-          const scrollDownText = document.getElementById("scroll-down-text");
-          const scrollUpText = document.getElementById("scroll-up-text");
-
-          if (isTouchOnlyDevice()) {
-              scrollDownText.innerHTML = "Swipe Down";
-              scrollUpText.innerHTML = "Swipe Up";
-          } else {
-              scrollDownText.innerHTML = "Scroll Down";
-              scrollUpText.innerHTML = "Scroll Up";
-          }
-      }
-
-      setInitialScrollText();
-
-      document.addEventListener("DOMContentLoaded", setInitialScrollText);
-
-      window.matchMedia("(pointer: fine)").addEventListener("change", setInitialScrollText);
-
-      function updateSections(index) {
-          sections.forEach((section, i) => {
-              section.classList.remove("active", "prev", "next");
-
-              if (i === index) {
-                  section.classList.add("active");
-              } else if (i < index) {
-                  section.classList.add("prev");
-              } else {
-                  section.classList.add("next");
-              }
-          });
-
-          setTimeout(checkScrollIndicators, 500);
-      }
-
-      function checkScrollIndicators() {
-          if (currentIndex === 0) {
-              scrollDown.classList.add("visible");
-              scrollUp.classList.remove("visible");
-          } else if (currentIndex === sections.length - 1) {
-              scrollDown.classList.remove("visible");
-              scrollUp.classList.add("visible");
-          } else {
-              scrollDown.classList.remove("visible");
-              scrollUp.classList.remove("visible");
-          }
-      }
-
-      function scrollHandler(event) {
-          if (isScrolling) return;
-          isScrolling = true;
-
-          if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-              currentIndex++;
-          } else if (event.deltaY < 0 && currentIndex > 0) {
-              currentIndex--;
-          }
-
-          updateSections(currentIndex);
-
-          setTimeout(() => {
-              isScrolling = false;
-          }, 1000);
-      }
-
-      let touchStartY = 0;
-      let touchEndY = 0;
-      const swipeThreshold = 50; 
-
-      function handleTouchStart(event) {
-          touchStartY = event.touches[0].clientY;
-      }
-
-      function handleTouchMove(event) {
-          touchEndY = event.touches[0].clientY;
-      }
-
-      function handleTouchEnd() {
-          if (isScrolling) return;
-
-          const swipeDistance = touchStartY - touchEndY;
-
-          if (Math.abs(swipeDistance) > swipeThreshold) {
-              if (swipeDistance > 0 && currentIndex < sections.length - 1) {
-                  currentIndex++;
-              } else if (swipeDistance < 0 && currentIndex > 0) {
-                  currentIndex--;
-              }
-              updateSections(currentIndex);
-          }
-          isScrolling = true;
-          setTimeout(() => {
-              isScrolling = false;
-          }, 1000);
+        function hasCursor() {
+            return window.matchMedia("(pointer: fine)").matches && navigator.maxTouchPoints === 0;
         }
 
-      document.addEventListener("wheel", scrollHandler);
-      document.addEventListener("touchstart", handleTouchStart);
-      document.addEventListener("touchmove", handleTouchMove);
-      document.addEventListener("touchend", handleTouchEnd);
+        function isTouchOnlyDevice() {
+            return 'ontouchstart' in window && navigator.maxTouchPoints > 0 && !hasCursor();
+        }
 
-      updateSections(currentIndex);
-      checkScrollIndicators();
-  });
+        function setInitialScrollText() {
+            if (isTouchOnlyDevice()) {
+                scrollDownText.innerHTML = "Swipe Down";
+                scrollUpText.innerHTML = "Swipe Up";
+            } else {
+                scrollDownText.innerHTML = "Scroll Down";
+                scrollUpText.innerHTML = "Scroll Up";
+            }
+        }
+
+        setInitialScrollText();
+        document.addEventListener("DOMContentLoaded", setInitialScrollText);
+        window.matchMedia("(pointer: fine)").addEventListener("change", setInitialScrollText);
+
+        function updateSections(index) {
+            sections.forEach((section, i) => {
+                section.classList.remove("active", "prev", "next");
+
+                if (i === index) {
+                    section.classList.add("active");
+                } else if (i < index) {
+                    section.classList.add("prev");
+                } else {
+                    section.classList.add("next");
+                }
+            });
+
+            setTimeout(checkScrollIndicators, 500);
+        }
+
+        function checkScrollIndicators() {
+            if (currentIndex === 0) {
+                scrollDown.classList.add("visible");
+                scrollUp.classList.remove("visible");
+            } else if (currentIndex === sections.length - 1) {
+                scrollDown.classList.remove("visible");
+                scrollUp.classList.add("visible");
+            } else {
+                scrollDown.classList.remove("visible");
+                scrollUp.classList.remove("visible");
+            }
+        }
+
+        function scrollHandler(event) {
+            if (isScrolling) return;
+            isScrolling = true;
+
+            if (event.deltaY > 0 && currentIndex < sections.length - 1) {
+                currentIndex++;
+            } else if (event.deltaY < 0 && currentIndex > 0) {
+                currentIndex--;
+            }
+
+            updateSections(currentIndex);
+
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
+        }
+
+        let touchStartY = 0;
+        let touchEndY = 0;
+        const swipeThreshold = 50; 
+
+        function handleTouchStart(event) {
+            touchStartY = event.touches[0].clientY;
+        }
+
+        function handleTouchMove(event) {
+            touchEndY = event.touches[0].clientY;
+        }
+
+        function handleTouchEnd() {
+            if (isScrolling) return;
+
+            const swipeDistance = touchStartY - touchEndY;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentIndex < sections.length - 1) {
+                    currentIndex++;
+                } else if (swipeDistance < 0 && currentIndex > 0) {
+                    currentIndex--;
+                }
+                updateSections(currentIndex);
+            }
+
+            isScrolling = true;
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
+        }
+
+        document.addEventListener("wheel", scrollHandler);
+        document.addEventListener("touchstart", handleTouchStart);
+        document.addEventListener("touchmove", handleTouchMove);
+        document.addEventListener("touchend", handleTouchEnd);
+
+        updateSections(currentIndex);
+        checkScrollIndicators();
+    });
+
   </script>
 
 </body>
