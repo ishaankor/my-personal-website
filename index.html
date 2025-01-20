@@ -206,6 +206,7 @@
 
       let touchStartY = 0;
       let touchEndY = 0;
+      const swipeThreshold = 50; 
 
       function handleTouchStart(event) {
           touchStartY = event.touches[0].clientY;
@@ -218,20 +219,21 @@
       function handleTouchEnd() {
           if (isScrolling) return;
 
-          if (touchStartY - touchEndY > 50 && currentIndex < sections.length - 1) {
-              currentIndex++;
-          } else if (touchEndY - touchStartY > 50 && currentIndex > 0) {
-              currentIndex--;
+          const swipeDistance = touchStartY - touchEndY;
+
+          if (Math.abs(swipeDistance) > swipeThreshold) {
+              if (swipeDistance > 0 && currentIndex < sections.length - 1) {
+                  currentIndex++;
+              } else if (swipeDistance < 0 && currentIndex > 0) {
+                  currentIndex--;
+              }
+              updateSections(currentIndex);
           }
-
-          updateSections(currentIndex);
-          checkScrollIndicators();
-
           isScrolling = true;
           setTimeout(() => {
               isScrolling = false;
           }, 1000);
-      }
+        }
 
       document.addEventListener("wheel", scrollHandler);
       document.addEventListener("touchstart", handleTouchStart);
@@ -240,9 +242,7 @@
 
       updateSections(currentIndex);
       checkScrollIndicators();
-      updateScrollText(); 
   });
-  
   </script>
 
 </body>
