@@ -30,8 +30,8 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.25s ease-in-out;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 1s ease-in-out;
     opacity: 0;
     pointer-events: none;
     top: 1vh;
@@ -53,18 +53,18 @@ section.active {
 }
 
 section.prev {
-    transform: translateX(-50%) translateY(-10%);
+    transform: translateX(-50%) translateY(-50%);
     opacity: 0;
 }
 
 section.next {
-    transform: translateX(-50%) translateY(10%);
+    transform: translateX(-50%) translateY(50%);
     opacity: 0;
 }
 
 .scroll-indicator-container {
     position: fixed;  
-    bottom: 5vh; 
+    bottom: 1vh; 
     left: 50%; 
     transform: translateX(-50%); 
     display: flex;
@@ -90,10 +90,10 @@ section.next {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     gap: 5px; 
     min-width: 120px;
-    transition: opacity 0.5s ease-in-out, visibility 0.25s ease-in-out;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     visibility: hidden; 
     position: fixed;    
-    bottom: 5px; 
+    bottom: 1px; 
     animation: bounce 2s infinite ease-in-out; 
 }
 
@@ -118,22 +118,22 @@ h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    margin-bottom: 2vh; 
+    margin-bottom: 0.5vh; 
 }
 
 p {
     font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: bold;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-    margin-bottom: 2vh; 
-    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-top: 0.5vh;
 }
 
 .icons {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2vh;
+    /* margin-top: 2vh; */
     gap: clamp(5px, 3vw, 15px);
     position: relative;
     z-index: 20; 
@@ -177,23 +177,19 @@ p {
 
 @media screen and (max-height: 700px) {
     section {
-        top: 5vh; 
+        top: 20%; 
     }
 }
 
 @media screen and (max-height: 500px) {
     section {
-        top: 3vh; 
+        top: 25%; 
     }
-}
-
-.scroll-indicator-container {
-    bottom: 5vh; 
 }
 
 @media screen and (max-height: 450px) {
     .scroll-indicator-container {
-        bottom: 3vh;
+        bottom: 20%;
     }
 }
 
