@@ -139,6 +139,14 @@
             return 'ontouchstart' in window && navigator.maxTouchPoints > 0 && !hasCursor();
         }
 
+        function adjustSectionPositioning() {
+          const viewportHeight = window.innerHeight;
+          sections.forEach((section) => {
+              const offsetTop = Math.max(viewportHeight * 0.1, 50); 
+              section.style.top = `${offsetTop}px`;
+          });
+        }
+
         function setInitialScrollText() {
             if (isTouchOnlyDevice()) {
                 scrollDownText.innerHTML = "Swipe Down";
@@ -150,6 +158,8 @@
         }
 
         setInitialScrollText();
+        adjustSectionPositioning();
+
         document.addEventListener("DOMContentLoaded", setInitialScrollText);
         window.matchMedia("(pointer: fine)").addEventListener("change", setInitialScrollText);
 
@@ -250,6 +260,10 @@
 
         updateSections(currentIndex);
         checkScrollIndicators();
+
+        window.addEventListener("orientationchange", function () {
+        setTimeout(adjustSectionPositioning, 300);
+      });
     });
 
 

@@ -172,3 +172,13 @@ p {
         bottom: 3vh;
     }
 }
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    section {
+        top: 3vh;
+        min-height: 15vh;
+    }
+    .scroll-indicator-container {
+        bottom: 2vh;
+    }
+}
