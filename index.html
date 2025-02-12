@@ -37,22 +37,36 @@
   <section id="projects">
     <h1>Projects</h1>
     <p>Check out my latest work on GitHub and LinkedIn.</p>
+    
+    <div class="projects-container">
+        <div class="project">
+            Project 1
+            <div class="light"></div>
+            <div class="thought-bubble"> This is a cool AI-based project. </div>
+        </div>
+        <div class="project">
+            Project 2
+            <div class="light"></div>
+            <div class="thought-bubble"> A web app for tracking expenses. </div>
+        </div>
+        <div class="project">
+            Project 3
+            <div class="light"></div>
+            <div class="thought-bubble"> An interactive game built with JavaScript.</div>
+        </div>
+    </div>
   </section>
 
-  <!-- Scroll Indicator Container -->
   <div class="scroll-indicator-container">
-    <!-- Scroll Down Indicator -->
     <div id="scroll-down" class="scroll-indicator visible">
-        <span id="scroll-down-text"></span> <!-- Text will be set instantly -->
+        <span id="scroll-down-text"></span> 
         <div class="arrow">↓</div>
     </div>
-    <!-- Scroll Up Indicator -->
     <div id="scroll-up" class="scroll-indicator">
-        <span id="scroll-up-text"></span> <!-- Text will be set instantly -->
+        <span id="scroll-up-text"></span> 
         <div class="arrow">↑</div>
     </div>
   </div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
   <script>
@@ -120,10 +134,54 @@
     });
   </script>
 
-  <!-- JavaScript for Section Scrolling with Smooth Fade and Move -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+            document.body.classList.add("loaded"); 
+            document.body.style.overflow = ""; 
+        }, 50); 
         const sections = document.querySelectorAll("section");
+        sections[0].classList.add("active"); 
+        document.querySelectorAll(".project").forEach(project => {
+        project.addEventListener("mousemove", (e) => {
+            const bubble = project.querySelector(".thought-bubble");
+            const rect = project.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            bubble.style.left = `${offsetX}px`;
+          });
+        });
+
+        document.querySelectorAll(".project").forEach((project) => {
+          const light = project.querySelector(".light"); 
+          let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+          let isHovering = false;
+          function moveLight() {
+              if (!isHovering) return; 
+              mouseX += (targetX - mouseX) * 0.5;
+              mouseY += (targetY - mouseY) * 0.5;
+              light.style.left = `${mouseX}px`; 
+              light.style.top = `${mouseY}px`;
+              requestAnimationFrame(moveLight);
+          }
+          project.addEventListener("mouseenter", () => {
+              if (!isHovering) {
+                  light.style.opacity = "1";
+                  isHovering = true;
+                  moveLight();
+              }
+          });
+          project.addEventListener("mousemove", (e) => {
+              const rect = project.getBoundingClientRect();
+              targetX = e.clientX - rect.left;
+              targetY = e.clientY - rect.top;
+          });
+          project.addEventListener("mouseleave", () => {
+              light.style.opacity = "0";
+              isHovering = false;
+          });
+        });
+
         const scrollDown = document.getElementById("scroll-down");
         const scrollUp = document.getElementById("scroll-up");
         const scrollDownText = document.getElementById("scroll-down-text");
