@@ -30,34 +30,32 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 1s ease-in-out;
     opacity: 0;
     pointer-events: none;
     top: 1vh;
     left: 50%;
-    z-index: 1; 
+    z-index: 1;
+    transform: translateX(-50%) translateY(0);
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease-in-out;
 }
 
-section.active {
+body.loaded section {
+    opacity: 0;
+    transform: translateY(50%);
+}
+
+body.loaded section.active {
     transform: translateX(-50%);
     opacity: 1;
     pointer-events: auto;
 }
 
-@supports (-webkit-touch-callout: none) {
-    section {
-        min-height: 1vh;
-        height: auto;
-    }
-}
-
-section.prev {
+body.loaded section.prev {
     transform: translateX(-50%) translateY(-50%);
     opacity: 0;
 }
 
-section.next {
+body.loaded section.next {
     transform: translateX(-50%) translateY(50%);
     opacity: 0;
 }
@@ -109,11 +107,6 @@ section.next {
     animation: bounce 2s infinite ease-in-out;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
 h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: bold;
@@ -133,7 +126,6 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 2vh; */
     gap: clamp(5px, 3vw, 15px);
     position: relative;
     z-index: 20; 
@@ -153,6 +145,109 @@ p {
 
 .icons img:hover {
     transform: scale(1.2);
+}
+
+.projects-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-top: 50px; 
+}
+
+#projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 50px;
+}
+
+.project {
+    width: 250px;
+    height: 350px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    overflow: visible;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.light {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease-out, opacity 0.3s ease-out;
+}
+
+.thought-bubble {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.thought-bubble::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(255, 255, 255, 0.9);
+}
+
+.project:hover .thought-bubble {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.project:hover .light {
+    opacity: 1;
+}
+
+.project:hover {
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.8);
+}
+
+@supports (-webkit-touch-callout: none) {
+    section {
+        min-height: 1vh;
+        height: auto;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 @media screen and (max-height: 450px) {
