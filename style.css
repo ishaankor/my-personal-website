@@ -62,7 +62,7 @@ body.loaded section.next {
 
 .scroll-indicator-container {
     position: fixed;  
-    bottom: 1vh; 
+    bottom: 5px; 
     left: 50%; 
     transform: translateX(-50%); 
     display: flex;
@@ -154,7 +154,7 @@ p {
     width: 80%;
     height: auto;
     margin: auto;
-    margin-top: 50px; 
+    margin-top: 5%; 
 }
 
 #projects {
@@ -163,7 +163,6 @@ p {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 50px;
 }
 
 .project {
@@ -183,6 +182,18 @@ p {
     transition: transform 0.3s ease-in-out;
 }
 
+.project img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.project .thought-bubble {
+    max-width: 100%;
+}
+
 .light {
     position: absolute;
     width: 250px;
@@ -197,7 +208,7 @@ p {
 
 .thought-bubble {
     position: absolute;
-    bottom: -60px;
+    top: 106%;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.9);
@@ -205,11 +216,18 @@ p {
     font-size: 14px;
     padding: 10px;
     border-radius: 10px;
-    white-space: nowrap;
+    white-space: normal;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    width: auto; 
+    max-width: 100%; 
+    word-wrap: break-word; 
+    z-index: 10;
+    height: auto;
+    min-height: 30px;
+    bottom: auto;
 }
 
 .thought-bubble::after {
@@ -250,7 +268,7 @@ p {
     50% { transform: translateY(-5px); }
 }
 
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
     section {
         min-height: 1vh;
         top: 5vh;
@@ -258,9 +276,9 @@ p {
     .scroll-indicator-container {
         bottom: 3vh;
     }
-}
+} */
 
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+/* @media screen and (orientation: landscape) and (max-width: 1024px) {
     section {
         top: 5vh;
         min-height: 1vh;
@@ -268,9 +286,9 @@ p {
     .scroll-indicator-container {
         bottom: 2vh;
     }
-}
+} */
 
-@media screen and (max-height: 700px) {
+/* @media screen and (max-height: 700px) {
     section {
         top: 20%; 
     }
@@ -286,9 +304,9 @@ p {
     .scroll-indicator-container {
         bottom: 20%;
     }
-}
+} */
 
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+/* @media screen and (orientation: landscape) and (max-width: 1024px) {
     section {
         top: 4vh;
         min-height: 1vh;
@@ -296,9 +314,9 @@ p {
     .scroll-indicator-container {
         bottom: 2vh;
     }
-}
+} */
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     section {
         top: 5vh; 
     }
@@ -314,9 +332,110 @@ p {
         margin-top: 1.5vh;
         gap: 8px;
     }
+} */
+
+/* @media (min-width: 1367) {
+    .projects-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        overflow: visible;
+    }
+
+    .project {
+        position: relative;
+        width: 30%;
+        max-width: 350px;
+        height: 60vh;
+        opacity: 1;
+        transform: none;
+    }
+} */
+
+@media (max-width: 768px) {
+    .projects-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 50vh; 
+        overflow: hidden;
+        position: relative;
+    }
+
+    .project {
+        min-width: 80%;
+        max-width: 350px;
+        height: 30vh;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        position: absolute;
+        top: 40%;
+        transform: translateX(100%) translateY(-50%);
+        opacity: 0;
+    }
+
+    .project.active {
+        opacity: 1;
+        transform: translateX(0) translateY(-50%);
+    }
+
+    .project.next {
+        transform: translateX(100%) translateY(-50%);
+        opacity: 0.5;
+    }
+
+    .project.prev {
+        transform: translateX(-100%) translateY(-50%);
+        opacity: 0.5;
+    }
+
+    .thought-bubble {
+        position: absolute;
+        bottom: -25%; /* Moves bubble below project */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 300px;
+        font-size: 14px;
+        background: white;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .project:hover .thought-bubble {
+        opacity: 1;
+    }
 }
 
-@media screen and (max-width: 480px) {
+
+/* @media (max-width: 1024px) and (max-height: 500px) {
+    section {
+        top: 12vh;
+    }
+    .project-container {
+        height: 80vh;
+    }
+
+    .project {
+        height: 70vh; 
+        max-height: 350px;
+    }
+}
+*/
+
+    
+/* @media screen and (max-width: 480px) {
     section {
         top: 12vh;
     }
@@ -336,4 +455,4 @@ p {
         width: 40px;
         height: 40px;
     }
-}
+} */
