@@ -354,7 +354,7 @@ p {
     }
 } */
 
-@media (max-width: 768px) {
+@media (max-width: 932px) {
     .projects-container {
         display: flex;
         flex-direction: row;
@@ -399,7 +399,7 @@ p {
 
     .thought-bubble {
         position: absolute;
-        bottom: -25%; /* Moves bubble below project */
+        bottom: -25%;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;

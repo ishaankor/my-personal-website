@@ -209,7 +209,14 @@
   </script>
 
   <script>
+    function isMobileDevice() {
+      return (
+          "ontouchstart" in window || navigator.maxTouchPoints > 0
+      ) && window.innerWidth <= 1366;
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+        isSlideshowMode = isMobileDevice();
         document.body.style.overflow = "hidden";
         setTimeout(() => {
             document.body.classList.add("loaded"); 
