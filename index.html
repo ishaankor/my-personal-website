@@ -42,7 +42,7 @@
         <div class="project">
             <img src="/assets/transformi_photo.jpeg" width: 250px height: 350px;>
             <div class="light"></div>
-            <div class="thought-bubble"> This is a cool AI-based project. PLACEHOLDER PLACEHOLDER PLACEHOLDER PLACEHOLDER PLACEHOLDER PLACEHOLDER</div>
+            <div class="thought-bubble"> Meet <strong> Transformi</strong>, he's a Discord Bot that is responsible for all kinds of data transformations! Whether it be simple Linear Regression or constructing neural networks, Transformi can do it all!</div>
         </div>
         <div class="project">
             Project 2
@@ -141,6 +141,13 @@
       ) && window.innerWidth <= 1366;
     }
 
+    function hideAllThoughtBubbles() {
+        document.querySelectorAll(".thought-bubble").forEach((bubble) => {
+            bubble.style.opacity = "0";
+            bubble.style.visibility = "hidden";
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
     const projects = document.querySelectorAll(".project");
     let currentIndex = 0;
@@ -152,6 +159,7 @@
 
         if (isSlideshowMode) {
           console.log("NOT DESKTOP!")
+            hideAllThoughtBubbles();
             projects.forEach((project, index) => {
                 project.classList.remove("active", "prev", "next");
 
@@ -164,12 +172,13 @@
                 } else {
                     project.style.opacity = "0"; 
                 }
-            });
+          });
         }
     }
 
     function nextProject() {
         if (isSlideshowMode) {
+            hideAllThoughtBubbles();
             currentIndex = (currentIndex + 1) % projects.length;
             updateProjects();
         }
@@ -177,6 +186,7 @@
 
     function prevProject() {
         if (isSlideshowMode) {
+            hideAllThoughtBubbles();
             currentIndex = (currentIndex - 1 + projects.length) % projects.length;
             updateProjects();
         }
@@ -229,7 +239,9 @@
             const bubble = project.querySelector(".thought-bubble");
             const rect = project.getBoundingClientRect();
             const offsetX = e.clientX - rect.left;
-            bubble.style.left = `${offsetX}px`;
+            if (!isMobileDevice()) {
+              bubble.style.left = `${offsetX}px`;
+            }
           });
         });
         document.querySelectorAll(".project").forEach((project) => {
@@ -242,109 +254,16 @@
               bubble.style.visibility = "visible";
               bubble.textContent = ""; 
 
+              if (isMobileDevice()) {
+                bubble.style.top = "105%"; 
+                bubble.style.left = "50%";
+                bubble.style.transform = "translateX(-50%)";
+              }
+
               let i = 0;
               typingInterval = setInterval(() => {
                   if (i < text.length) {
                       bubble.textContent += text[i]; 
-                      i++;
-                  } else {
-                      clearInterval(typingInterval);
-                  }
-              }, 50);
-          });
-
-          project.addEventListener("mouseleave", () => {
-              clearInterval(typingInterval); 
-              bubble.style.opacity = "0";
-              bubble.style.visibility = "hidden";
-          });
-        });
-
-        document.querySelectorAll(".project").forEach((project) => {
-          const light = project.querySelector(".light"); 
-          let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-          let isHovering = false;
-          function moveLight() {
-              if (!isHovering) return; 
-              mouseX += (targetX - mouseX) * 0.5;
-              mouseY += (targetY - mouseY) * 0.5;
-              light.style.left = `${mouseX}px`; 
-              light.style.top = `${mouseY}px`;
-              requestAnimationFrame(moveLight);
-          }
-          project.addEventListener("mouseenter", () => {
-              if (!isHovering) {
-                  light.style.opacity = "1";
-                  isHovering = true;
-                  moveLight();
-              }
-          });
-          project.addEventListener("mousemove", (e) => {
-              const rect = project.getBoundingClientRect();
-              targetX = e.clientX - rect.left;
-              targetY = e.clientY - rect.top;
-          });
-          project.addEventListener("mouseleave", () => {
-              light.style.opacity = "0";
-              isHovering = false;
-          });
-        });
-        document.querySelectorAll(".project").forEach((project) => {
-          let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-          let isHovering = false;
-
-          function updateTilt() {
-              if (!isHovering) return; 
-
-              mouseX += (targetX - mouseX) * 0.75;
-              mouseY += (targetY - mouseY) * 0.75;
-
-              const rect = project.getBoundingClientRect();
-              const x = (mouseX - rect.left) / rect.width - 0.5; 
-              const y = (mouseY - rect.top) / rect.height - 0.5;
-
-              const tiltX = y * 70;
-              const tiltY = x * -70;
-
-              project.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.1)`;
-              project.style.boxShadow = `${-tiltY * 1.5}px ${tiltX * 1.5}px 30px rgba(0, 0, 0, 0.4)`;
-
-              requestAnimationFrame(updateTilt);
-          }
-
-          project.addEventListener("mouseenter", () => {
-              isHovering = true;
-              updateTilt();
-          });
-
-          project.addEventListener("mousemove", (e) => {
-              targetX = e.clientX;
-              targetY = e.clientY;
-          });
-
-          project.addEventListener("mouseleave", () => {
-              isHovering = false;
-              project.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
-              project.style.boxShadow = "none";
-          });
-        });
-
-        document.querySelectorAll(".project").forEach((project) => {
-          const bubble = project.querySelector(".thought-bubble");
-          const text = bubble.getAttribute("data-text") || bubble.textContent.trim(); 
-          let typingInterval;
-
-          project.addEventListener("mouseenter", () => {
-              bubble.style.opacity = "1";
-              bubble.style.visibility = "visible";
-              bubble.textContent = ""; 
-              bubble.style.top = "106%";
-              bubble.style.bottom = "auto";
-
-              let i = 0;
-              typingInterval = setInterval(() => {
-                  if (i < text.length) {
-                      bubble.textContent += text[i];
                       i++;
                   } else {
                       clearInterval(typingInterval);
@@ -355,10 +274,148 @@
           });
 
           project.addEventListener("mouseleave", () => {
-              clearInterval(typingInterval);
+              clearInterval(typingInterval); 
               bubble.style.opacity = "0";
               bubble.style.visibility = "hidden";
           });
+        });
+        if (!isMobileDevice()) {
+          document.querySelectorAll(".project").forEach((project) => {
+            const light = project.querySelector(".light"); 
+            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+            let isHovering = false;
+            function moveLight() {
+                if (!isHovering) return; 
+                mouseX += (targetX - mouseX) * 0.5;
+                mouseY += (targetY - mouseY) * 0.5;
+                light.style.left = `${mouseX}px`; 
+                light.style.top = `${mouseY}px`;
+                requestAnimationFrame(moveLight);
+            }
+            project.addEventListener("mouseenter", () => {
+                if (!isHovering) {
+                    light.style.opacity = "1";
+                    isHovering = true;
+                    moveLight();
+                }
+            });
+            project.addEventListener("mousemove", (e) => {
+                const rect = project.getBoundingClientRect();
+                targetX = e.clientX - rect.left;
+                targetY = e.clientY - rect.top;
+            });
+            project.addEventListener("mouseleave", () => {
+                light.style.opacity = "0";
+                isHovering = false;
+            });
+          });
+        } else {
+          document.querySelectorAll(".light").forEach(light => {
+              light.style.display = "none";
+          });
+        }
+        if (!isMobileDevice()) {
+          document.querySelectorAll(".project").forEach((project) => {
+            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+            let isHovering = false;
+
+            function updateTilt() {
+                if (!isHovering) return; 
+
+                mouseX += (targetX - mouseX) * 0.75;
+                mouseY += (targetY - mouseY) * 0.75;
+
+                const rect = project.getBoundingClientRect();
+                const x = (mouseX - rect.left) / rect.width - 0.5; 
+                const y = (mouseY - rect.top) / rect.height - 0.5;
+
+                const tiltX = y * 70;
+                const tiltY = x * -70;
+
+                project.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.1)`;
+                project.style.boxShadow = `${-tiltY * 1.5}px ${tiltX * 1.5}px 30px rgba(0, 0, 0, 0.4)`;
+
+                requestAnimationFrame(updateTilt);
+            }
+
+            project.addEventListener("mouseenter", () => {
+                isHovering = true;
+                updateTilt();
+            });
+
+            project.addEventListener("mousemove", (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+            });
+
+            project.addEventListener("mouseleave", () => {
+                isHovering = false;
+                project.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
+                project.style.boxShadow = "none";
+            });
+          });
+        }
+
+        const projects = document.querySelectorAll(".project");
+        function hideAllThoughtBubbles() {
+            document.querySelectorAll(".thought-bubble").forEach((bubble) => {
+                bubble.style.opacity = "0";
+                bubble.style.visibility = "hidden";
+            });
+        }
+
+        projects.forEach((project) => {
+            const bubble = project.querySelector(".thought-bubble");
+            const text = bubble.textContent;
+            let typingInterval;
+
+            function showBubble() {
+              hideAllThoughtBubbles();
+              bubble.style.opacity = "1";
+              bubble.style.visibility = "visible";
+              bubble.innerHTML = ""; // Start fresh
+
+              if (isMobileDevice()) {
+                  bubble.style.top = "105%";
+                  bubble.style.left = "50%";
+                  bubble.style.transform = "translateX(-50%)";
+              }
+
+              let fullHTML = bubble.dataset.fullText || bubble.innerHTML;
+              let i = 0;
+              
+              if (typingInterval) {
+                  clearInterval(typingInterval);
+                  typingInterval = null;
+              }
+
+              bubble.dataset.fullText = fullHTML;
+              
+              typingInterval = setInterval(() => {
+                  if (i < fullHTML.length) {
+                      bubble.innerHTML = fullHTML.substring(0, i + 1); 
+                      i++;
+                  } else {
+                      clearInterval(typingInterval);
+                      typingInterval = null;
+                  }
+              }, 50);
+            }
+
+            function hideBubble() {
+                clearInterval(typingInterval);
+                bubble.style.opacity = "0";
+                bubble.style.visibility = "hidden";
+            }
+
+            project.addEventListener("mouseenter", showBubble);
+            project.addEventListener("mouseleave", hideBubble);
+
+            document.addEventListener("click", (event) => {
+                if (!project.contains(event.target)) {
+                    hideBubble();
+                }
+            });
         });
 
 
