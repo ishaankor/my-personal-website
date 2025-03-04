@@ -184,26 +184,14 @@ p {
 
 .project img {
     width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+    height: 350px;  
+    object-fit: fill;
     border-radius: 15px;
     pointer-events: none;
 }
 
 .project .thought-bubble {
     max-width: 100%;
-}
-
-.light {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease-out, opacity 0.3s ease-out;
 }
 
 .thought-bubble {
@@ -248,10 +236,6 @@ p {
 .project:hover .thought-bubble {
     opacity: 1;
     transform: translateX(-50%) translateY(-5px);
-}
-
-.project:hover .light {
-    opacity: 1;
 }
 
 .project:hover {

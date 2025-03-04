@@ -36,8 +36,7 @@
   <!-- Projects Section -->
   <section id="projects">
     <h1>Projects</h1>
-    <p>Check out my latest work on GitHub and LinkedIn.</p>
-    
+    <p>Check out my latest work on GitHub and LinkedIn!</p>
     <div class="projects-container">
         <div class="project">
             <img src="/assets/transformi_photo.jpeg" width: 250px height: 350px;>
@@ -45,14 +44,12 @@
             <div class="thought-bubble"> Meet <strong> Transformi</strong>, he's a Discord Bot that is responsible for all kinds of data transformations! Whether it be simple Linear Regression or constructing neural networks, Transformi can do it all!</div>
         </div>
         <div class="project">
-            Project 2
-            <div class="light"></div>
-            <div class="thought-bubble"> A web app for tracking expenses. </div>
+            <img src="/assets/daily_motivation.jpg" width: 250px height: 350px;>
+            <div class="thought-bubble"> <strong> Daily Motivation</strong> is an automated Twitter/X bot that lighten people's days with motivating quotes to help them get through the day! By utilizing polls, this bot stores the statistics into a PostgreSQL database which would then be crunched to tell us which quotes were most influential at the end of every week! </div>
         </div>
         <div class="project">
-            Project 3
-            <div class="light"></div>
-            <div class="thought-bubble"> An interactive game built with JavaScript.</div>
+            <img src="/assets/notestaker-photo.png" width: 250px height: 350px;>
+            <div class="thought-bubble"> One of my original projects, <strong> NotesTaker! </strong> aims to make life as a student easier by providing some freeform notes right directly into your Google Drive with the help of artifical intelligence and your lecture audio itself! </div>
         </div>
     </div>
   </section>
@@ -279,41 +276,6 @@
               bubble.style.visibility = "hidden";
           });
         });
-        if (!isMobileDevice()) {
-          document.querySelectorAll(".project").forEach((project) => {
-            const light = project.querySelector(".light"); 
-            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-            let isHovering = false;
-            function moveLight() {
-                if (!isHovering) return; 
-                mouseX += (targetX - mouseX) * 0.5;
-                mouseY += (targetY - mouseY) * 0.5;
-                light.style.left = `${mouseX}px`; 
-                light.style.top = `${mouseY}px`;
-                requestAnimationFrame(moveLight);
-            }
-            project.addEventListener("mouseenter", () => {
-                if (!isHovering) {
-                    light.style.opacity = "1";
-                    isHovering = true;
-                    moveLight();
-                }
-            });
-            project.addEventListener("mousemove", (e) => {
-                const rect = project.getBoundingClientRect();
-                targetX = e.clientX - rect.left;
-                targetY = e.clientY - rect.top;
-            });
-            project.addEventListener("mouseleave", () => {
-                light.style.opacity = "0";
-                isHovering = false;
-            });
-          });
-        } else {
-          document.querySelectorAll(".light").forEach(light => {
-              light.style.display = "none";
-          });
-        }
         if (!isMobileDevice()) {
           document.querySelectorAll(".project").forEach((project) => {
             let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
