@@ -250,22 +250,15 @@
         typingContainer.style.fontSize = "5vw";
         introText.style.fontSize = "2vw";
         educationText.style.fontSize = "2vw";
-        avatarImages.style.width = "10vw";
-        avatarImages.style.height = "15vh";
     } else {
         typingText.style.fontSize = "5vw";
         typingContainer.style.fontSize = "5vw";
         introText.style.fontSize = "1vw";
         educationText.style.fontSize = "1vw";
-        avatarImages.style.width = "10vw";
-        avatarImages.style.height = "15vh";
-
-
     }
     const projects = document.querySelectorAll(".project");
     let currentIndex = 0;
     isSlideshowMode = isMobileDevice();
-    console.log(isSlideshowMode)
 
     function updateProjects() {
         isSlideshowMode = isMobileDevice(); 
@@ -638,9 +631,6 @@
         setTimeout(adjustSectionPositioning, 300);
       });
     });
-
-
   </script>
-
 </body>
 </html>
