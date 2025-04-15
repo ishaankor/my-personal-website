@@ -37,17 +37,262 @@ section {
     z-index: 1;
     transform: translateX(-50%) translateY(0);
     transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease-in-out;
+    margin-bottom: auto;
 }
 
-body.loaded section {
-    opacity: 0;
-    transform: translateY(50%);
+#intro {
+    height: 600px;
 }
+
+.my-name {
+    position: relative;
+    display: flex;
+}
+  
+.my-name span {
+    font-size: 150px;
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    animation: drop 0.5s linear forwards;
+    text-shadow: rgba(255,255,255,1) 0px 0px 10px;
+}
+
+.my-name span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.my-name span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.my-name span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.my-name span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.my-name span:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.my-name span:nth-child(6) {
+    animation-delay: 1s;
+}
+
+.my-name span:nth-child(7) {
+    animation-delay: 1.2s;
+}
+
+.my-name span:nth-child(8) {
+    animation-delay: 1.4s;
+}
+
+.my-name span:nth-child(9) {
+    animation-delay: 1.6s;
+}
+
+.my-name span:nth-child(10) {
+    animation-delay: 1.8s;
+}
+
+.my-name span:nth-child(11) {
+    animation-delay: 2s;
+}
+
+.my-name span:nth-child(12) {
+    animation-delay: 2.2s;
+}
+
+.my-name span:nth-child(13) {
+    animation-delay: 2.4s;
+}
+
+.my-name span:nth-child(14) {
+    animation-delay: 2.6s;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    75% {
+        transform: translateY(-10px);
+    }
+}
+
+  
+@keyframes drop {
+    0% {
+      transform: translateY(-200px) scaleY(0.9);
+    }
+    5% {
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(0px) scaleY(1);
+      opacity: 1;
+    }
+    65% {
+      transform: translateY(-17px) scaleY(0.9);
+    }
+    75% {
+      transform: translateY(-22px) scaleY(0.9);
+    }
+    85% {
+        transform: translateY(-27px) scaleY(0.9);
+    }
+    100% {
+      transform: translateY(0px) scaleY(1);
+      opacity: 1;
+    }
+}
+
+/* DO BY DIMENSION -- LIMIT TESTING LOWKEY */
+
+/* .typing-container {
+    color: white;
+    display: inline-block;
+} */
+
+.typing-container h1 {
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-weight: normal;
+}
+  
+.typing-container {    
+    color: white;
+    display: inline-block;
+    margin-top: 10px;
+    opacity: 0;
+    animation: showTypingText 1s ease-out forwards;
+    animation-delay: 3.3s; 
+}
+  
+.typing-text {
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    padding-right: 0.2em;
+    position: relative;
+    font-weight: bold;
+}
+  
+.typing-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0; 
+    height: 2px;
+    background-color: white;
+    animation: underline 1s forwards;
+    transition: width 0.5s ease;
+}
+  
+@keyframes underline {
+    from {
+      width: 0;
+    }
+    to {
+      width: 95%;
+    }
+}
+
+@keyframes showTypingText {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+
+/* #about{
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease-in-out;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    transform: translateY(-20%) translateX(-50%);
+} */
+
+/* body.loaded section.next :is(#about) {
+    transform: translateX(-20%) translateY(-100%);
+    opacity: 1;
+    pointe.r-events: auto;
+} */
+
+
+/* .box .avatar {
+    opacity: 1 !important;
+} */
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    border-radius: 15px;
+    border-width: thick;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    height: 200px;
+    padding-left: 50px;
+}
+
+.avatar img {
+    width: clamp(50px, 25vw, 125px);
+    height: clamp(50px, 25vw, 125px);
+    border-radius: 50%;
+}
+
+.avatar img:hover {
+    /* transform: scale(1.1); */
+    animation: bounceIn 1s infinite 2s;
+}
+
+.intro-text {
+    margin-left: 5vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: clamp(5px, 18px, 25px);
+    margin-right: 5vw;
+}
+
+.education-text {
+    margin-left: 5vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: clamp(8px, 18px, 25px);
+    margin-right: 5vw;
+}
+
+@keyframes bounceIn {
+	0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+	40% {
+    transform: translateY(-30px);
+  }
+	60% {
+    transform: translateY(-15px);
+  }
+}
+
 
 body.loaded section.active {
     transform: translateX(-50%);
     opacity: 1;
     pointer-events: auto;
+}
+
+body.loaded section.active:is(#about) {
+    transform: translateX(-50%) translateY(-30%);
+    opacity: 1;
 }
 
 body.loaded section.prev {
@@ -126,7 +371,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(5px, 3vw, 15px);
+    gap: clamp(5vw, 26vw, 525vw);
     position: relative;
     z-index: 20; 
 }
@@ -137,8 +382,8 @@ p {
 }
 
 .icons img {
-    width: clamp(30px, 6vw, 50px);
-    height: clamp(30px, 6vw, 50px);
+    width: clamp(30px, 6vw, 125px);
+    height: clamp(30px, 6vw, 125px);
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -146,6 +391,32 @@ p {
 .icons img:hover {
     transform: scale(1.2);
 }
+
+.container {
+    position: fixed;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    top: 25vh;
+    gap: 30px;
+}
+
+.box {
+    width: 80vw; 
+    height: 20vh;
+}
+
+.container .box:last-child {
+    background-color: transparent;
+    visibility: hidden;
+    position: relative;
+}
+  
+.container .box:last-child > * {
+    visibility: visible;
+    position: relative;
+}
+  
 
 .projects-container {
     display: flex;
@@ -166,7 +437,7 @@ p {
 }
 
 .project {
-    width: 250px;
+    width: 350px;
     height: 350px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;

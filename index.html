@@ -6,41 +6,117 @@
   <title>Ishaan Koradia</title>
   <link href="./style.css" rel="stylesheet">
   <link rel="icon" href="./favicon.ico">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div id="tsparticles"></div>
-
   <!-- Intro Section -->
   <section id="intro" class="active">
-    <h1>Ishaan Koradia</h1>
-    <p>Connect with me here!</p>
-    <div class="icons">
-      <a href="https://github.com/ishaankor" target="_blank">
-        <img src="./assets/github-icon.png" alt="GitHub">
-      </a>
-      <a href="https://linkedin.com/in/ishaankoradia" target="_blank">
-        <img src="./assets/linkedin-icon.png" alt="LinkedIn">
-      </a>
-      <a href="mailto:ishaankor@gmail.com">
-        <img src="./assets/gmail-icon.png" alt="Gmail">
-      </a>
+    <div class="my-name">
+      <span>I</span>
+      <span>s</span>
+      <span>h</span>
+      <span>a</span>
+      <span>a</span>
+      <span>n</span>
+      <span>&nbsp;</span>
+      <span>K</span>
+      <span>o</span>
+      <span>r</span>
+      <span>a</span>
+      <span>d</span>
+      <span>i</span>
+      <span>a</span>
+    </div>
+    <div class="typing-container">
+        <h1> I am <span class="typing-text"></span> </h1>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+      var typed = new Typed(".typing-text", {
+        strings: [
+          "a problem solver.",
+          "a passionate coder.",
+          "a meaningful automater.",
+          "a self-taught developer.",
+          "a data science learner.",
+          "an aspiring AI/ML Engineer."
+        ],
+        typeSpeed: 150, 
+        backSpeed: 150,
+        loop: true,
+      })
+    </script>
     </div>
   </section>
 
-  <!-- About Me Section -->
+  <!-- In your About Me section -->
   <section id="about">
     <h1>About Me</h1>
-    <p>I am a developer passionate about building interactive and engaging web applications.</p>
-  </section>
+    <p>Get to know more about me!</p>
+    <div class="container">
+      <div class="box">
+        <div class="avatar">
+          <img src="assets/my-avatar.jpeg" alt="Avatar" />
+        </div>
+        <span class="intro-text">
+          <script>
+            var str = "Hi, I'm Ishaan Koradia, an aspiring AI/ML Engineer who is currently fascinated about the intersection between Artificial Intelligence and Machine Learning. I'm a self-taught developer with a passion for about Machine Learning and Data Science as I live and breathe out automations and programming scripts that make life feel much easier for the days to come! What started off with small shortcuts in Apple Shortcuts to making robust code, I've ventured into various sections of the coding hemisphere such as web development, data manipulation, and macro scripts!";
+            var spans = '<span>' + str.split('').join('</span><span>') + '</span>';
+            $(spans).hide().appendTo('.intro-text').each(function (i) {
+                $(this).delay(100 * i).css({
+                    display: 'inline',
+                    opacity: 0,
+                    fontWeight: 'bold'
+                }).animate({
+                    opacity: 1
+                }, 100);
+            });
+          </script>
+        </span>
+      </div>
+      <div class="box">
+        <div class="avatar">
+          <img src="assets/ucsd-logo.png" alt="Avatar" />
+        </div>
+        <span class="education-text">
+          <script>
+            var str = "I am currently an undergraduate student at University of California, San Diego pursing a Bachelors of Science Degree in Cognitve Science with a Specialization in Machine Learning and Neural Computation with Data Science! I'm a self-taught developer with a passion for about Machine Learning and Data Science as I live and breathe out automations and programming scripts that make life feel much easier for the days to come!";
+            var spans = '<span>' + str.split('').join('</span><span>') + '</span>';
+            $(spans).hide().appendTo('.education-text').each(function (i) {
+                $(this).delay(100 * i).css({
+                    display: 'inline',
+                    opacity: 0,
+                    fontWeight: 'bold'
+                }).animate({
+                    opacity: 1
+                }, 100);
+            });
+          </script>
+      </div>
+      <div class="box">
+        <div class="icons">
+          <a href="https://github.com/ishaankor" target="_blank">
+            <img src="./assets/github-icon.png" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/ishaankoradia" target="_blank">
+            <img src="./assets/linkedin-icon.png" alt="LinkedIn">
+          </a>
+          <a href="mailto:ishaankor@gmail.com">
+            <img src="./assets/gmail-icon.png" alt="Gmail">
+          </a>
+        </div>
+      </div>
+    </div>
+</section>
 
   <!-- Projects Section -->
   <section id="projects">
     <h1>Projects</h1>
-    <p>Check out my latest work on GitHub and LinkedIn!</p>
+    <p>Check out my latest work on GitHub and LinkedIn!</p>    
     <div class="projects-container">
         <div class="project">
             <img src="/assets/transformi_photo.jpeg" width: 250px height: 350px;>
-            <div class="light"></div>
             <div class="thought-bubble"> Meet <strong> Transformi</strong>, he's a Discord Bot that is responsible for all kinds of data transformations! Whether it be simple Linear Regression or constructing neural networks, Transformi can do it all!</div>
         </div>
         <div class="project">
@@ -242,9 +318,9 @@
           });
         });
         document.querySelectorAll(".project").forEach((project) => {
-          const bubble = project.querySelector(".thought-bubble"); 
-          const text = bubble.textContent;
-          let typingInterval;
+        const bubble = project.querySelector(".thought-bubble"); 
+        const text = bubble.textContent;
+        let typingInterval;
 
           project.addEventListener("mouseenter", () => {
               bubble.style.opacity = "1"; 
@@ -379,7 +455,6 @@
                 }
             });
         });
-
 
         const scrollDown = document.getElementById("scroll-down");
         const scrollUp = document.getElementById("scroll-up");
