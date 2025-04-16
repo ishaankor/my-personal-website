@@ -628,7 +628,7 @@ p {
     }
 }  */
 
-@media screen and (max-width: 1366px) {
+@media (max-width: 768px) {
     .projects-container {
         display: flex;
         flex-direction: row;
