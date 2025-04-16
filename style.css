@@ -628,8 +628,8 @@ p {
     }
 }  */
 
-@media screen and (max-device-width: 700px) {
-    body.mobile .projects-container {
+@media (max-width: 932px) {
+    .projects-container {
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
         display: flex;
@@ -642,7 +642,7 @@ p {
         position: relative;
     }
 
-    body.mobile .project {
+    .project {
         min-width: 80%;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
@@ -656,29 +656,29 @@ p {
         opacity: 0;
     }
 
-    body.mobile .projects-container, .project {
+    .projects-container, .project {
         overflow: visible !important;
     }
 
-    body.mobile .project.active {
+    .project.active {
         pointer-events: auto;
         opacity: 1;
         transform: translateX(0) translateY(-50%);
     }
 
-    body.mobile .project.next {
+    .project.next {
         pointer-events: none;
         transform: translateX(100%) translateY(-50%);
         opacity: 0.5;
     }
 
-    body.mobile .project.prev {
+    .project.prev {
         pointer-events: none;
         transform: translateX(-100%) translateY(-50%);
         opacity: 0.5;
     }
 
-    body.mobile .thought-bubble {
+    .thought-bubble {
         /* position: absolute; */
         /* bottom: -25%; */
         left: 50%;
@@ -696,16 +696,16 @@ p {
         transition: opacity 0.3s ease-in-out;
     }
 
-    body.mobile .thought-bubble::after {
+    .thought-bubble::after {
         top: -10px;
     }
 
-    body.mobile .project:hover .thought-bubble {
+    .project:hover .thought-bubble {
         opacity: 1;
     }
 }
 
-@media (max-width: 932px) {
+@media screen and (max-device-width: 700px) {
     body.mobile .projects-container {
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
