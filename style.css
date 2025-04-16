@@ -628,7 +628,7 @@ p {
     }
 }  */
 
-@media screen and(max-device-width: 1000px) {
+@media screen and(min-width: 701px) {
     .projects-container {
         display: flex;
         flex-direction: row;
