@@ -222,6 +222,46 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
+    const nameSpans = document.querySelectorAll(".my-name span");
+    const typingContainer = document.querySelector(".typing-container h1");
+    const typingText = document.querySelector(".typing-text");
+    const introText = document.querySelector(".intro-text");
+    const educationText= document.querySelector(".education-text");
+    const avatarImages = document.querySelectorAll(".avatar img");
+    const iconImages = document.querySelector(".icons img");
+    nameSpans.forEach(span => {
+        if (isMobileDevice()) {
+          span.style.fontSize = "12vw";
+        } else {
+          span.style.fontSize = "12vw";
+        }
+    });
+    avatarImages.forEach(image => {
+        if (isMobileDevice()) {
+          image.style.width = "15vw";
+          image.style.height = "10vh";
+        } else {
+          image.style.width = "10vw";
+          image.style.height = "15vh";
+        }
+    })
+    if (isMobileDevice()) {
+        typingText.style.fontSize = "5vw";
+        typingContainer.style.fontSize = "5vw";
+        introText.style.fontSize = "2vw";
+        educationText.style.fontSize = "2vw";
+        avatarImages.style.width = "10vw";
+        avatarImages.style.height = "15vh";
+    } else {
+        typingText.style.fontSize = "5vw";
+        typingContainer.style.fontSize = "5vw";
+        introText.style.fontSize = "1vw";
+        educationText.style.fontSize = "1vw";
+        avatarImages.style.width = "10vw";
+        avatarImages.style.height = "15vh";
+
+
+    }
     const projects = document.querySelectorAll(".project");
     let currentIndex = 0;
     isSlideshowMode = isMobileDevice();
@@ -231,7 +271,7 @@
         isSlideshowMode = isMobileDevice(); 
 
         if (isSlideshowMode) {
-          console.log("NOT DESKTOP!")
+            console.log("NOT DESKTOP!")
             hideAllThoughtBubbles();
             projects.forEach((project, index) => {
                 project.classList.remove("active", "prev", "next");
@@ -247,6 +287,7 @@
                 }
           });
         }
+
     }
 
     function nextProject() {
