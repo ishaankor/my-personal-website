@@ -607,8 +607,8 @@ p {
     }
 }
 */
-/* 
-@media (min-width: 1367) {
+
+/* @media (min-width: 1367) {
     .projects-container {
         display: flex;
         flex-direction: row;
@@ -626,9 +626,9 @@ p {
         opacity: 1;
         transform: none;
     }
-}   */
+}  */
 
-@media (max-width: 1366px) {
+@media (max-width: 1366) {
     .projects-container {
         display: flex;
         flex-direction: row;
