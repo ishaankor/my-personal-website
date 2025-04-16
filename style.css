@@ -628,22 +628,21 @@ p {
     }
 }  */
 
-@media (max-width: 932px) {
+@media (max-width: 1366px) {
     .projects-container {
-        -webkit-overflow-scrolling: touch;
-        touch-action: pan-y;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         width: 100%;
-        height: 50vh; 
+        height: 50vh;  
         overflow: hidden;
         position: relative;
     }
 
     .project {
         min-width: 80%;
+        min-height: 100%;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         display: flex;
@@ -654,6 +653,11 @@ p {
         top: 50%;
         transform: translateX(100%) translateY(-50%);
         opacity: 0;
+    }
+
+    .project img {
+        width: 100%;
+        height: 100%;
     }
 
     .projects-container, .project {
