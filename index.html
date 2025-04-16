@@ -231,7 +231,6 @@
     const iconImages = document.querySelector(".icons img");
     nameSpans.forEach(span => {
         if (isMobileDevice()) {
-          document.body.classList.add("mobile");
           span.style.fontSize = "12vw";
         } else {
           span.style.fontSize = "12vw";
@@ -247,6 +246,7 @@
         }
     })
     if (isMobileDevice()) {
+        document.body.classList.add("mobile");
         typingText.style.fontSize = "5vw";
         typingContainer.style.fontSize = "5vw";
         introText.style.fontSize = "2vw";

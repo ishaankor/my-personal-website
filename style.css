@@ -630,6 +630,8 @@ p {
 
 /* @media screen and (max-device-width: 768px) { */
 body.mobile .projects-container {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
     display: flex;
     flex-direction: row;
     align-items: center;
