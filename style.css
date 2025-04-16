@@ -705,7 +705,7 @@ p {
     }
 }
 
-@media screen and (max-device-width: 932px) {
+@media (max-width: 932px) {
     body.mobile .projects-container {
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
