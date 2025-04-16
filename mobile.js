@@ -2,6 +2,10 @@ console.log("MOBILE FOUND!");
 
 window.onload = function () {
     console.log("WINDOW LOADED!");
+    const test = document.getElementById("my-name span");
+    test.style.fontSize = "1px";
+
+
 
     const scrollDown = document.getElementById("scroll-down");
     const scrollUp = document.getElementById("scroll-up");
