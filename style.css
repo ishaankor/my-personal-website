@@ -243,6 +243,7 @@ section {
     border-width: thick;
     background-color: rgba(255, 255, 255, 0.1) !important;
     height: 22vh;
+    width: 80vw;
     padding-left: 50px;
 }
 
@@ -416,10 +417,10 @@ p {
     gap: 30px;
 }
 
-.box {
+/* .box {
     width: 80vw; 
     height: 20vh;
-}
+} */
 
 .container .box:last-child {
     background-color: transparent;
@@ -633,6 +634,12 @@ p {
 }  */
 
 @media (min-width: 800px) and (max-width: 1366px) {
+
+    .box {
+        transform: translateY(-30%);
+        height: 25vh;
+    }
+
     .projects-container {
         display: flex;
         flex-direction: row;
@@ -655,8 +662,12 @@ p {
         transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         position: fixed;
         top: 45%;
-        transform: translateX(100%) translateY(-50%);
+        transform: translateX(100%) translateY(-40%);
         opacity: 0;
+    }
+
+    .icons {
+        transform: translateY(-60%);
     }
 
     .project img {
