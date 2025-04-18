@@ -61,9 +61,6 @@ window.onload = function () {
         document.body.style.display = "block";
         setTimeout(checkScrollIndicators, 500);
     }
-
-    
-
     function checkScrollIndicators() {
         if (currentIndex === 0) {
             scrollDown.classList.add("visible");
