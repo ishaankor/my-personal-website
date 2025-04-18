@@ -379,7 +379,7 @@ p {
 
 .icons {
     pointer-events: auto;
-    transform: translateY(20%);
+    transform: translateY(50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -739,6 +739,10 @@ p {
         top: 30%;
         transform: translateX(100%) translateY(-50%);
         opacity: 0;
+    }
+    
+    body.mobile .icons {
+        transform: translateY(20%);
     }
 
     body.mobile .projects-container, .project {

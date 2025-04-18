@@ -233,7 +233,7 @@
         if (isMobileDevice()) {
           span.style.fontSize = "12vw";
         } else {
-          span.style.fontSize = "12vw";
+          span.style.fontSize = "10vw";
         }
     });
     avatarImages.forEach(image => {
@@ -252,8 +252,8 @@
         introText.style.fontSize = "2vw";
         educationText.style.fontSize = "2vw";
     } else {
-        typingText.style.fontSize = "5vw";
-        typingContainer.style.fontSize = "5vw";
+        typingText.style.fontSize = "3vw";
+        typingContainer.style.fontSize = "3vw";
         introText.style.fontSize = "1vw";
         educationText.style.fontSize = "1vw";
     }
@@ -311,9 +311,9 @@
     function handleTouchEnd(e) {
         if (isSlideshowMode) {
             touchEndX = e.changedTouches[0].clientX;
-            if (touchStartX - touchEndX > 50) {
+            if (touchStartX - touchEndX > 75) {
                 nextProject();
-            } else if (touchEndX - touchStartX > 50) {
+            } else if (touchEndX - touchStartX > 75) {
                 prevProject();
             }
         }
