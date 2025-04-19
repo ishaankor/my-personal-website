@@ -41,7 +41,7 @@ section {
 }
 
 #intro {
-    height: 600px;
+    height: 800px;
 }
 
 .my-name {
@@ -725,6 +725,11 @@ p {
 }
 
 @media screen and (max-width: 700px) {
+
+    body.mobile .box {
+        transform: translateY(-20%);
+        /* height: 25vh; */
+    }
     body.mobile .projects-container {
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
@@ -747,13 +752,13 @@ p {
         justify-content: center;
         transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         position: fixed;
-        top: 30%;
-        transform: translateX(100%) translateY(-50%);
+        top: 45%;
+        transform: translateX(100%);
         opacity: 0;
     }
     
     body.mobile .icons {
-        transform: translateY(20%);
+        transform: translateY(-50%);
     }
 
     body.mobile .projects-container, .project {
