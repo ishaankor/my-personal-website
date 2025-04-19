@@ -635,9 +635,14 @@ p {
 
 @media (min-width: 800px) and (max-width: 1366px) {
 
+    #intro {
+        height: 600px;
+    }
+
     .box {
         transform: translateY(-30%);
         height: 25vh;
+        /* margin-top: 3vw; */
     }
 
     .projects-container {
@@ -726,8 +731,12 @@ p {
 
 @media screen and (max-width: 700px) {
 
+    body.mobile #intro {
+        height: 600px;
+    }
+
     body.mobile .box {
-        transform: translateY(-20%);
+        transform: translateY(-10%);
         /* height: 25vh; */
     }
     body.mobile .projects-container {
