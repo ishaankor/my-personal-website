@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import requests
-import mcp
+from mcp.server.fastmcp import FastMCP
 
 app = FastAPI()
 
@@ -23,18 +23,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-mcp_resources = []
+fastmcp = FastMCP()
 
-def resource(func):
-    mcp_resources.append(func)
-    return func
-
-@resource
-@mcp.resource(name="about_me", description="About Ishaan Koradia")
+@fastmcp.resource(name="about_me", description="About Ishaan Koradia")
 def about_me_resource():
     path = os.path.join(os.path.dirname(__file__), "about_me.txt")
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
+
+app.mount("/mcp", fastmcp.app)
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -49,7 +46,7 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
-    context = "\n\n".join([res() for res in mcp_resources])
+    context = "\n\n".join([res() for res in fastmcp.resources.values()])
     messages = [
         {"role": "system", "content": context},
         {"role": "user", "content": user_message}
