@@ -25,7 +25,7 @@ app.add_middleware(
 
 fastmcp = FastMCP()
 
-@fastmcp.resource(uri="mcp-server/about_me.txt", name="about_me", description="About Ishaan Koradia")
+@fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
 def about_me_resource():
     path = os.path.join(os.path.dirname(__file__), "about_me.txt")
     with open(path, "r", encoding="utf-8") as f:
