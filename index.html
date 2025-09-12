@@ -684,7 +684,7 @@ function sendMessage() {
   appendMessage(userMsg, 'user');
   chatbotInput.value = '';
   chatbotInput.focus();
-  fetch('http://localhost:8002/chat', {
+  fetch('https://ishaankor-chatbot.onrender.com/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: userMsg })
