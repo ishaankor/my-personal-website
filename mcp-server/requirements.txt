@@ -3,4 +3,4 @@ fastapi
 uvicorn
 requests
 mcp
-aiohttp-mcp
+fastmcp

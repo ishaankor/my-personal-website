@@ -3,8 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import requests
-from mcp.server.fastmcp import FastMCP
-from mcp.client.aiohttp import MCPClient
+from fastmcp import FastMCP, Client
+
+config = {
+        "mcpServers": {
+            "my_remote_server": {
+                "url": "https://ishaankor-chatbot.onrender.com/mcp/sse"
+            }
+        }
+    }
+
+client = Client(config)
 
 app = FastAPI()
 
@@ -47,7 +56,7 @@ class ChatResponse(BaseModel):
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     context = ""
-    async with MCPClient("http://localhost:8000/mcp") as client:
+    async with client:
         content = await client.read_resource("data://about_me")
         if content and hasattr(content[0], 'text'):
             context = content[0].text
