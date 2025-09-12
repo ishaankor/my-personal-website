@@ -1,0 +1,33 @@
+# About Ishaan Koradia
+
+## Bio
+Ishaan Koradia is an aspiring AI/ML Engineer and undergraduate student at the University of California, San Diego, majoring in Cognitive Science with a specialization in Machine Learning and Neural Computation. He is passionate about artificial intelligence, data science, and automation.
+
+## Achievements
+- Built 'Transformi', a Discord bot for data transformations and machine learning tasks.
+- Created 'Daily Motivation', a Twitter/X bot that posts motivational quotes and analyzes poll data.
+- Developed 'NotesTaker', an AI-powered tool for transcribing and summarizing lecture audio into Google Drive notes.
+
+## Skills
+- Python, JavaScript, Web Development
+- Data Science, Machine Learning, Automation
+- Experience with FastAPI, Discord bots, and cloud deployment
+
+## Interests
+- Artificial Intelligence
+- Machine Learning
+- Data Science
+- Automation
+- Web Development
+
+## Contact
+- GitHub: https://github.com/ishaankor
+- LinkedIn: https://linkedin.com/in/ishaankoradia
+- Email: ishaankor@gmail.com
+
+## Fun Facts
+- Self-taught developer who started with Apple Shortcuts.
+- Loves building tools that make life easier.
+
+---
+You can add or edit any section above to provide more details for your chatbot!

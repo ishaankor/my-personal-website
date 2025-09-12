@@ -70,7 +70,7 @@
   align-self: flex-end;
 }
 .chatbot-msg.bot {
-  background: #eaeaea;
+  background: #020202;
   align-self: flex-start;
 }
 #chatbot-toggle {
