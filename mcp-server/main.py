@@ -56,10 +56,21 @@ class ChatResponse(BaseModel):
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     context = ""
-    async with client:
-        content = await client.read_resource("data://about_me")
-        if content and hasattr(content[0], 'text'):
-            context = content[0].text
+    config = {
+        "mcpServers": {
+            "my_remote_server": {
+                "url": "https://ishaankor-chatbot.onrender.com/mcp/sse"
+            }
+        }
+    }
+        # Fetch resource content from the correct MCP resource endpoint
+    try:
+            resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data://about_me"
+            resp = requests.get(resource_url, timeout=10)
+            resp.raise_for_status()
+            context = resp.text
+    except Exception:
+            context = ""
 
     messages = [
         {"role": "system", "content": context},
