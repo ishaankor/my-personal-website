@@ -31,7 +31,7 @@ def about_me_resource():
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
-app.mount("/mcp", fastmcp.app)
+app.mount("/mcp", fastmcp)
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
