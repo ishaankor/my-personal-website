@@ -7,6 +7,7 @@
   <link href="./style.css" rel="stylesheet">
   <link rel="icon" href="./favicon.ico">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="./chatbot-widget.css" rel="stylesheet">
 </head>
 <body>
   <div id="tsparticles"></div>
@@ -634,4 +635,76 @@
     });
   </script>
 </body>
+</body>
+<!-- Chatbot Widget HTML (moved to end of body for z-index and pointer-events) -->
+<div id="chatbot-toggle" title="Chat with me!" style="z-index:2147483647; pointer-events:auto;">💬</div>
+<div id="chatbot-widget" style="display:none; z-index:2147483647; pointer-events:auto;">
+  <div id="chatbot-header">Chat with IshaanBot</div>
+  <div id="chatbot-messages"></div>
+  <div id="chatbot-input-row">
+    <input id="chatbot-input" type="text" placeholder="Type your message..." autocomplete="off" />
+    <button id="chatbot-send">Send</button>
+  </div>
+</div>
+<script>
+// Ensure widget is always on top and interactable
+document.addEventListener('DOMContentLoaded', function() {
+  // Remove pointer-events:none from all parents
+  let widget = document.getElementById('chatbot-widget');
+  let toggle = document.getElementById('chatbot-toggle');
+  let el = widget;
+  while (el) {
+    el.style.pointerEvents = 'auto';
+    el = el.parentElement;
+  }
+  el = toggle;
+  while (el) {
+    el.style.pointerEvents = 'auto';
+    el = el.parentElement;
+  }
+});
+// Chatbot widget logic
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotWidget = document.getElementById('chatbot-widget');
+const chatbotMessages = document.getElementById('chatbot-messages');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
+
+function appendMessage(text, sender) {
+  const msg = document.createElement('div');
+  msg.className = 'chatbot-msg ' + sender;
+  msg.textContent = text;
+  chatbotMessages.appendChild(msg);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+function sendMessage() {
+  const userMsg = chatbotInput.value.trim();
+  if (!userMsg) return;
+  appendMessage(userMsg, 'user');
+  chatbotInput.value = '';
+  chatbotInput.focus();
+  fetch('http://localhost:8002/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: userMsg })
+  })
+    .then(r => r.json())
+    .then(data => {
+      appendMessage(data.response, 'bot');
+    })
+    .catch(() => {
+      appendMessage('Sorry, the chatbot server is unavailable.', 'bot');
+    });
+}
+
+chatbotToggle.onclick = () => {
+  chatbotWidget.style.display = chatbotWidget.style.display === 'none' ? 'flex' : 'none';
+};
+
+chatbotSend.onclick = sendMessage;
+chatbotInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
 </html>
