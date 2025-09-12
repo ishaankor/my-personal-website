@@ -1,10 +1,10 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import requests
 from mcp.server.fastmcp import FastMCP
+from mcp.client.aiohttp import MCPClient
 
 app = FastAPI()
 
@@ -46,7 +46,12 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
-    context = "\n\n".join([res() for res in fastmcp.resources.values()])
+    context = ""
+    async with MCPClient("http://localhost:8000/mcp") as client:
+        content = await client.read_resource("data://about_me")
+        if content and hasattr(content[0], 'text'):
+            context = content[0].text
+
     messages = [
         {"role": "system", "content": context},
         {"role": "user", "content": user_message}
