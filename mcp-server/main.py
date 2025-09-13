@@ -3,19 +3,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import requests
-from fastmcp import FastMCP, Client
+from fastmcp import FastMCP
 
-config = {
-        "mcpServers": {
-            "my_remote_server": {
-                "url": "https://ishaankor-chatbot.onrender.com/mcp/sse"
-            }
-        }
-    }
+fastmcp = FastMCP("My Personal Chatbot")
 
-client = Client(config)
+@fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
+def about_me_resource():
+    path = os.path.join(os.path.dirname(__file__), "about_me.txt")
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+    
+mcp_app = fastmcp.http_app(path="/mcp")
 
-app = FastAPI()
+app = FastAPI(title="MCP Server with Chatbot", lifespan=mcp_app.lifespan)
+
+app.mount("/mcp", mcp_app)
 
 domains = [
     "http://localhost",
@@ -32,16 +34,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-fastmcp = FastMCP()
-
-@fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
-def about_me_resource():
-    path = os.path.join(os.path.dirname(__file__), "about_me.txt")
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
-
-app.mount("/mcp", fastmcp)
-
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "openchat/openchat-3.5-0106"
@@ -55,22 +47,14 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
-    context = ""
-    config = {
-        "mcpServers": {
-            "my_remote_server": {
-                "url": "https://ishaankor-chatbot.onrender.com/mcp/sse"
-            }
-        }
-    }
-        # Fetch resource content from the correct MCP resource endpoint
+    # Fetch about_me resource from MCP HTTP API
     try:
-            resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data://about_me"
-            resp = requests.get(resource_url, timeout=10)
-            resp.raise_for_status()
-            context = resp.text
+        resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data://about_me"
+        resp = requests.get(resource_url, timeout=10)
+        resp.raise_for_status()
+        context = resp.text
     except Exception:
-            context = ""
+        context = ""
 
     messages = [
         {"role": "system", "content": context},
