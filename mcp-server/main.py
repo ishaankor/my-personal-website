@@ -24,7 +24,7 @@ def about_me_resource():
         print(f"[about_me_resource] Error reading file: {e}")
         return f"[ERROR] Could not read about_me.txt: {e}"
 
-print("[main.py] Registered FastMCP resources:", fastmcp.resources)
+# print("[main.py] Registered FastMCP resources:", fastmcp.resources)
     
 
 # NOTE: The resource endpoint is available at /mcp/resource/data%3A%2F%2Fabout_me (URL-encoded)
@@ -35,7 +35,7 @@ app.mount("/mcp", mcp_app)
 # Debug endpoint to list all registered FastMCP resources
 @app.get("/mcp/resources")
 def list_mcp_resources():
-    return {"resources": list(fastmcp.resources.keys())}
+    return {"resources": list(fastmcp.get_resources())}
 
 domains = [
     "http://localhost",
