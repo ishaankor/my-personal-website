@@ -10,13 +10,12 @@ fastmcp = FastMCP("My Personal Chatbot")
 @fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
 def about_me_resource():
     path = os.path.join(os.path.dirname(__file__), "about_me.txt")
+    print(f"Resolved path to about_me.txt: {path}")
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
     
 mcp_app = fastmcp.http_app(path="/mcp")
-
 app = FastAPI(title="MCP Server with Chatbot", lifespan=mcp_app.lifespan)
-
 app.mount("/mcp", mcp_app)
 
 domains = [
@@ -74,6 +73,7 @@ async def chat_endpoint(chat: ChatRequest):
         result = resp.json()
         answer = result["choices"][0]["message"]["content"]
     except Exception as e:
+        print(f"Error communicating with OpenRouter: {e}")
         answer = "Sorry, I couldn't get an answer right now."
     return ChatResponse(response=answer)
 
