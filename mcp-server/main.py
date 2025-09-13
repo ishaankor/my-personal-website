@@ -10,9 +10,16 @@ fastmcp = FastMCP("My Personal Chatbot")
 @fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
 def about_me_resource():
     path = os.path.join(os.path.dirname(__file__), "about_me.txt")
-    print(f"Resolved path to about_me.txt: {path}")
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
+    print(f"[about_me_resource] Resolved path to about_me.txt: {path}")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"[about_me_resource] File not found: {path}")
+        return "[ERROR] about_me.txt not found."
+    except Exception as e:
+        print(f"[about_me_resource] Error reading file: {e}")
+        return f"[ERROR] Could not read about_me.txt: {e}"
     
 mcp_app = fastmcp.http_app(path="/mcp")
 app = FastAPI(title="MCP Server with Chatbot", lifespan=mcp_app.lifespan)
@@ -46,7 +53,6 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
-    # Fetch about_me resource from MCP HTTP API
     try:
         resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data://about_me"
         resp = requests.get(resource_url, timeout=10)
