@@ -5,7 +5,10 @@ import os
 import requests
 from fastmcp import FastMCP
 
+
 fastmcp = FastMCP("My Personal Chatbot")
+print("[main.py] FastMCP initialized.")
+
 
 @fastmcp.resource(uri="data://about_me", name="Information for Ishaan Koradia", description="Helps the user learn about Ishaan Koradia!")
 def about_me_resource():
@@ -20,10 +23,19 @@ def about_me_resource():
     except Exception as e:
         print(f"[about_me_resource] Error reading file: {e}")
         return f"[ERROR] Could not read about_me.txt: {e}"
+
+print("[main.py] Registered FastMCP resources:", fastmcp.resources)
     
+
+# NOTE: The resource endpoint is available at /mcp/resource/data%3A%2F%2Fabout_me (URL-encoded)
 mcp_app = fastmcp.http_app(path="/mcp")
 app = FastAPI(title="MCP Server with Chatbot", lifespan=mcp_app.lifespan)
 app.mount("/mcp", mcp_app)
+
+# Debug endpoint to list all registered FastMCP resources
+@app.get("/mcp/resources")
+def list_mcp_resources():
+    return {"resources": list(fastmcp.resources.keys())}
 
 domains = [
     "http://localhost",
@@ -53,8 +65,10 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
+
+    # Use URL-encoded resource URI for requests
     try:
-        resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data://about_me"
+        resource_url = "https://ishaankor-chatbot.onrender.com/mcp/resource/data%3A%2F%2Fabout_me"
         resp = requests.get(resource_url, timeout=10)
         resp.raise_for_status()
         context = resp.text
