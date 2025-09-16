@@ -32,9 +32,9 @@ class ChatResponse(BaseModel):
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     bot_response = f"You said: {user_message}"
+    return ChatResponse(response=bot_response)
     transport = StreamableHttpTransport(url="https://remotemcpserver-latest-8a0l.onrender.com/mcp")
     client = Client(transport)
-    return ChatResponse(response=bot_response)
     # user_message = chat.message
     # Fetch about_me resource from MCP server
     # try:
