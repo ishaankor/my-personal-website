@@ -684,36 +684,6 @@ function sendMessage() {
   appendMessage(userMsg, 'user');
   chatbotInput.value = '';
   chatbotInput.focus();
-
-  fetch('https://remotemcpserver-latest-8a0l.onrender.com/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'text/event-stream'
-    },
-    body: JSON.stringify({ message: userMsg })
-  })
-    .then(response => {
-      if (!response.body) throw new Error('No response body');
-      const reader = response.body.getReader();
-      let decoder = new TextDecoder();
-      let received = '';
-      function read() {
-        return reader.read().then(({ done, value }) => {
-          if (done) {
-            if (received) appendMessage(received, 'bot');
-            return;
-          }
-          received += decoder.decode(value, { stream: true });
-          // Optionally, parse SSE events here if needed
-          return read();
-        });
-      }
-      return read();
-    })
-    .catch(() => {
-      appendMessage('Sorry, the chatbot server is unavailable.', 'bot');
-    });
 }
 
 chatbotToggle.onclick = () => {
