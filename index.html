@@ -684,6 +684,27 @@ function sendMessage() {
   appendMessage(userMsg, 'user');
   chatbotInput.value = '';
   chatbotInput.focus();
+
+  // Send the message to the Python backend
+  fetch('/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message: userMsg }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.reply) {
+        appendMessage(data.reply, 'bot');
+      } else {
+        appendMessage('Sorry, something went wrong.', 'bot');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      appendMessage('Failed to connect to the server.', 'bot');
+    });
 }
 
 chatbotToggle.onclick = () => {
@@ -695,4 +716,3 @@ chatbotInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') sendMessage();
 });
 </script>
-</html>
