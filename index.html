@@ -686,7 +686,7 @@ function sendMessage() {
   chatbotInput.focus();
 
   // Send the message to the Python backend
-  fetch('/chat', {
+  fetch('https://ishaankoradia.com/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
