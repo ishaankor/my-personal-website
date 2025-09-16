@@ -33,8 +33,8 @@ async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     bot_response = f"You said: {user_message}"
     return ChatResponse(response=bot_response)
-    transport = StreamableHttpTransport(url="https://remotemcpserver-latest-8a0l.onrender.com/mcp")
-    client = Client(transport)
+    # transport = StreamableHttpTransport(url="https://remotemcpserver-latest-8a0l.onrender.com/mcp")
+    # client = Client(transport)
     # user_message = chat.message
     # Fetch about_me resource from MCP server
     # try:
