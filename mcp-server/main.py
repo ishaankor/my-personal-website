@@ -32,16 +32,6 @@ class ChatResponse(BaseModel):
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     bot_response = f"You said: {user_message}"
-    transport = StreamableHttpTransport(url="https://remotemcpserver-latest-8a0l.onrender.com/mcp")
-    client = Client(transport)
-    async with client:
-            # List available resources
-            resources = await client.list_resources()
-            print("Resources:", resources)
-
-            # Call a tool
-            result = await client.call_tool("my_tool", {"param": "value"})
-            print("Tool result:", result)
     return ChatResponse(response=bot_response)
     # user_message = chat.message
     # Fetch about_me resource from MCP server
