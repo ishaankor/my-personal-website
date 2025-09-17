@@ -117,9 +117,9 @@ class MCPClient:
                 )
 
                 print("Streaming OpenAI response:")
-                for chunk in response:  # Directly iterate over the response
+                for chunk in response:
                     streamed_content = chunk["choices"][0]["delta"]["content"]
-                    # print(streamed_content, end="", flush=True)
+                    print(streamed_content, end="", flush=True)
                     yield streamed_content
             # else:
             #     final_text.append(content.content)
