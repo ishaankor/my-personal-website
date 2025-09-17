@@ -20,6 +20,7 @@ domains = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://127.0.0.1:5500"
     "https://ishaankoradia.com"
 ]
 app.add_middleware(
@@ -91,7 +92,7 @@ class MCPClient:
 
             print("OpenAI response:", response) 
             self.messages.append(response.choices[0].message.model_dump())
-            final_text = []
+            # final_text = []
             content = response.choices[0].message
             if content.tool_calls is not None:
                 tool_name = content.tool_calls[0].function.name
@@ -117,47 +118,12 @@ class MCPClient:
 
                 print("Streaming OpenAI response:")
                 for chunk in response:  # Directly iterate over the response
-                    if chunk.get("choices") and chunk["choices"][0].get("delta", {}).get("content"):
-                        streamed_content = chunk["choices"][0]["delta"]["content"]
-                        print(streamed_content, end="", flush=True)  # Print streamed content in real-time
-                        final_text.append(streamed_content)
-            else:
-                final_text.append(content.content)
-            return "\n".join(final_text)
-
-    async def process_query_stream(self, query: str):
-        print("Attempting to connect to MCP server...")
-        mcp_transport = StreamableHttpTransport(os.getenv("MCP_SERVER_URL"))
-        async with Client(transport=mcp_transport) as client:
-            print("Connection established. Initializing session...")
-            response = await client.list_tools()
-            print("\nConnected to server with tools:", [tool.name for tool in response])
-            self.session = client
-            self.messages = []
-            self.messages.append({
-                "role": "user",
-                "content": f"You are a chatbot that is only answering any query related to learning about Ishaan Koradia, answer this with the appropriate tools/resources: {query}."
-            })
-
-            print("Fetching available tools from MCP server...")
-            response = await self.session.list_tools()
-            available_tools = [convert_tool_format(tool) for tool in response]
-
-            print("Available tools:", [tool['function']['name'] for tool in available_tools])
-
-            response = self.openai.chat.completions.create(
-                model="deepseek/deepseek-chat-v3.1:free",
-                tools=available_tools,
-                messages=self.messages,
-                max_completion_tokens=250,
-                stream=True
-            )
-
-            print("Streaming OpenAI response:")
-            async for chunk in response:
-                streamed_content = chunk["choices"][0]["delta"]["content"]
-                # print(streamed_content, end="", flush=True)
-                yield streamed_content
+                    streamed_content = chunk["choices"][0]["delta"]["content"]
+                    # print(streamed_content, end="", flush=True)
+                    yield streamed_content
+            # else:
+            #     final_text.append(content.content)
+            # return "\n".join(final_text)
 
     async def cleanup(self):
         await self.exit_stack.aclose()
@@ -169,7 +135,7 @@ async def chat_endpoint(chat: ChatRequest):
 
     async def response_stream():
         try:
-            async for chunk in client.process_query_stream(user_message):
+            async for chunk in client.process_query(user_message):
                 yield chunk
         except Exception as e:
             yield f"Error: {str(e)}"
