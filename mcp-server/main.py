@@ -11,6 +11,7 @@ import json
 import os
 from typing import Optional
 from contextlib import AsyncExitStack
+from fastapi.responses import StreamingResponse
 
 load_dotenv()
 app = FastAPI()
@@ -98,7 +99,7 @@ class MCPClient:
                 tool_args = json.loads(tool_args) if tool_args else {}
                 try:
                     result = await self.session.call_tool(tool_name, tool_args)
-                    final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
+                    # final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
                 except Exception as e:
                     print(f"Error calling tool {tool_name}: {e}")
                     result = None
@@ -111,26 +112,71 @@ class MCPClient:
                 response = self.openai.chat.completions.create(
                     model="deepseek/deepseek-chat-v3.1:free",
                     messages=self.messages,
+                    stream=True  # Enable streaming
                 )
-                final_text.append(response.choices[0].message.content)
+
+                print("Streaming OpenAI response:")
+                for chunk in response:  # Directly iterate over the response
+                    if chunk.get("choices") and chunk["choices"][0].get("delta", {}).get("content"):
+                        streamed_content = chunk["choices"][0]["delta"]["content"]
+                        print(streamed_content, end="", flush=True)  # Print streamed content in real-time
+                        final_text.append(streamed_content)
             else:
                 final_text.append(content.content)
             return "\n".join(final_text)
 
+    async def process_query_stream(self, query: str):
+        print("Attempting to connect to MCP server...")
+        mcp_transport = StreamableHttpTransport(os.getenv("MCP_SERVER_URL"))
+        async with Client(transport=mcp_transport) as client:
+            print("Connection established. Initializing session...")
+            response = await client.list_tools()
+            print("\nConnected to server with tools:", [tool.name for tool in response])
+            self.session = client
+            self.messages = []
+            self.messages.append({
+                "role": "user",
+                "content": f"You are a chatbot that is only answering any query related to learning about Ishaan Koradia, answer this with the appropriate tools/resources: {query}."
+            })
+
+            print("Fetching available tools from MCP server...")
+            response = await self.session.list_tools()
+            available_tools = [convert_tool_format(tool) for tool in response]
+
+            print("Available tools:", [tool['function']['name'] for tool in available_tools])
+
+            response = self.openai.chat.completions.create(
+                model="deepseek/deepseek-chat-v3.1:free",
+                tools=available_tools,
+                messages=self.messages,
+                max_completion_tokens=250,
+                stream=True
+            )
+
+            print("Streaming OpenAI response:")
+            async for chunk in response:
+                streamed_content = chunk["choices"][0]["delta"]["content"]
+                # print(streamed_content, end="", flush=True)
+                yield streamed_content
+
     async def cleanup(self):
         await self.exit_stack.aclose()
 
-@app.post("/chat", response_model=ChatResponse)
+@app.post("/chat", response_class=StreamingResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
-    try:
-        bot_response = await client.process_query(user_message)
-    except Exception as e:
-        bot_response = f"Error: {str(e)}"
-    finally:
-        await client.cleanup()
-    return ChatResponse(response=bot_response)
+
+    async def response_stream():
+        try:
+            async for chunk in client.process_query_stream(user_message):
+                yield chunk
+        except Exception as e:
+            yield f"Error: {str(e)}"
+        finally:
+            await client.cleanup()
+
+    return StreamingResponse(response_stream(), media_type="text/plain")
 
 @app.get("/")
 def root():
