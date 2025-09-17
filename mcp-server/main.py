@@ -11,7 +11,6 @@ import json
 import os
 from typing import Optional
 from contextlib import AsyncExitStack
-from fastapi.responses import StreamingResponse
 
 load_dotenv()
 app = FastAPI()
@@ -20,7 +19,6 @@ domains = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-    "http://127.0.0.1:5500"
     "https://ishaankoradia.com"
 ]
 app.add_middleware(
@@ -92,7 +90,7 @@ class MCPClient:
 
             print("OpenAI response:", response) 
             self.messages.append(response.choices[0].message.model_dump())
-            # final_text = []
+            final_text = []
             content = response.choices[0].message
             if content.tool_calls is not None:
                 tool_name = content.tool_calls[0].function.name
@@ -100,7 +98,7 @@ class MCPClient:
                 tool_args = json.loads(tool_args) if tool_args else {}
                 try:
                     result = await self.session.call_tool(tool_name, tool_args)
-                    # final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
+                    final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
                 except Exception as e:
                     print(f"Error calling tool {tool_name}: {e}")
                     result = None
@@ -113,36 +111,26 @@ class MCPClient:
                 response = self.openai.chat.completions.create(
                     model="deepseek/deepseek-chat-v3.1:free",
                     messages=self.messages,
-                    stream=True  # Enable streaming
                 )
-
-                print("Streaming OpenAI response:")
-                for chunk in response:
-                    streamed_content = chunk["choices"][0]["delta"]["content"]
-                    print(streamed_content, end="", flush=True)
-                    yield streamed_content
-            # else:
-            #     final_text.append(content.content)
-            # return "\n".join(final_text)
+                final_text.append(response.choices[0].message.content)
+            else:
+                final_text.append(content.content)
+            return "\n".join(final_text)
 
     async def cleanup(self):
         await self.exit_stack.aclose()
 
-@app.post("/chat", response_class=StreamingResponse)
+@app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
-
-    async def response_stream():
-        try:
-            async for chunk in client.process_query(user_message):
-                yield chunk
-        except Exception as e:
-            yield f"Error: {str(e)}"
-        finally:
-            await client.cleanup()
-
-    return StreamingResponse(response_stream(), media_type="text/plain")
+    try:
+        bot_response = await client.process_query(user_message)
+    except Exception as e:
+        bot_response = f"Error: {str(e)}"
+    finally:
+        await client.cleanup()
+    return ChatResponse(response=bot_response)
 
 @app.get("/")
 def root():
