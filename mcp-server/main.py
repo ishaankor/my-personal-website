@@ -1,11 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastmcp.client.transports import StreamableHttpTransport
+from mcp import ClientSession
+# from mcp.client.streamable_http import streamablehttp_client
+from openai import OpenAI
 from fastmcp import Client
+from dotenv import load_dotenv
 from pydantic import BaseModel
-import requests
+import json
 import os
+from typing import Optional
+from contextlib import AsyncExitStack
 
+load_dotenv()
 app = FastAPI()
 
 domains = [
@@ -28,61 +35,102 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str
 
+
+def convert_tool_format(tool):
+    converted_tool = {
+        "type": "function",
+        "function": {
+            "name": tool.name,
+            "description": tool.description,
+            "parameters": {
+                "type": "object",
+                "properties": tool.inputSchema["properties"],
+                # "required": tool.inputSchema["required"]
+            }
+        }
+    }
+    return converted_tool
+
+class MCPClient:
+    def __init__(self):
+        self.session: Optional[ClientSession] = None
+        self.exit_stack = AsyncExitStack()
+        self.openai = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=os.getenv("OPENAI_API_KEY")
+        )
+        self.messages = []
+
+    async def process_query(self, query: str) -> str:
+        print("Attempting to connect to MCP server...")
+        mcp_transport = StreamableHttpTransport(os.getenv("MCP_SERVER_URL"))
+        async with Client(transport=mcp_transport) as client:
+            print("Connection established. Initializing session...")
+            response = await client.list_tools()
+            print("\nConnected to server with tools:", [tool.name for tool in response])
+            self.session = client
+            self.messages = []
+            self.messages.append({
+                "role": "user",
+                "content": f"You are a chatbot that is only answering any query related to learning about Ishaan Koradia, answer this with the appropriate tools/resources: {query}."
+            })
+            
+            print("Fetching available tools from MCP server...")
+            response = await self.session.list_tools()
+            available_tools = [convert_tool_format(tool) for tool in response]
+
+            print("Available tools:", [tool['function']['name'] for tool in available_tools])
+
+            response = self.openai.chat.completions.create(
+                model="deepseek/deepseek-chat-v3.1:free",
+                tools=available_tools,
+                messages=self.messages,
+                max_completion_tokens=250
+            )
+
+            print("OpenAI response:", response) 
+            self.messages.append(response.choices[0].message.model_dump())
+            final_text = []
+            content = response.choices[0].message
+            if content.tool_calls is not None:
+                tool_name = content.tool_calls[0].function.name
+                tool_args = content.tool_calls[0].function.arguments
+                tool_args = json.loads(tool_args) if tool_args else {}
+                try:
+                    result = await self.session.call_tool(tool_name, tool_args)
+                    final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
+                except Exception as e:
+                    print(f"Error calling tool {tool_name}: {e}")
+                    result = None
+                self.messages.append({
+                    "role": "tool",
+                    "tool_call_id": content.tool_calls[0].id,
+                    "name": tool_name,
+                    "content": result.content
+                })
+                response = self.openai.chat.completions.create(
+                    model="deepseek/deepseek-chat-v3.1:free",
+                    messages=self.messages,
+                )
+                final_text.append(response.choices[0].message.content)
+            else:
+                final_text.append(content.content)
+            return "\n".join(final_text)
+
+    async def cleanup(self):
+        await self.exit_stack.aclose()
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
-    bot_response = f"You said: {user_message}"
-    transport = StreamableHttpTransport(url="https://remotemcpserver-latest-8a0l.onrender.com/mcp")
-    client = Client(transport)
-    async with client:
-        # List available resources
-        resources = await client.list_resources()
-        print("Resources:", resources)
-
-        # Call a tool
-        result = await client.call_tool("add", {"a": 1, "b": 2})
-        print("Tool result:", result)
+    client = MCPClient()
+    try:
+        bot_response = await client.process_query(user_message)
+    except Exception as e:
+        bot_response = f"Error: {str(e)}"
+    finally:
+        await client.cleanup()
     return ChatResponse(response=bot_response)
-    # user_message = chat.message
-    # Fetch about_me resource from MCP server
-    # try:
-    #     mcp_response = requests.post(
-    #         "https://personal-mcp-server-eqcp.onrender.com/mcp",
-#             json={"uri": "resource://about_me"},
-#             timeout=10
-#         )
-#         if mcp_response.status_code == 200:
-#             about_me = mcp_response.json().get("content", "")
-#         else:
-#             about_me = ""
-#     except Exception:
-#         about_me = ""
-#     # Inject resource into prompt
-#     system_prompt = f"You are a helpful assistant. Here is information about Ishaan Koradia you can use to answer questions:\n\n{about_me}\n\nUser: {user_message}"
-#     api_key = os.environ.get("OPENROUTER_API_KEY")
-#     if not api_key:
-#         return ChatResponse(response="OpenRouter API key not set.")
-#     headers = {
-#         "Authorization": f"Bearer {api_key}",
-#         "Content-Type": "application/json"
-#     }
-#     data = {
-#         "model": "openrouter/llama-2-7b-chat",
-#         "messages": [
-#             {"role": "system", "content": system_prompt}
-#         ]
-#     }
-#     response = requests.post(
-#         "https://openrouter.ai/api/v1/chat/completions",
-#         headers=headers,
-#         json=data
-#     )
-#     if response.status_code == 200:
-#         result = response.json()
-#         bot_response = result["choices"][0]["message"]["content"]
-#     else:
-#         bot_response = f"OpenRouter error: {response.text}"
-#     return ChatResponse(response=bot_response)
 
 @app.get("/")
 def root():
