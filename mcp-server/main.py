@@ -11,6 +11,7 @@ import json
 import os
 from typing import Optional
 from contextlib import AsyncExitStack
+from fastapi.responses import StreamingResponse
 
 load_dotenv()
 app = FastAPI()
@@ -19,11 +20,12 @@ domains = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://127.0.0.1:5500",
     "https://ishaankoradia.com"
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=domains,
+    allow_origins=["x"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -90,7 +92,7 @@ class MCPClient:
 
             print("OpenAI response:", response) 
             self.messages.append(response.choices[0].message.model_dump())
-            final_text = []
+            # final_text = []
             content = response.choices[0].message
             if content.tool_calls is not None:
                 tool_name = content.tool_calls[0].function.name
@@ -111,26 +113,30 @@ class MCPClient:
                 response = self.openai.chat.completions.create(
                     model="deepseek/deepseek-chat-v3.1:free",
                     messages=self.messages,
+                    stream=True  # Enable streaming
                 )
-                final_text.append(response.choices[0].message.content)
-            else:
-                final_text.append(content.content)
-            return "\n".join(final_text)
 
+                print("Streaming OpenAI response:")
+                for chunk in response:
+                    streamed_content = chunk.choices[0].delta.content
+                    yield streamed_content
+                    
     async def cleanup(self):
         await self.exit_stack.aclose()
 
-@app.post("/chat", response_model=ChatResponse)
+@app.post("/chat", response_class=StreamingResponse)
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
-    try:
-        bot_response = await client.process_query(user_message)
-    except Exception as e:
-        bot_response = f"Error: {str(e)}"
-    finally:
-        await client.cleanup()
-    return ChatResponse(response=bot_response)
+    async def response_stream():
+        try:
+            async for chunk in client.process_query(user_message):
+                yield chunk
+        except Exception as e:
+            yield f"Error: {str(e)}"
+        finally:
+            await client.cleanup()
+    return StreamingResponse(response_stream(), media_type="text/plain")
 
 @app.get("/")
 def root():
