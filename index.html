@@ -686,7 +686,7 @@ function sendMessage() {
   chatbotInput.focus();
 
   // Send the message to the Python backend
-  fetch(PERSONAL_SITE_SERVICE_URL, {
+  fetch('https://my-personal-website-4kun.onrender.com/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
