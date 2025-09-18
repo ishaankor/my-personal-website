@@ -123,9 +123,14 @@ class MCPClient:
                 )
 
                 print("Streaming OpenAI response:")
+                aggregated_content = ""
                 for chunk in response:
                     streamed_content = chunk.choices[0].delta.content
-                    yield streamed_content
+                    if streamed_content:
+                        aggregated_content += streamed_content
+                    else:
+                        print("[Warning] Received None content in stream.")
+                yield aggregated_content
                     
     async def cleanup(self):
         await self.exit_stack.aclose()
