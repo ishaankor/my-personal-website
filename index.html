@@ -689,9 +689,18 @@ function appendMessage(text, sender) {
 function sendMessage() {
   const userMsg = chatbotInput.value.trim();
   if (!userMsg) return;
+
+  // Disable input and send button until bot responds
+  chatbotInput.disabled = true;
+  chatbotSend.disabled = true;
+
   appendMessage(userMsg, 'user');
   chatbotInput.value = '';
   chatbotInput.focus();
+
+  // Show thinking message
+  const thinkingMsg = 'Ishaanbot is thinking...';
+  appendMessage(thinkingMsg, 'bot');
 
   // Send the message to the Python backend
   fetch('https://my-personal-website-4kun.onrender.com/chat', {
@@ -709,7 +718,12 @@ function sendMessage() {
       function readChunk() {
         return reader.read().then(({ done, value }) => {
           if (done) {
-            appendMessage(botMsg, 'bot'); // Append only once after streaming is complete
+            // Replace thinking message with actual response
+            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+            botMessages[botMessages.length - 1].textContent = botMsg;
+
+            chatbotInput.disabled = false; // Re-enable input and send button
+            chatbotSend.disabled = false;
             return;
           }
           botMsg += decoder.decode(value, { stream: true });
@@ -721,7 +735,10 @@ function sendMessage() {
     })
     .catch(error => {
       console.error('Error:', error);
-      appendMessage('Failed to connect to the server.', 'bot');
+      const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+      botMessages[botMessages.length - 1].textContent = 'Failed to connect to the server.';
+      chatbotInput.disabled = false; // Re-enable input and send button
+      chatbotSend.disabled = false;
     });
 }
 
@@ -732,5 +749,14 @@ chatbotToggle.onclick = () => {
 chatbotSend.onclick = sendMessage;
 chatbotInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') sendMessage();
+});
+
+// Minimize chat widget when out of focus
+window.addEventListener('blur', () => {
+  chatbotWidget.style.display = 'none';
+});
+
+window.addEventListener('focus', () => {
+  chatbotWidget.style.display = 'flex';
 });
 </script>
