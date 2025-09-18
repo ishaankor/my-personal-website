@@ -25,7 +25,7 @@ domains = [
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["x"],
+    allow_origins=domains,  # Use the domains list here
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -117,9 +117,9 @@ class MCPClient:
                 )
 
                 print("Streaming OpenAI response:")
-                for chunk in response:
+                async for chunk in response:
                     streamed_content = chunk["choices"][0]["delta"]["content"]
-                    print(streamed_content, end="", flush=True)
+                    # print(streamed_content, end="", flush=True)
                     yield streamed_content
             # else:
             #     final_text.append(content.content)
