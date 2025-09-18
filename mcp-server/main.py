@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import json
 import os
-from typing import Optional
+from typing import Optional, AsyncGenerator
 from contextlib import AsyncExitStack
 from fastapi.responses import StreamingResponse
 
@@ -25,7 +25,13 @@ domains = [
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["x"],
+    allow_origins=[
+        "http://localhost",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:5500",
+        "https://ishaankoradia.com",
+        "https://my-personal-website-4kun.onrender.com"  # Add your deployed domain
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,7 +69,7 @@ class MCPClient:
         )
         self.messages = []
 
-    async def process_query(self, query: str) -> str:
+    async def process_query(self, query: str) -> AsyncGenerator[str, None]:
         print("Attempting to connect to MCP server...")
         mcp_transport = StreamableHttpTransport(os.getenv("MCP_SERVER_URL"))
         async with Client(transport=mcp_transport) as client:
@@ -137,6 +143,10 @@ async def chat_endpoint(chat: ChatRequest):
         finally:
             await client.cleanup()
     return StreamingResponse(response_stream(), media_type="text/plain")
+
+@app.options("/chat")
+def options_chat():
+    return {"Allow": "OPTIONS, POST"}  # Explicitly handle OPTIONS requests
 
 @app.get("/")
 def root():
