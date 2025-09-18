@@ -686,7 +686,16 @@ function appendMessage(text, sender) {
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
-function sendMessage() {
+async function isServerLive() {
+  try {
+    const response = await fetch('https://remotemcpserver-latest-8a0l.onrender.com/mcp');
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function sendMessage() {
   const userMsg = chatbotInput.value.trim();
   if (!userMsg) return;
 
@@ -699,8 +708,16 @@ function sendMessage() {
   chatbotInput.focus();
 
   // Show thinking message
-  const thinkingMsg = 'Ishaanbot is thinking...';
-  appendMessage(thinkingMsg, 'bot');
+  const thinkingMsg = document.createElement('div');
+  thinkingMsg.className = 'chatbot-msg bot';
+  thinkingMsg.textContent = 'Ishaanbot is thinking...';
+  chatbotMessages.appendChild(thinkingMsg);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+  // Wait until the server is live
+  while (!(await isServerLive())) {
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Retry every 2 seconds
+  }
 
   // Send the message to the Python backend
   fetch('https://my-personal-website-4kun.onrender.com/chat', {
@@ -718,10 +735,7 @@ function sendMessage() {
       function readChunk() {
         return reader.read().then(({ done, value }) => {
           if (done) {
-            // Replace thinking message with actual response
-            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-            botMessages[botMessages.length - 1].textContent = botMsg;
-
+            thinkingMsg.textContent = botMsg; // Replace thinking message with actual response
             chatbotInput.disabled = false; // Re-enable input and send button
             chatbotSend.disabled = false;
             return;
@@ -735,8 +749,7 @@ function sendMessage() {
     })
     .catch(error => {
       console.error('Error:', error);
-      const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-      botMessages[botMessages.length - 1].textContent = 'Failed to connect to the server.';
+      thinkingMsg.textContent = 'Failed to connect to the server.'; // Replace thinking message with error
       chatbotInput.disabled = false; // Re-enable input and send button
       chatbotSend.disabled = false;
     });
