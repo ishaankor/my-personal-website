@@ -8,6 +8,7 @@
   <link rel="icon" href="./favicon.ico">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="./chatbot-widget.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <div id="tsparticles"></div>
@@ -673,7 +674,14 @@ const chatbotSend = document.getElementById('chatbot-send');
 function appendMessage(text, sender) {
   const msg = document.createElement('div');
   msg.className = 'chatbot-msg ' + sender;
-  msg.textContent = text;
+
+  if (sender === 'bot') {
+    // Parse Markdown for bot messages
+    msg.innerHTML = marked.parse(text);
+  } else {
+    msg.textContent = text; // Plain text for user messages
+  }
+
   chatbotMessages.appendChild(msg);
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
