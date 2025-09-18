@@ -20,12 +20,12 @@ domains = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-    "http://127.0.0.1:5500"
+    "http://127.0.0.1:5500",
     "https://ishaankoradia.com"
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=domains,
+    allow_origins=["x"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -132,7 +132,6 @@ class MCPClient:
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
-
     async def response_stream():
         try:
             async for chunk in client.process_query(user_message):
@@ -141,7 +140,6 @@ async def chat_endpoint(chat: ChatRequest):
             yield f"Error: {str(e)}"
         finally:
             await client.cleanup()
-
     return StreamingResponse(response_stream(), media_type="text/plain")
 
 @app.get("/")
