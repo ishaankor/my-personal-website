@@ -30,7 +30,7 @@ app.add_middleware(
         "http://127.0.0.1:8000",
         "http://127.0.0.1:5500",
         "https://ishaankoradia.com",
-        "https://my-personal-website-4kun.onrender.com"  # Add your deployed domain
+        os.getenv("BACKEND_URL")
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -119,7 +119,7 @@ class MCPClient:
                 response = self.openai.chat.completions.create(
                     model="deepseek/deepseek-chat-v3.1:free",
                     messages=self.messages,
-                    stream=True  # Enable streaming
+                    stream=True
                 )
 
                 print("Streaming OpenAI response:")
@@ -146,7 +146,7 @@ async def chat_endpoint(chat: ChatRequest):
 
 @app.options("/chat")
 def options_chat():
-    return {"Allow": "OPTIONS, POST"}  # Explicitly handle OPTIONS requests
+    return {"Allow": "OPTIONS, POST"}
 
 @app.get("/")
 def root():
