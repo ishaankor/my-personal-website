@@ -709,11 +709,10 @@ function sendMessage() {
       function readChunk() {
         return reader.read().then(({ done, value }) => {
           if (done) {
-            appendMessage(botMsg, 'bot');
+            appendMessage(botMsg, 'bot'); // Append only once after streaming is complete
             return;
           }
           botMsg += decoder.decode(value, { stream: true });
-          appendMessage(botMsg, 'bot');
           return readChunk();
         });
       }

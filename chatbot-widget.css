@@ -63,7 +63,7 @@
   border-radius: 12px;
   max-width: 80%;
   word-break: break-word;
-  font-size: 0.98em;
+  font-size: 0.85em; /* Reduce font size for all messages */
 }
 .chatbot-msg.user {
   background: #d1eaff;
@@ -72,6 +72,15 @@
 .chatbot-msg.bot {
   background: #020202;
   align-self: flex-start;
+  font-size: 0.6em; /* Standard small font size */
+}
+.chatbot-msg.bot p, .chatbot-msg.bot ul, .chatbot-msg.bot ol, .chatbot-msg.bot code {
+  font-size: 0.6em; /* Uniform font size for paragraphs, lists, and code */
+}
+.chatbot-msg.bot h1, .chatbot-msg.bot h2, .chatbot-msg.bot h3 {
+  font-size: 0.6em; /* Same font size for headings */
+  font-weight: bold; /* Bold for emphasis */
+  font-style: italic; /* Italics for styling */
 }
 #chatbot-toggle {
   position: fixed;
