@@ -19,7 +19,7 @@ load_dotenv(override=True)  # Ensure .env variables override system variables
 
 # Debugging: Print loaded environment variables
 print("Loaded MCP_SERVER_URL:", os.getenv("MCP_SERVER_URL"))
-print("Loaded BACKEND_URL:", os.getenv("BACKEND_URL"))
+print("Loaded PERSONAL_SITE_SERVICE_URL:", os.getenv("PERSONAL_SITE_SERVICE_URL"))
 
 app = FastAPI()
 
@@ -37,7 +37,7 @@ app.add_middleware(
         "http://127.0.0.1:8000",
         "http://127.0.0.1:5500",
         "https://ishaankoradia.com",
-        os.getenv("BACKEND_URL")
+        os.getenv("PERSONAL_SITE_SERVICE_URL")
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -78,7 +78,7 @@ class MCPClient:
 
     async def ensure_services_running(self):
         mcp_url = os.getenv("MCP_SERVER_URL")
-        service_url = os.getenv("BACKEND_URL")
+        service_url = os.getenv("PERSONAL_SITE_SERVICE_URL")
 
         async def check_service(url):
             while True:
@@ -165,7 +165,7 @@ async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
     print("Ensuring all services are running...")
-    # await client.ensure_services_running()
+    await client.ensure_services_running()
     print("All services are running. Proceeding with query processing...")
     async def response_stream():
         try:
