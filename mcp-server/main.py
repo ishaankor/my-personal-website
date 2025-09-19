@@ -165,7 +165,7 @@ async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
     print("Ensuring all services are running...")
-    await client.ensure_services_running()
+    # await client.ensure_services_running()
     print("All services are running. Proceeding with query processing...")
     async def response_stream():
         try:
