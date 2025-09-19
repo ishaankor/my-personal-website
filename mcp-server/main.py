@@ -15,7 +15,12 @@ from fastapi.responses import StreamingResponse
 import asyncio
 import httpx
 
-load_dotenv()
+load_dotenv(override=True)  # Ensure .env variables override system variables
+
+# Debugging: Print loaded environment variables
+print("Loaded MCP_SERVER_URL:", os.getenv("MCP_SERVER_URL"))
+print("Loaded BACKEND_URL:", os.getenv("BACKEND_URL"))
+
 app = FastAPI()
 
 domains = [
