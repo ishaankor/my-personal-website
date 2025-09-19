@@ -3,3 +3,4 @@
 .env
 test.py
 mcp-server/__pycache__/
+mcp-server/Dockerfile
