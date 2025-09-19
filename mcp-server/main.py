@@ -80,13 +80,13 @@ class MCPClient:
                 try:
                     async with httpx.AsyncClient() as client:
                         response = await client.get(url)
-                        if response.status_code == 200 or response.status_code == 404:
+                        print(f"Checked {url}, status code: {response.status_code}")
+                        if response.status_code in [200, 405, 406]:  # Acceptable status codes
                             print(f"Service at {url} is running.")
                             return
-                except Exception as e:
+                except httpx.RequestError as e:
                     print(f"Service at {url} is not reachable: {e}")
                 await asyncio.sleep(5)  # Retry every 5 seconds
-
         await asyncio.gather(check_service(mcp_url), check_service(service_url))
 
     async def process_query(self, query: str) -> AsyncGenerator[str, None]:
