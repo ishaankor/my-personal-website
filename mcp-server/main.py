@@ -12,6 +12,8 @@ import os
 from typing import Optional, AsyncGenerator
 from contextlib import AsyncExitStack
 from fastapi.responses import StreamingResponse
+import asyncio
+import httpx
 
 load_dotenv()
 app = FastAPI()
@@ -68,6 +70,24 @@ class MCPClient:
             api_key=os.getenv("OPENAI_API_KEY")
         )
         self.messages = []
+
+    async def ensure_services_running(self):
+        mcp_url = os.getenv("MCP_SERVER_URL")
+        service_url = os.getenv("BACKEND_URL")
+
+        async def check_service(url):
+            while True:
+                try:
+                    async with httpx.AsyncClient() as client:
+                        response = await client.get(url)
+                        if response.status_code == 200 or response.status_code == 404:
+                            print(f"Service at {url} is running.")
+                            return
+                except Exception as e:
+                    print(f"Service at {url} is not reachable: {e}")
+                await asyncio.sleep(5)  # Retry every 5 seconds
+
+        await asyncio.gather(check_service(mcp_url), check_service(service_url))
 
     async def process_query(self, query: str) -> AsyncGenerator[str, None]:
         print("Attempting to connect to MCP server...")
@@ -139,6 +159,9 @@ class MCPClient:
 async def chat_endpoint(chat: ChatRequest):
     user_message = chat.message
     client = MCPClient()
+    print("Ensuring all services are running...")
+    await client.ensure_services_running()
+    print("All services are running. Proceeding with query processing...")
     async def response_stream():
         try:
             async for chunk in client.process_query(user_message):
