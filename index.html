@@ -696,43 +696,61 @@ function sendMessage() {
   const thinkingMsg = 'Ishaanbot is thinking...';
   appendMessage(thinkingMsg, 'bot');
 
-  fetch('https://my-personal-website-4kun.onrender.com/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ message: userMsg }),
-  })
-    .then(response => {
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let botMsg = '';
+  const checkServerHealth = async () => {
+    try {
+      const response = await fetch('https://my-personal-website-4kun.onrender.com/health');
+      return response.ok;
+    } catch (error) {
+      console.error('Health check failed:', error);
+      return false;
+    }
+  };
 
-      function readChunk() {
-        return reader.read().then(({ done, value }) => {
-          if (done) {
-            chatbotInput.disabled = false;
-            chatbotSend.disabled = false;
-            return;
-          }
+  const waitForServer = async () => {
+    while (!(await checkServerHealth())) {
+      await new Promise(resolve => setTimeout(resolve, 5000)); // Retry every 5 seconds
+    }
+  };
 
-          botMsg += decoder.decode(value, { stream: true });
-          const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-          botMessages[botMessages.length - 1].textContent = botMsg; // Update UI incrementally
-
-          return readChunk();
-        });
-      }
-
-      return readChunk();
+  waitForServer().then(() => {
+    fetch('https://my-personal-website-4kun.onrender.com/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: userMsg }),
     })
-    .catch(error => {
-      console.error('Error:', error);
-      const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-      botMessages[botMessages.length - 1].textContent = 'Failed to connect to the server.';
-      chatbotInput.disabled = false;
-      chatbotSend.disabled = false;
-    });
+      .then(response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let botMsg = '';
+
+        function readChunk() {
+          return reader.read().then(({ done, value }) => {
+            if (done) {
+              chatbotInput.disabled = false;
+              chatbotSend.disabled = false;
+              return;
+            }
+
+            botMsg += decoder.decode(value, { stream: true });
+            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+            botMessages[botMessages.length - 1].textContent = botMsg; // Update UI incrementally
+
+            return readChunk();
+          });
+        }
+
+        return readChunk();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+        botMessages[botMessages.length - 1].textContent = 'Failed to connect to the server.';
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+      });
+  });
 }
 
 chatbotToggle.onclick = () => {

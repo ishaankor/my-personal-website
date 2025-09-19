@@ -15,9 +15,7 @@ from fastapi.responses import StreamingResponse
 import asyncio
 import httpx
 
-load_dotenv(override=True)  # Ensure .env variables override system variables
-
-# Debugging: Print loaded environment variables
+load_dotenv(override=True)
 print("Loaded MCP_SERVER_URL:", os.getenv("MCP_SERVER_URL"))
 print("Loaded PERSONAL_SITE_SERVICE_URL:", os.getenv("PERSONAL_SITE_SERVICE_URL"))
 
@@ -30,6 +28,7 @@ domains = [
     "http://127.0.0.1:5500",
     "https://ishaankoradia.com"
 ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -184,3 +183,7 @@ def options_chat():
 @app.get("/")
 def root():
     return {"status": "MCP server running"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "active"}
