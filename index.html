@@ -654,7 +654,7 @@
 
 <!-- Add an immediate alert to test if script runs -->
 <script>
-alert('CHATBOT SCRIPT IS LOADING - Check console now!');
+// alert('CHATBOT SCRIPT IS LOADING - Check console now!');
 console.log('🚀 SCRIPT EXECUTION STARTED!');
 </script>
 
@@ -809,11 +809,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const hasHistory = loadConversationHistory();
 
-  // If no history exists, show welcome message
   if (!hasHistory) {
     const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
     appendMessageToUI(welcomeMessage, 'bot');
-    // Don't add welcome message to conversation history - it's not part of the actual conversation
   }
 
   chatbotClose.addEventListener('click', function() {
@@ -831,7 +829,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Total messages:', conversationHistory.length);
     console.log('Full history:', conversationHistory);
     console.log('LocalStorage content:', localStorage.getItem(STORAGE_KEY));
-    alert(`Conversation History:\nTotal messages: ${conversationHistory.length}\nCheck console for details.`);
+    // alert(`Conversation History:\nTotal messages: ${conversationHistory.length}\nCheck console for details.`);
   });
 
   function appendMessageToUI(text, sender) {
@@ -974,7 +972,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   chatbotToggle.onclick = () => {
-    chatbotWidget.classList.toggle('open');
+    console.log('=== CHATBOT TOGGLE CLICKED ===');
+    console.log('chatbotWidget current display:', chatbotWidget.style.display);
+    
+    if (chatbotWidget.style.display === 'none' || !chatbotWidget.style.display) {
+      chatbotWidget.style.display = 'block';
+      console.log('Opening chatbot widget');
+    } else {
+      chatbotWidget.style.display = 'none';
+      console.log('Closing chatbot widget');
+    }
+    
+    console.log('chatbotWidget new display:', chatbotWidget.style.display);
   };
 
   chatbotSend.onclick = sendMessage;
