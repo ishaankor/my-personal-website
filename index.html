@@ -809,9 +809,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const hasHistory = loadConversationHistory();
 
+  // If no history exists, show welcome message
   if (!hasHistory) {
     const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
     appendMessageToUI(welcomeMessage, 'bot');
+    // Don't add welcome message to conversation history - it's not part of the actual conversation
   }
 
   chatbotClose.addEventListener('click', function() {
@@ -972,18 +974,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   chatbotToggle.onclick = () => {
-    console.log('=== CHATBOT TOGGLE CLICKED ===');
-    console.log('chatbotWidget current display:', chatbotWidget.style.display);
-    
-    if (chatbotWidget.style.display === 'none' || !chatbotWidget.style.display) {
-      chatbotWidget.style.display = 'block';
-      console.log('Opening chatbot widget');
-    } else {
-      chatbotWidget.style.display = 'none';
-      console.log('Closing chatbot widget');
-    }
-    
-    console.log('chatbotWidget new display:', chatbotWidget.style.display);
+    chatbotWidget.classList.toggle('open');
   };
 
   chatbotSend.onclick = sendMessage;
