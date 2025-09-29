@@ -35,12 +35,16 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform: translateY(100%);
+  transform: translateY(calc(100% + 90px));
   transition: transform 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 #chatbot-widget.open {
   transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Chatbot Header */
