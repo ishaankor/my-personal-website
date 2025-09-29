@@ -974,7 +974,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   chatbotToggle.onclick = () => {
+    console.log('=== CHATBOT TOGGLE CLICKED ===');
+    console.log('chatbotWidget before toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
+    
     chatbotWidget.classList.toggle('open');
+    
+    console.log('chatbotWidget after toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
+    console.log('chatbotWidget classes:', chatbotWidget.classList.toString());
   };
 
   chatbotSend.onclick = sendMessage;
