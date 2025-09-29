@@ -635,107 +635,328 @@
       });
     });
   </script>
-</body>
-</body>
+
 <!-- Chatbot Widget HTML (moved to end of body for z-index and pointer-events) -->
 <div id="chatbot-toggle" title="Chat with me!" style="z-index:2147483647; pointer-events:auto;">💬</div>
 <div id="chatbot-widget" style="display:none; z-index:2147483647; pointer-events:auto;">
-  <div id="chatbot-header">Chat with IshaanBot</div>
+  <div id="chatbot-header">
+    Chat with IshaanBot
+    <span id="chatbot-debug" style="cursor:pointer; float:right; margin-right: 10px;" title="Debug conversation history">🔍</span>
+    <span id="chatbot-clear" style="cursor:pointer; float:right; margin-right: 10px;" title="Clear conversation">🗑️</span>
+    <span id="chatbot-close" style="cursor:pointer; float:right;">❌</span>
+  </div>
   <div id="chatbot-messages"></div>
   <div id="chatbot-input-row">
     <input id="chatbot-input" type="text" placeholder="Type your message..." autocomplete="off" />
     <button id="chatbot-send">Send</button>
   </div>
 </div>
+
+<!-- Add an immediate alert to test if script runs -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  let widget = document.getElementById('chatbot-widget');
-  let toggle = document.getElementById('chatbot-toggle');
-  let el = widget;
-  while (el) {
-    el.style.pointerEvents = 'auto';
-    el = el.parentElement;
-  }
-  el = toggle;
-  while (el) {
-    el.style.pointerEvents = 'auto';
-    el = el.parentElement;
-  }
-});
-const chatbotToggle = document.getElementById('chatbot-toggle');
-const chatbotWidget = document.getElementById('chatbot-widget');
-const chatbotMessages = document.getElementById('chatbot-messages');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotSend = document.getElementById('chatbot-send');
+alert('CHATBOT SCRIPT IS LOADING - Check console now!');
+console.log('🚀 SCRIPT EXECUTION STARTED!');
+</script>
 
-function appendMessage(text, sender) {
-  const msg = document.createElement('div');
-  msg.className = 'chatbot-msg ' + sender;
+<script>
+// IMMEDIATE DEBUGGING - runs as soon as script loads
+console.log('=== CHATBOT SCRIPT LOADING ===');
+console.log('Current time:', new Date().toISOString());
+console.log('Document ready state:', document.readyState);
+console.log('localStorage available?', typeof(Storage) !== "undefined");
 
-  if (sender === 'bot') {
-    msg.innerHTML = marked.parse(text);
-  } else {
-    msg.textContent = text;
-  }
-
-  chatbotMessages.appendChild(msg);
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+// Test localStorage immediately
+try {
+  localStorage.setItem('immediate-test', 'immediate-value');
+  const immediateTest = localStorage.getItem('immediate-test');
+  console.log('IMMEDIATE localStorage test:', immediateTest);
+  localStorage.removeItem('immediate-test');
+  console.log('IMMEDIATE localStorage working!');
+} catch (e) {
+  console.error('IMMEDIATE localStorage test FAILED:', e);
 }
 
-function sendMessage() {
-  const userMsg = chatbotInput.value.trim();
-  if (!userMsg) return;
+console.log('About to add DOMContentLoaded listener...');
 
-  chatbotInput.disabled = true;
-  chatbotSend.disabled = true;
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('=== DOM CONTENT LOADED - CHATBOT INITIALIZING ===');
+  
+  const chatbotToggle = document.getElementById('chatbot-toggle');
+  const chatbotWidget = document.getElementById('chatbot-widget');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+  const chatbotInput = document.getElementById('chatbot-input');
+  const chatbotSend = document.getElementById('chatbot-send');
+  const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotClear = document.getElementById('chatbot-clear');
+  const chatbotDebug = document.getElementById('chatbot-debug');
 
-  appendMessage(userMsg, 'user');
-  chatbotInput.value = '';
-  chatbotInput.focus();
+  console.log('Elements found:');
+  console.log('- chatbotToggle:', !!chatbotToggle);
+  console.log('- chatbotWidget:', !!chatbotWidget);
+  console.log('- chatbotMessages:', !!chatbotMessages);
 
-  const thinkingMsg = 'Ishaanbot is thinking...';
-  appendMessage(thinkingMsg, 'bot');
+  // Conversation memory
+  let conversationHistory = [];
+  const STORAGE_KEY = 'ishaan-chatbot-history';
+  const MAX_HISTORY_LENGTH = 20; // Keep last 20 messages for context
 
-  const checkServerHealth = async () => {
+  // Load conversation history from localStorage
+  function loadConversationHistory() {
     try {
-      const response = await fetch('https://personal-website-image-latest.onrender.com/health');
-      return response.ok;
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        conversationHistory = JSON.parse(stored);
+        console.log('Loaded conversation history:', conversationHistory.length, 'messages');
+        // Restore messages to UI
+        conversationHistory.forEach(msg => {
+          appendMessageToUI(msg.content, msg.role === 'user' ? 'user' : 'bot');
+        });
+        return true; // Successfully loaded history
+      }
     } catch (error) {
-      console.error('Health check failed:', error);
-      return false;
+      console.error('Error loading conversation history:', error);
+      conversationHistory = [];
     }
-  };
+    return false; // No history loaded
+  }
 
-  const waitForServer = async () => {
-    while (!(await checkServerHealth())) {
-      await new Promise(resolve => setTimeout(resolve, 5000)); // Retry every 5 seconds
+  // Save conversation history to localStorage
+  function saveConversationHistory() {
+    try {
+      console.log('=== SAVING CONVERSATION HISTORY ===');
+      console.log('STORAGE_KEY:', STORAGE_KEY);
+      console.log('Current conversationHistory length:', conversationHistory.length);
+      console.log('localStorage available?', typeof(Storage) !== "undefined");
+      
+      // Check if localStorage is accessible
+      if (typeof(Storage) === "undefined") {
+        console.error('localStorage is not supported by this browser');
+        return;
+      }
+      
+      // Keep only the last MAX_HISTORY_LENGTH messages
+      const historyToSave = conversationHistory.slice(-MAX_HISTORY_LENGTH);
+      console.log('Saving', historyToSave.length, 'messages to localStorage');
+      console.log('Messages being saved:', historyToSave);
+      
+      const jsonString = JSON.stringify(historyToSave);
+      console.log('JSON string to save:', jsonString);
+      
+      localStorage.setItem(STORAGE_KEY, jsonString);
+      console.log('setItem completed successfully');
+      
+      // Verify it was saved
+      const verification = localStorage.getItem(STORAGE_KEY);
+      console.log('Verification - raw localStorage content:', verification);
+      console.log('Verification - localStorage now contains:', verification ? JSON.parse(verification).length : 0, 'messages');
+      
+      // Test localStorage directly
+      localStorage.setItem('test-key', 'test-value');
+      const testValue = localStorage.getItem('test-key');
+      console.log('localStorage test - stored "test-value", retrieved:', testValue);
+      localStorage.removeItem('test-key');
+      
+      console.log('=== SAVE COMPLETE ===');
+    } catch (error) {
+      console.error('=== ERROR SAVING CONVERSATION HISTORY ===');
+      console.error('Error details:', error);
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
     }
-  };
+  }
 
-  waitForServer().then(() => {
+  function addToHistory(content, role) {
+    console.log('=== addToHistory CALLED ===');
+    console.log('Content:', content.substring(0, 100) + '...');
+    console.log('Role:', role);
+    console.log('Current history length BEFORE adding:', conversationHistory.length);
+    
+    const message = {
+      content: content,
+      role: role,
+      timestamp: new Date().toISOString()
+    };
+    conversationHistory.push(message);
+    
+    console.log('Current history length AFTER adding:', conversationHistory.length);
+    console.log('Added message:', message);
+    console.log('Full history after adding:', conversationHistory);
+    
+    saveConversationHistory();
+    console.log('=== addToHistory COMPLETE ===');
+  }
+
+  function clearConversationHistory() {
+    conversationHistory = [];
+    localStorage.removeItem(STORAGE_KEY);
+    chatbotMessages.innerHTML = '';
+    const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
+    appendMessageToUI(welcomeMessage, 'bot');
+  }
+
+  console.log('=== INITIALIZING CHATBOT ===');
+  console.log('Testing localStorage availability...');
+  
+  try {
+    localStorage.setItem('chatbot-init-test', 'test-value');
+    const testRetrieve = localStorage.getItem('chatbot-init-test');
+    console.log('localStorage test result:', testRetrieve);
+    localStorage.removeItem('chatbot-init-test');
+    console.log('localStorage is working properly');
+  } catch (e) {
+    console.error('localStorage test failed:', e);
+  }
+
+  const hasHistory = loadConversationHistory();
+
+  // If no history exists, show welcome message
+  if (!hasHistory) {
+    const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
+    appendMessageToUI(welcomeMessage, 'bot');
+    // Don't add welcome message to conversation history - it's not part of the actual conversation
+  }
+
+  chatbotClose.addEventListener('click', function() {
+    chatbotWidget.style.display = 'none';
+  });
+
+  chatbotClear.addEventListener('click', function() {
+    if (confirm('Clear conversation history? This cannot be undone.')) {
+      clearConversationHistory();
+    }
+  });
+
+  chatbotDebug.addEventListener('click', function() {
+    console.log('=== CONVERSATION HISTORY DEBUG ===');
+    console.log('Total messages:', conversationHistory.length);
+    console.log('Full history:', conversationHistory);
+    console.log('LocalStorage content:', localStorage.getItem(STORAGE_KEY));
+    alert(`Conversation History:\nTotal messages: ${conversationHistory.length}\nCheck console for details.`);
+  });
+
+  function appendMessageToUI(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = 'chatbot-msg ' + sender;
+
+    if (sender === 'bot') {
+      msg.innerHTML = marked.parse(text);
+    } else {
+      msg.textContent = text;
+    }
+
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  function appendMessage(text, sender) {
+    console.log('=== appendMessage called ===');
+    console.log('appendMessage params - text:', text.substring(0, 50) + '...', 'sender:', sender);
+    
+    appendMessageToUI(text, sender);
+    
+    if (text !== 'Ishaanbot is thinking...') {
+      const role = sender === 'user' ? 'user' : 'assistant';
+      console.log('About to call addToHistory with role:', role);
+      addToHistory(text, role);
+    } else {
+      console.log('Skipping "thinking" message from history');
+    }
+    
+    console.log('=== appendMessage complete ===');
+  }
+
+  function sendMessage() {
+    const userMsg = chatbotInput.value.trim();
+    if (!userMsg) return;
+
+    chatbotInput.disabled = true;
+    chatbotSend.disabled = true;
+
+    // Enhanced debugging - check history BEFORE adding current message
+    console.log('=== BEFORE ADDING USER MESSAGE ===');
+    console.log('conversationHistory length:', conversationHistory.length);
+    console.log('conversationHistory content:', conversationHistory);
+    
+    const contextMessages = conversationHistory.slice(-10);
+    
+    console.log('=== CONTEXT PREPARATION ===');
+    console.log('Current conversation history:', conversationHistory.length, 'messages');
+    console.log('Sending context messages:', contextMessages.length, 'messages');
+    console.log('Context messages content:', contextMessages);
+
+    appendMessage(userMsg, 'user');
+    
+    // Enhanced debugging - check history AFTER adding current message
+    console.log('=== AFTER ADDING USER MESSAGE ===');
+    console.log('conversationHistory length:', conversationHistory.length);
+    console.log('conversationHistory content:', conversationHistory);
+
+    chatbotInput.value = '';
+    chatbotInput.focus();
+
+    const thinkingMsg = 'Ishaanbot is thinking...';
+    appendMessageToUI(thinkingMsg, 'bot');
+
+    let accumulatedResponse = '';
+    let isFirstChunk = true;
+    
+    const requestBody = {
+      message: userMsg,
+      conversation_history: contextMessages
+    };
+
+    console.log('Request body:', JSON.stringify(requestBody, null, 2));
+
     fetch('https://personal-website-image-latest.onrender.com/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: userMsg }),
+      body: JSON.stringify(requestBody),
     })
       .then(response => {
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
-        let botMsg = '';
 
         function readChunk() {
           return reader.read().then(({ done, value }) => {
             if (done) {
+              const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+              const lastMessage = botMessages[botMessages.length - 1];
+              lastMessage.innerHTML = marked.parse(accumulatedResponse);
+              
+              addToHistory(accumulatedResponse, 'assistant');
+              
               chatbotInput.disabled = false;
               chatbotSend.disabled = false;
               return;
             }
 
-            botMsg += decoder.decode(value, { stream: true });
+            const chunk = decoder.decode(value, { stream: true });
+            accumulatedResponse += chunk;
+            
             const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-            botMessages[botMessages.length - 1].textContent = botMsg; // Update UI incrementally
+            const lastMessage = botMessages[botMessages.length - 1];
+
+            if (isFirstChunk) {
+              lastMessage.textContent = '';
+              isFirstChunk = false;
+            }
+
+            try {
+              const parsedContent = marked.parse(accumulatedResponse);
+              
+              if (accumulatedResponse.length > 0) {
+                lastMessage.innerHTML = parsedContent + '<span class="typing-cursor">▊</span>';
+              } else {
+                lastMessage.innerHTML = parsedContent;
+              }
+              
+              chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+              
+            } catch (error) {
+              lastMessage.textContent = accumulatedResponse + '▊';
+            }
 
             return readChunk();
           });
@@ -750,23 +971,17 @@ function sendMessage() {
         chatbotInput.disabled = false;
         chatbotSend.disabled = false;
       });
+  }
+
+  chatbotToggle.onclick = () => {
+    chatbotWidget.classList.toggle('open');
+  };
+
+  chatbotSend.onclick = sendMessage;
+  chatbotInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendMessage();
   });
-}
-
-chatbotToggle.onclick = () => {
-  chatbotWidget.style.display = chatbotWidget.style.display === 'none' ? 'flex' : 'none';
-};
-
-chatbotSend.onclick = sendMessage;
-chatbotInput.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') sendMessage();
-});
-
-window.addEventListener('blur', () => {
-  chatbotWidget.style.display = 'none';
-});
-
-window.addEventListener('focus', () => {
-  chatbotWidget.style.display = 'flex';
 });
 </script>
+</body>
+</html>
