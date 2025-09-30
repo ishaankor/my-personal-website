@@ -695,32 +695,33 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('- chatbotWidget:', !!chatbotWidget);
   console.log('- chatbotMessages:', !!chatbotMessages);
 
-  // Conversation memory
+  if (chatbotWidget) {
+    chatbotWidget.classList.remove('open');
+    console.log('Widget initial state set to closed');
+  }
+
   let conversationHistory = [];
   const STORAGE_KEY = 'ishaan-chatbot-history';
-  const MAX_HISTORY_LENGTH = 20; // Keep last 20 messages for context
+  const MAX_HISTORY_LENGTH = 20;
 
-  // Load conversation history from localStorage
   function loadConversationHistory() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         conversationHistory = JSON.parse(stored);
         console.log('Loaded conversation history:', conversationHistory.length, 'messages');
-        // Restore messages to UI
         conversationHistory.forEach(msg => {
           appendMessageToUI(msg.content, msg.role === 'user' ? 'user' : 'bot');
         });
-        return true; // Successfully loaded history
+        return true;
       }
     } catch (error) {
       console.error('Error loading conversation history:', error);
       conversationHistory = [];
     }
-    return false; // No history loaded
+    return false;
   }
 
-  // Save conversation history to localStorage
   function saveConversationHistory() {
     try {
       console.log('=== SAVING CONVERSATION HISTORY ===');
@@ -728,13 +729,11 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Current conversationHistory length:', conversationHistory.length);
       console.log('localStorage available?', typeof(Storage) !== "undefined");
       
-      // Check if localStorage is accessible
       if (typeof(Storage) === "undefined") {
         console.error('localStorage is not supported by this browser');
         return;
       }
       
-      // Keep only the last MAX_HISTORY_LENGTH messages
       const historyToSave = conversationHistory.slice(-MAX_HISTORY_LENGTH);
       console.log('Saving', historyToSave.length, 'messages to localStorage');
       console.log('Messages being saved:', historyToSave);
@@ -745,12 +744,10 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem(STORAGE_KEY, jsonString);
       console.log('setItem completed successfully');
       
-      // Verify it was saved
       const verification = localStorage.getItem(STORAGE_KEY);
       console.log('Verification - raw localStorage content:', verification);
       console.log('Verification - localStorage now contains:', verification ? JSON.parse(verification).length : 0, 'messages');
       
-      // Test localStorage directly
       localStorage.setItem('test-key', 'test-value');
       const testValue = localStorage.getItem('test-key');
       console.log('localStorage test - stored "test-value", retrieved:', testValue);
@@ -809,15 +806,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const hasHistory = loadConversationHistory();
 
-  // If no history exists, show welcome message
   if (!hasHistory) {
     const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
     appendMessageToUI(welcomeMessage, 'bot');
-    // Don't add welcome message to conversation history - it's not part of the actual conversation
   }
 
   chatbotClose.addEventListener('click', function() {
-    chatbotWidget.style.display = 'none';
+    chatbotWidget.classList.remove('open');
+    console.log('Widget closed via close button');
   });
 
   chatbotClear.addEventListener('click', function() {
@@ -872,7 +868,6 @@ document.addEventListener('DOMContentLoaded', function() {
     chatbotInput.disabled = true;
     chatbotSend.disabled = true;
 
-    // Enhanced debugging - check history BEFORE adding current message
     console.log('=== BEFORE ADDING USER MESSAGE ===');
     console.log('conversationHistory length:', conversationHistory.length);
     console.log('conversationHistory content:', conversationHistory);
@@ -886,7 +881,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     appendMessage(userMsg, 'user');
     
-    // Enhanced debugging - check history AFTER adding current message
     console.log('=== AFTER ADDING USER MESSAGE ===');
     console.log('conversationHistory length:', conversationHistory.length);
     console.log('conversationHistory content:', conversationHistory);
@@ -977,7 +971,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('=== CHATBOT TOGGLE CLICKED ===');
     console.log('chatbotWidget before toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
     
-    chatbotWidget.classList.toggle('open');
+    const isCurrentlyOpen = chatbotWidget.classList.contains('open');
+    
+    if (isCurrentlyOpen) {
+      chatbotWidget.classList.remove('open');
+      console.log('Widget closed');
+    } else {
+      chatbotWidget.classList.add('open');
+      console.log('Widget opened');
+      setTimeout(() => {
+        if (chatbotInput) chatbotInput.focus();
+      }, 300);
+    }
     
     console.log('chatbotWidget after toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
     console.log('chatbotWidget classes:', chatbotWidget.classList.toString());
