@@ -563,6 +563,21 @@
 
         function scrollHandler(event) {
             if (isScrolling) return;
+            
+            const chatbotWidget = document.getElementById('chatbot-widget');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            
+            if (chatbotWidget && chatbotMessages) {
+                let target = event.target;
+                while (target && target !== document) {
+                    if (target === chatbotWidget || target === chatbotMessages) {
+                        console.log('Scroll event from chatbot widget, ignoring slide navigation');
+                        return;
+                    }
+                    target = target.parentNode;
+                }
+            }
+            
             isScrolling = true;
 
             if (event.deltaY > 0 && currentIndex < sections.length - 1) {
