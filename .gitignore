@@ -1,5 +1,4 @@
 .vscode/mcp.json
 .vscode/settings.json
 .env
-mcp-server/
 test.py
