@@ -3,3 +3,4 @@
 .env
 mcp-server/
 test.py
+.DS_Store
