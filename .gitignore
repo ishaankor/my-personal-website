@@ -5,3 +5,6 @@ mcp-server/
 test.py
 .DS_Store
 my-personal-website.code-workspace
+get_spotify_token.py
+spotify_refresh_token.txt
+

@@ -1,0 +1,11 @@
+{
+  "name": "my-personal-website",
+  "version": "1.0.0",
+  "description": "Ishaan Koradia's Personal Website",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 3000"
+  },
+  "author": "Ishaan Koradia",
+  "license": "MIT"
+}

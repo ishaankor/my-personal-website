@@ -3,1012 +3,1336 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Ishaan Koradia</title>
-  <link href="./style.css" rel="stylesheet">
+  <title>Ishaan Koradia | Personal Website</title>
   <link rel="icon" href="./favicon.ico">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link href="./style.css" rel="stylesheet">
   <link href="./chatbot-widget.css" rel="stylesheet">
+
+  <!-- Libraries -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2/tsparticles.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+  <!-- Fixed Cosmic Starfield -->
   <div id="tsparticles"></div>
-  <!-- Intro Section -->
-  <section id="intro" class="active">
-    <div class="my-name">
-      <span>I</span>
-      <span>s</span>
-      <span>h</span>
-      <span>a</span>
-      <span>a</span>
-      <span>n</span>
-      <span>&nbsp;</span>
-      <span>K</span>
-      <span>o</span>
-      <span>r</span>
-      <span>a</span>
-      <span>d</span>
-      <span>i</span>
-      <span>a</span>
-    </div>
-    <div class="typing-container">
-        <h1> I am <span class="typing-text"></span> </h1>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script>
-      var typed = new Typed(".typing-text", {
-        strings: [
-          "a problem solver.",
-          "a passionate coder.",
-          "a meaningful automater.",
-          "a self-taught developer.",
-          "a data science learner.",
-          "an AI Engineer."
-        ],
-        typeSpeed: 150, 
-        backSpeed: 150,
-        loop: true,
-      })
-    </script>
-    </div>
-  </section>
 
-  <!-- In your About Me section -->
-  <section id="about">
-    <h1>About Me</h1>
-    <p>Get to know more about me!</p>
-    <div class="container">
-      <div class="box">
-        <div class="avatar">
-          <img src="assets/my-avatar.jpeg" alt="Avatar" />
-        </div>
-        <span class="intro-text">
-          <script>
-            var str = "Hi, I'm Ishaan Koradia, an AI Engineer who is currently fascinated about the intersection between Artificial Intelligence and Machine Learning. I'm a self-taught developer with a passion for about Machine Learning and Data Science as I love to create new innovative automations and programming scripts that make life feel much easier for the days to come! What started off with small shortcuts in Apple Shortcuts to making robust code, I've ventured into various sections of the coding hemisphere such as web development, data manipulation, and macro scripts!";
-            var spans = '<span>' + str.split('').join('</span><span>') + '</span>';
-            $(spans).hide().appendTo('.intro-text').each(function (i) {
-                $(this).delay(75 * i).css({
-                    display: 'inline',
-                    opacity: 0,
-                    fontWeight: 'bold'
-                }).animate({
-                    opacity: 1
-                }, 100);
-            });
-          </script>
-        </span>
-      </div>
-      <div class="box">
-        <div class="avatar">
-          <img src="assets/ucsd-logo.png" alt="Avatar" />
-        </div>
-        <span class="education-text">
-          <script>
-            var str = "I am a recent undergraduate student at University of California, San Diego with a Bachelors of Science Degree in Cognitive Science with a Specialization in Machine Learning and Neural Computation with Data Science! My time spent here at UCSD was a great learning experience and I've learned a lot about the world of Machine Learning and Data Science from engaging in clubs like Data Science Student Society (where I was a General Member), Cognitive Science Student Association (where I was a part of the Web Team), and the Computer Science and Engineering Society (where I was a Front-End developer)!";
-            var spans = '<span>' + str.split('').join('</span><span>') + '</span>';
-            $(spans).hide().appendTo('.education-text').each(function (i) {
-                $(this).delay(75 * i).css({
-                    display: 'inline',
-                    opacity: 0,
-                    fontWeight: 'bold'
-                }).animate({
-                    opacity: 1
-                }, 100);
-            });
-          </script>
-      </div>
-      <div class="contact-box">
-        <div class="icons">
-          <a href="https://github.com/ishaankor" target="_blank">
-            <img src="./assets/github-icon.png" alt="GitHub">
-          </a>
-          <a href="https://linkedin.com/in/ishaankoradia" target="_blank">
-            <img src="./assets/linkedin-icon.png" alt="LinkedIn">
-          </a>
-          <a href="mailto:ishaankor@gmail.com">
-            <img src="./assets/gmail-icon.png" alt="Gmail">
-          </a>
-        </div>
-      </div>
+  <!-- Top Brochure HUD Header -->
+  <header class="brochure-hud">
+    <div class="hud-identity">
+      <span class="hud-brand">ISHAAN KORADIA</span>
+      <span class="hud-tag">// PERSONAL WEBSITE</span>
     </div>
-</section>
+    <nav class="hud-timeline-nav">
+      <button class="hud-pill active" data-index="0" title="Chapter 01: Identity">
+        <span class="pill-num">01</span>
+        <span class="pill-label">Identity</span>
+      </button>
+      <button class="hud-pill" data-index="1" title="Chapter 02: The Spark">
+        <span class="pill-num">02</span>
+        <span class="pill-label">The Spark</span>
+      </button>
+      <button class="hud-pill" data-index="2" title="Chapter 03: The Mind">
+        <span class="pill-num">03</span>
+        <span class="pill-label">The Mind</span>
+      </button>
+      <button class="hud-pill" data-index="3" title="Chapter 04: The Frontier">
+        <span class="pill-num">04</span>
+        <span class="pill-label">The Frontier</span>
+      </button>
+      <button class="hud-pill" data-index="4" title="Chapter 05: The Sandbox">
+        <span class="pill-num">05</span>
+        <span class="pill-label">The Sandbox</span>
+      </button>
+      <button class="hud-pill" data-index="5" title="Chapter 06: The Live Pulse">
+        <span class="pill-num">06</span>
+        <span class="pill-label">Live Pulse</span>
+      </button>
+      <button class="hud-pill" data-index="6" title="Chapter 07: Connect">
+        <span class="pill-num">07</span>
+        <span class="pill-label">Connect</span>
+      </button>
+    </nav>
+  </header>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <h1>Projects</h1>
-    <p>Check out my latest work on GitHub and LinkedIn!</p>    
-    <div class="projects-container">
-        <div class="project">
-            <img src="/assets/transformi_photo.jpeg" width: 250px height: 350px;>
-            <div class="thought-bubble"> Meet <strong> Transformi</strong>, he's a Discord Bot that is responsible for all kinds of data transformations! Whether it be simple Linear Regression or constructing neural networks, Transformi can do it all!</div>
-        </div>
-        <!-- It's time to update this section and possibly make a portfolio section? -->
-        <div class="project">
-            <img src="/assets/daily_motivation.jpg" width: 250px height: 350px;>
-            <div class="thought-bubble"> <strong> Daily Motivation </strong> is an automated Twitter/X bot that lighten people's days with motivating quotes to help them get through the day! By utilizing polls, this bot stores the statistics into a PostgreSQL database which would then be crunched to tell us which quotes were most influential at the end of every week! </div>
-        </div>
-        <div class="project">
-            <img src="/assets/notestaker-photo.png" width: 250px height: 350px;>
-            <div class="thought-bubble"> <strong> NotesTaker! </strong> is a bot that aims to make life as a student easier by providing some freeform notes right directly into your Google Drive with the help of artifical intelligence and your lecture audio itself! </div>
-        </div>
-    </div>
-  </section>
+  <!-- 2D Canvas Stage: Option A Cinematic Glide (Down & Sideways) -->
+  <main id="brochure-canvas">
+    <!-- Subtle, Discreet Vector Timeline Path connecting all 7 chapters -->
+    <svg class="timeline-svg" viewBox="0 0 1000 7000" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="timeline-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#38bdf8" />
+          <stop offset="25%" stop-color="#818cf8" />
+          <stop offset="50%" stop-color="#c084fc" />
+          <stop offset="75%" stop-color="#38bdf8" />
+          <stop offset="100%" stop-color="#34d399" />
+        </linearGradient>
+      </defs>
+      <!-- Continuous Serpentine Timeline Vector across 7000 units -->
+      <path class="timeline-path" d="M 500 500 C 650 900, 780 1100, 780 1500 C 780 1900, 280 2100, 280 2500 C 280 2900, 760 3100, 760 3500 C 760 3900, 260 4100, 260 4500 C 260 4900, 720 5100, 720 5500 C 720 5900, 500 6100, 500 6500" />
+      
+      <!-- Subtle Waypoint Nodes (One per chapter) -->
+      <circle class="timeline-node active" cx="500" cy="500" r="3.5" />
+      <circle class="timeline-node" cx="780" cy="1500" r="3.5" />
+      <circle class="timeline-node" cx="280" cy="2500" r="3.5" />
+      <circle class="timeline-node" cx="760" cy="3500" r="3.5" />
+      <circle class="timeline-node" cx="260" cy="4500" r="3.5" />
+      <circle class="timeline-node" cx="720" cy="5500" r="3.5" />
+      <circle class="timeline-node" cx="500" cy="6500" r="3.5" />
+    </svg>
 
-  <div class="scroll-indicator-container">
-    <div id="scroll-down" class="scroll-indicator visible">
-        <span id="scroll-down-text"></span> 
-        <div class="arrow">↓</div>
+    <!-- ==========================================================================
+         Chapter 01: The Identity (The Cinematic Hero Entrance)
+         ========================================================================== -->
+    <section id="sec-identity" class="brochure-panel active" data-index="0">
+      <div class="chapter-marker">// CHAPTER 01 — THE IDENTITY</div>
+      <div class="my-name">
+        <span>I</span>
+        <span>s</span>
+        <span>h</span>
+        <span>a</span>
+        <span>a</span>
+        <span>n</span>
+        <span>&nbsp;</span>
+        <span>K</span>
+        <span>o</span>
+        <span>r</span>
+        <span>a</span>
+        <span>d</span>
+        <span>i</span>
+        <span>a</span>
+      </div>
+      <div class="typing-container">
+        <h1>I am <span class="typing-text"></span></h1>
+      </div>
+      <!-- <p class="hero-subtext">Cognitive Science &amp; Neural Computation • AI Systems • Continuous Tinkerer</p> -->
+      <!-- <div class="hero-scroll-hint">Scroll Down ↘ to explore the chronicle</div> -->
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 02: The Spark (Origins & The Urge to Automate)
+         ========================================================================== -->
+    <section id="sec-spark" class="brochure-panel" data-index="1">
+      <div class="chapter-marker">// CHAPTER 02 — THE SPARK</div>
+      <h1>Where The Obsession Began</h1>
+      <p>From Apple Shortcuts to Self-Taught Python Automations</p>
+
+      <div class="spark-card spacious">
+        <span class="spark-badge">The Core Ethos</span>
+        <h3>An Innate Aversion to Manual Repetition</h3>
+        <p>
+          I have an innate aversion to manual repetition. Long before training neural networks or designing agent pipelines, my obsession started with Apple Shortcuts. Chaining micro-actions, eliminating daily friction, and seeing logic bring computers to life sparked an enduring drive to build software that thinks, automates, and empowers.
+        </p>
+
+        <!-- Interactive Workflow Node Diagram -->
+        <div class="workflow-flow">
+          <div class="workflow-node">
+            <span class="wf-icon">🔔</span>
+            <span class="wf-text">Manual Friction</span>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="workflow-node active">
+            <span class="wf-icon">⚡</span>
+            <span class="wf-text">Chained Logic</span>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="workflow-node">
+            <span class="wf-icon">🚀</span>
+            <span class="wf-text">Autonomous Solution</span>
+          </div>
+        </div>
+
+        <!-- Real Apple Shortcuts Showcase -->
+        <div class="shortcuts-showcase">
+          <div class="shortcuts-header">
+            <span class="shortcuts-tag">// THREE REAL SHORTCUTS THAT STARTED IT ALL</span>
+            <!-- <span class="shortcuts-hint">Direct iCloud Install Links ↗</span> -->
+          </div>
+          <div class="shortcuts-grid">
+            <!-- Shortcut 1: Parked Car Pinner -->
+            <a href="https://www.icloud.com/shortcuts/d435f7d0583c4d15840314f2481d4a3b" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Parked Car Pinner on iOS/macOS">
+              <div class="sc-icon-wrap sc-car">
+                <span class="sc-emoji">📍</span>
+              </div>
+              <div class="sc-info">
+                <div class="sc-title-row">
+                  <h4>Parked Car Pinner</h4>
+                  <span class="sc-link-arrow">↗</span>
+                </div>
+                <p>Captures exact GPS coordinates and drops a persistent pin so you never lose your parking spot in crowded lots.</p>
+              </div>
+            </a>
+
+            <!-- Shortcut 2: Assignment Teller -->
+            <a href="https://www.icloud.com/shortcuts/f4f2bb9234d34c30944f685479c436f7" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Assignment Teller on iOS/macOS">
+              <div class="sc-icon-wrap sc-task">
+                <span class="sc-emoji">📚</span>
+              </div>
+              <div class="sc-info">
+                <div class="sc-title-row">
+                  <h4>Assignment Teller</h4>
+                  <span class="sc-link-arrow">↗</span>
+                </div>
+                <p>Parses upcoming class deadlines and deliverables into an instant spoken or visual briefing without opening syllabi.</p>
+              </div>
+            </a>
+
+            <!-- Shortcut 3: Alarm Clock Setter -->
+            <a href="https://www.icloud.com/shortcuts/ca64449b87594beba7cc07d18eb25442" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Alarm Clock Setter on iOS/macOS">
+              <div class="sc-icon-wrap sc-alarm">
+                <span class="sc-emoji">⏰</span>
+              </div>
+              <div class="sc-info">
+                <div class="sc-title-row">
+                  <h4>Alarm Clock Setter</h4>
+                  <span class="sc-link-arrow">↗</span>
+                </div>
+                <p>Calculates sleep cycles and configures morning wake-up alarms dynamically based on tomorrow's schedule.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="spark-tags">
+          <!-- <span class="journey-pill">Curiosity First</span>
+          <span class="journey-pill">Apple Shortcuts</span>
+          <span class="journey-pill">Self-Taught Python</span>
+          <span class="journey-pill">Automate Everything</span> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 03: The Mind (UC San Diego & Neural Computation)
+         ========================================================================== -->
+    <section id="sec-mind" class="brochure-panel" data-index="2">
+      <div class="chapter-marker">// CHAPTER 03 — THE MIND</div>
+      <h1>From The Brain To The Machine</h1>
+      <p>Why I studied Cognitive Science &amp; Neural Computation at UC San Diego</p>
+
+      <div class="container">
+        <!-- Interactive Foundation Exploration Tabs -->
+        <div class="journey-tabs">
+          <button class="journey-tab active" data-phase="0">01 // Brain &amp; Computation</button>
+          <button class="journey-tab" data-phase="1">02 // The Joy of Data</button>
+          <button class="journey-tab" data-phase="2">03 // Leadership &amp; Community</button>
+        </div>
+
+        <!-- Dynamic Story Display Card -->
+        <div class="journey-card">
+          <div class="avatar">
+            <img id="foundation-avatar-img" src="assets/ucsd-logo.png" alt="UCSD Education">
+          </div>
+          <div class="journey-details">
+            <div class="journey-phase-title">
+              <span id="foundation-title">01 // Understanding The Brain Before The Machine</span>
+              <span id="foundation-badge" class="badge">UCSD CogSci • GPA 3.76</span>
+            </div>
+            <p id="foundation-narrative" class="journey-text">
+              Why Cognitive Science? Because I wanted to understand biological intelligence before teaching machines how to think. Studying synaptic plasticity, visual perception, and computational neuroscience gave me a foundational appreciation for neural networks, gradient optimization, and transformer attention mechanisms.
+            </p>
+            <div id="foundation-tags-container" class="journey-tags">
+              <span class="journey-pill">Neural Computation</span>
+              <span class="journey-pill">Biological Intelligence</span>
+              <span class="journey-pill">Cognitive Science</span>
+              <span class="journey-pill">PyTorch</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Connect Icons -->
+        <div class="contact-box">
+          <div class="icons">
+            <a href="https://github.com/ishaankor" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <img src="./assets/github-icon.png" alt="GitHub">
+            </a>
+            <a href="https://linkedin.com/in/ishaankoradia" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+              <img src="./assets/linkedin-icon.png" alt="LinkedIn">
+            </a>
+            <a href="mailto:ishaankor@gmail.com" title="Email">
+              <img src="./assets/gmail-icon.png" alt="Gmail">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 04: The Frontier (Handshake AI, NVIDIA & MCP Agents)
+         ========================================================================== -->
+    <section id="sec-frontier" class="brochure-panel" data-index="3">
+      <div class="chapter-marker">// CHAPTER 04 — THE FRONTIER</div>
+      <h1>The Frontier &amp; Agentic Systems</h1>
+      <p>Evaluating Nemotron-12B with NVIDIA and building with Model Context Protocol (MCP)</p>
+
+      <div class="frontier-card spacious">
+        <div class="frontier-header">
+          <div class="avatar">
+            <img src="assets/personal-picture.avif" alt="Ishaan Koradia">
+          </div>
+          <div class="frontier-meta">
+            <span class="frontier-badge">Handshake AI • NVIDIA Collaboration</span>
+            <h3>Architecting Next-Generation Agent Infrastructure</h3>
+          </div>
+        </div>
+
+        <p class="frontier-narrative">
+          Today as an AI Engineer at Handshake AI, I collaborate directly with NVIDIA evaluating Nemotron-12B, curating golden benchmark datasets across frontier models, and designing 300+ context strategies with ~95% accuracy. I actively architect with the Model Context Protocol (MCP) to power autonomous, reliable agentic workflows that can reliably use tools and reason in production.
+        </p>
+
+        <!-- <div class="frontier-stats-grid">
+          <div class="stat-pill">
+            <span class="stat-val">~95%</span>
+            <span class="stat-desc">Context Strategy Accuracy</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-val">300+</span>
+            <span class="stat-desc">Benchmark Scenarios</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-val">Nemotron</span>
+            <span class="stat-desc">NVIDIA 12B Evaluation</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-val">MCP</span>
+            <span class="stat-desc">Model Context Protocol</span>
+          </div>
+        </div> -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 05: The Sandbox (Creator-Perspective Projects)
+         ========================================================================== -->
+    <section id="sec-sandbox" class="brochure-panel" data-index="4">
+      <div class="chapter-marker">// CHAPTER 05 — THE SANDBOX</div>
+      <h1>The Creative Sandbox</h1>
+      <p>Some of my passion projects while studying in college.</p>
+      
+      <div class="projects-container">
+        <!-- Project 1: Transformi -->
+        <div class="project" data-url="https://github.com/ishaankor/Transformi" title="Click to view repository">
+          <img src="./assets/transformi_photo.jpeg" alt="Transformi Bot">
+          <div class="thought-bubble" data-full-text="Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.">
+            Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.
+          </div>
+        </div>
+
+        <!-- Project 2: Datafy -->
+        <!-- <div class="project" data-url="https://github.com/ishaankor/Datafy" title="Click to view repository">
+          <img src="./assets/datafy-photo.png" alt="Datafy AI Copilot">
+          <div class="thought-bubble" data-full-text="Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!">
+            Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!
+          </div>
+        </div> -->
+
+        <!-- Project 3: Daily Motivation -->
+        <div class="project" data-url="https://github.com/ishaankor/Daily-Motivation-" title="Click to view repository">
+          <img src="./assets/daily_motivation.jpg" alt="Daily Motivation">
+          <div class="thought-bubble" data-full-text="<strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.">
+            <strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.
+          </div>
+        </div>
+
+        <!-- Project 4: NotesTaker! -->
+        <div class="project" title="NotesTaker AI Tool">
+          <img src="./assets/notestaker-photo.png" alt="NotesTaker!">
+          <div class="thought-bubble" data-full-text="<strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.">
+            <strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 06: The Live Pulse (Active Workbench & Live Spotify Telemetry)
+         ========================================================================== -->
+    <section id="sec-rabbitholes" class="brochure-panel" data-index="5">
+      <div class="chapter-marker">// CHAPTER 06 — THE LIVE PULSE</div>
+      <h1>What I'm Doing Right Now</h1>
+      <p>Live telemetry into active engineering projects &amp; heavy audio rotation.</p>
+
+      <div class="live-pulse-grid">
+        <!-- Card 1: The Workbench (Live GitHub Telemetry) -->
+        <div class="pulse-card workbench-card">
+          <div class="pulse-card-header">
+            <div class="pulse-status-badge">
+              <span class="live-beacon"></span>
+              <span class="beacon-label">LIVE GITHUB STREAM</span>
+            </div>
+            <span id="gh-sync-time" class="pulse-timestamp">Live Synced</span>
+          </div>
+
+          <div class="workbench-body">
+            <div class="repo-hero-row">
+              <div class="repo-title-group">
+                <span class="repo-icon">⚡</span>
+                <h3 id="gh-repo-name" class="repo-name">RigScouter-AI-DataBase-</h3>
+              </div>
+              <span id="gh-repo-lang" class="repo-lang-pill">Python</span>
+            </div>
+
+            <p id="gh-repo-desc" class="repo-description">
+              Active engineering repository streaming live from personal GitHub meta-fetcher API.
+            </p>
+
+            <div class="commit-terminal-box">
+              <div class="terminal-bar">
+                <span class="term-dot red"></span>
+                <span class="term-dot yellow"></span>
+                <span class="term-dot green"></span>
+                <span class="term-title">// LATEST COMMIT</span>
+              </div>
+              <div class="terminal-content">
+                <p id="gh-commit-msg" class="terminal-commit-text">"feat: add ZenRows proxy fallback to bypass anti-bot blocks during HTML fetching"</p>
+                <div class="terminal-meta-row">
+                  <span id="gh-commit-sha" class="commit-hash">sha: 33cf916</span>
+                  <span id="gh-commit-time" class="commit-ago">1d ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pulse-card-footer">
+            <div class="footer-meta">
+              <span class="footer-meta-icon">📦</span>
+              <span id="gh-repos-count" class="footer-meta-text">20 Public Repositories</span>
+            </div>
+            <a id="gh-repo-link" href="https://github.com/ishaankor/RigScouter-AI-DataBase-" target="_blank" rel="noopener noreferrer" class="pulse-action-btn github-btn">
+              <span>View Repository</span>
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: In My Headphones (Live Spotify Telemetry) -->
+        <div class="pulse-card spotify-card">
+          <div class="pulse-card-header">
+            <div class="pulse-status-badge spotify-badge">
+              <span class="spotify-beacon" id="spotify-beacon"></span>
+              <span class="beacon-label" id="spotify-status-text">RECENTLY PLAYED</span>
+            </div>
+            <!-- Animated Equalizer Bars -->
+            <div class="spotify-equalizer active" id="spotify-equalizer">
+              <span class="eq-bar bar-1"></span>
+              <span class="eq-bar bar-2"></span>
+              <span class="eq-bar bar-3"></span>
+              <span class="eq-bar bar-4"></span>
+            </div>
+          </div>
+
+          <div class="spotify-body">
+            <div class="spotify-art-container">
+              <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273abd85351ece4c333a237ff40" alt="Album Artwork" class="spotify-art-img">
+              <div class="vinyl-overlay"></div>
+            </div>
+
+            <div class="spotify-info">
+              <span class="spotify-context-tag" id="spotify-context">HEAVY ROTATION</span>
+              <h3 id="spotify-title" class="track-title">Mike O'Hearn - What Is Love (Ultra Slowed) - TikTok Remix</h3>
+              <p id="spotify-artist" class="track-artist">TommyMuzzic, ZeddMusique, PHAZZED</p>
+              <p id="spotify-album" class="track-album">Single / EP</p>
+            </div>
+          </div>
+
+          <div class="spotify-progress-container">
+            <div class="spotify-progress-bar">
+              <div class="spotify-progress-fill" id="spotify-progress" style="width: 52%;"></div>
+            </div>
+          </div>
+
+          <div class="pulse-card-footer">
+            <div class="footer-meta">
+              <span class="footer-meta-icon">🎧</span>
+              <span id="spotify-meta-text" class="footer-meta-text">Coding Flow Audio</span>
+            </div>
+            <a id="spotify-link" href="https://open.spotify.com/track/2thxrmgPTNvDS4uyJbja0h" target="_blank" rel="noopener noreferrer" class="pulse-action-btn spotify-action-btn">
+              <span>Open in Spotify</span>
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Chapter 07: The Open Door (Personal Connection & Epilogue)
+         ========================================================================== -->
+    <section id="sec-portal" class="brochure-panel" data-index="6">
+      <div class="chapter-marker">// CHAPTER 07 — THE OPEN DOOR</div>
+      <h1>Let's Build Something Meaningful</h1>
+      <p>Curiosity is best shared. My inbox and conversations are always open.</p>
+
+      <div class="open-door-card">
+        <p class="open-door-narrative">
+          I believe the most exciting ideas spark when people connect over genuine obsessions. Whether you're designing agentic infrastructure, exploring computational models of the brain, tinkering on a weekend prototype, or just want to swap music recommendations — I'd love to chat.
+        </p>
+
+        <!-- Direct Connect Action Group -->
+        <div class="connect-actions-group">
+          <button id="copy-email-btn" class="btn-copy-email" title="Click to copy email address">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+            <span id="copy-email-text">Copy Email (ishaankor@gmail.com)</span>
+          </button>
+
+          <!-- <div class="connect-social-links">
+            <a href="https://linkedin.com/in/ishaankoradia" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+              <img src="./assets/linkedin-icon.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/ishaankor" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub">
+              <img src="./assets/github-icon.png" alt="GitHub">
+            </a>
+            <a href="mailto:ishaankor@gmail.com" class="social-icon-btn" title="Send Email Directly">
+              <img src="./assets/gmail-icon.png" alt="Email">
+            </a>
+          </div> -->
+        </div>
+
+        <!-- Subtle Conversational Invite for Digital Twin -->
+        <div id="launch-bot-banner" class="digital-twin-invite" title="Chat with IshaanBot">
+          <span class="invite-text">💬 Wondering something specific? Tap to chat with <strong>IshaanBot</strong> — trained on my background and projects.</span>
+          <span class="invite-arrow">→</span>
+        </div>
+
+        <!-- Understated Engineering Portfolio Link (No billboard box) -->
+        <div class="portfolio-bridge">
+          <span>Looking for technical case studies &amp; system architecture specs?</span>
+          <a href="https://portfolio.ishaankoradia.com" target="_blank" rel="noopener noreferrer" class="portfolio-bridge-link">
+            <span>portfolio.ishaankoradia.com</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Bottom Scroll Indicator Pill -->
+  <button id="scroll-indicator" class="scroll-indicator" aria-label="Navigate chronicle">
+    <span id="indicator-text">Scroll Down</span>
+    <span id="indicator-arrow" class="indicator-arrow">↘</span>
+  </button>
+
+  <!-- ==========================================================================
+       Chatbot Widget (IshaanBot - Digital Twin)
+       ========================================================================== -->
+  <div id="chatbot-toggle" title="Chat with IshaanBot!">💬</div>
+  <div id="chatbot-widget">
+    <div id="chatbot-header">
+      <div class="bot-title-area">
+        <span class="status-dot"></span>
+        <span>Chat with IshaanBot</span>
+      </div>
+      <div class="header-controls">
+        <span id="chatbot-clear" title="Clear conversation">🗑️</span>
+        <span id="chatbot-close" title="Close window">❌</span>
+      </div>
     </div>
-    <div id="scroll-up" class="scroll-indicator">
-        <span id="scroll-up-text"></span> 
-        <div class="arrow">↑</div>
+
+    <!-- Starter Quick Prompt Chips (Digital Twin) -->
+    <div class="chatbot-chips">
+      <button class="chatbot-chip" data-prompt="Why did Ishaan choose to study Cognitive Science &amp; Neural Computation at UCSD?">🧠 Why Cognitive Science?</button>
+      <button class="chatbot-chip" data-prompt="Tell me about Ishaan's work evaluating NVIDIA Nemotron and building MCP agents.">⚡ Handshake AI &amp; NVIDIA</button>
+      <button class="chatbot-chip" data-prompt="What tools is Ishaan tinkering with right now, and what are his current rabbit holes?">🛠️ Current Rabbit Holes</button>
+      <button class="chatbot-chip" data-prompt="What is the story behind Transformi and Datafy?">🤖 Transformi &amp; Datafy</button>
+    </div>
+
+    <div id="chatbot-messages"></div>
+
+    <div id="chatbot-input-row">
+      <input id="chatbot-input" type="text" placeholder="Ask IshaanBot anything..." autocomplete="off">
+      <button id="chatbot-send">Send</button>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2"></script>
+  <!-- ==========================================================================
+       Interactive Scripts (Starfield, Typed.js, 7-Chapter 2D Glide, Chatbot)
+       ========================================================================== -->
   <script>
-    tsParticles.load("tsparticles", {
-      background: {
-        image: "url('./assets/website-wallpaper.png')", 
-        position: "50% 50%",
-        repeat: "no-repeat", 
-        size: "cover"
-      },
-      particles: {
-        number: {
-          value: 10, 
-          density: {
-            enable: true,
-            value_area: 850 
-          }
+    // 1. Starfield Particles Load
+    if (typeof tsParticles !== "undefined") {
+      tsParticles.load("tsparticles", {
+        background: {
+          color: { value: "transparent" }
         },
-        color: {
-          value: "#ffffff"
-        },
-        shape: {
-          type: "star"
-        },
-        opacity: {
-          value: 0.7,
-          random: true
-        },
-        size: {
-          value: 2.5,
-          random: true
-        },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: "none",
-          outMode: "bounce"
-        }
-      },
-      interactivity: {
-        detectsOn: "window",
-        events: {
-          onHover: {
-            enable: true,
-            mode: "grab"
-          },
-          onClick: {
-            enable: true,
-            mode: "push"
-          }
-        },
-        modes: {
-          grab: {
-            distance: 200,
-            lineLinked: {
-              opacity: 0.5
+        particles: {
+          number: {
+            value: 28,
+            density: {
+              enable: true,
+              value_area: 850
             }
           },
-          push: {
-            particles_nb: 4
+          color: {
+            value: ["#ffffff", "#38bdf8", "#818cf8"]
+          },
+          shape: {
+            type: "star"
+          },
+          opacity: {
+            value: 0.75,
+            random: true
+          },
+          size: {
+            value: 2.5,
+            random: true
+          },
+          move: {
+            enable: true,
+            speed: 1.2,
+            direction: "none",
+            outMode: "bounce"
           }
-        }
-      },
-      retina_detect: true
-    });
-  </script>
-
-  <script>
-    function isMobileDevice() {
-      return (
-          "ontouchstart" in window || navigator.maxTouchPoints > 0
-      ) && window.innerWidth <= 1366;
-    }
-
-    function hideAllThoughtBubbles() {
-        document.querySelectorAll(".thought-bubble").forEach((bubble) => {
-            bubble.style.opacity = "0";
-            bubble.style.visibility = "hidden";
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const nameSpans = document.querySelectorAll(".my-name span");
-    const typingContainer = document.querySelector(".typing-container h1");
-    const typingText = document.querySelector(".typing-text");
-    const introText = document.querySelector(".intro-text");
-    const educationText= document.querySelector(".education-text");
-    const avatarImages = document.querySelectorAll(".avatar img");
-    const iconImages = document.querySelector(".icons img");
-    nameSpans.forEach(span => {
-        if (isMobileDevice()) {
-          span.style.fontSize = "12vw";
-        } else {
-          span.style.fontSize = "10vw";
-        }
-    });
-    avatarImages.forEach(image => {
-        if (isMobileDevice()) {
-          image.style.width = "15vw";
-          image.style.height = "10vh";
-        } else {
-          image.style.width = "10vw";
-          image.style.height = "15vh";
-        }
-    })
-    if (isMobileDevice()) {
-        document.body.classList.add("mobile");
-        typingText.style.fontSize = "5vw";
-        typingContainer.style.fontSize = "5vw";
-        introText.style.fontSize = "2vw";
-        educationText.style.fontSize = "2vw";
-    } else {
-        typingText.style.fontSize = "3vw";
-        typingContainer.style.fontSize = "3vw";
-        introText.style.fontSize = "1vw";
-        educationText.style.fontSize = "1vw";
-    }
-    const projects = document.querySelectorAll(".project");
-    let currentIndex = 0;
-    isSlideshowMode = isMobileDevice();
-
-    function updateProjects() {
-        isSlideshowMode = isMobileDevice(); 
-
-        if (isSlideshowMode) {
-            console.log("NOT DESKTOP!")
-            hideAllThoughtBubbles();
-            projects.forEach((project, index) => {
-                project.classList.remove("active", "prev", "next");
-
-                if (index === currentIndex) {
-                    project.classList.add("active");
-                } else if (index === (currentIndex + 1) % projects.length) {
-                    project.classList.add("next");
-                } else if (index === (currentIndex - 1 + projects.length) % projects.length) {
-                    project.classList.add("prev");
-                } else {
-                    project.style.opacity = "0"; 
-                }
-          });
-        }
-
-    }
-
-    function nextProject() {
-        if (isSlideshowMode) {
-            hideAllThoughtBubbles();
-            currentIndex = (currentIndex + 1) % projects.length;
-            updateProjects();
-        }
-    }
-
-    function prevProject() {
-        if (isSlideshowMode) {
-            hideAllThoughtBubbles();
-            currentIndex = (currentIndex - 1 + projects.length) % projects.length;
-            updateProjects();
-        }
-    }
-
-    let touchStartX = 0, touchEndX = 0;
-
-    function handleTouchStart(e) {
-        if (isSlideshowMode) {
-            touchStartX = e.changedTouches[0].clientX;
-        }
-    }
-
-    function handleTouchEnd(e) {
-        if (isSlideshowMode) {
-            touchEndX = e.changedTouches[0].clientX;
-            if (touchStartX - touchEndX > 75) {
-                nextProject();
-            } else if (touchEndX - touchStartX > 75) {
-                prevProject();
+        },
+        interactivity: {
+          detectsOn: "window",
+          events: {
+            onHover: {
+              enable: true,
+              mode: "grab"
+            },
+            onClick: {
+              enable: true,
+              mode: "push"
             }
-        }
+          },
+          modes: {
+            grab: {
+              distance: 180,
+              lineLinked: {
+                opacity: 0.45,
+                color: "#38bdf8"
+              }
+            },
+            push: {
+              particles_nb: 3
+            }
+          }
+        },
+        retina_detect: true
+      });
     }
 
-    document.querySelector(".projects-container").addEventListener("touchstart", handleTouchStart);
-    document.querySelector(".projects-container").addEventListener("touchend", handleTouchEnd);
-    updateProjects();
-    window.addEventListener("resize", updateProjects);
-  });
-  </script>
+    // 2. Typed.js Initialization
+    new Typed(".typing-text", {
+      strings: [
+        "an AI Systems Engineer.",
+        "a curious automater.",
+        "a cognitive science thinker.",
+        "a builder of autonomous agents.",
+        "a tinkerer at heart."
+      ],
+      typeSpeed: 85,
+      backSpeed: 50,
+      backDelay: 1700,
+      loop: true,
+    });
 
-  <script>
+    // 3. Helper Functions
     function isMobileDevice() {
       return (
-          "ontouchstart" in window || navigator.maxTouchPoints > 0
-      ) && window.innerWidth <= 1366;
+        "ontouchstart" in window || navigator.maxTouchPoints > 0
+      ) && window.innerWidth <= 900;
     }
 
+    // 4. Option A: 7-Chapter 2D Canvas Glide Engine (Down & Sideways Timeline)
     document.addEventListener("DOMContentLoaded", function () {
-        isSlideshowMode = isMobileDevice();
-        document.body.style.overflow = "hidden";
+      setTimeout(() => {
+        document.body.classList.add("loaded");
+      }, 50);
+
+      const brochureCanvas = document.getElementById("brochure-canvas");
+      const panels = document.querySelectorAll(".brochure-panel");
+      const hudPills = document.querySelectorAll(".hud-pill");
+      const timelineNodes = document.querySelectorAll(".timeline-node");
+      const scrollIndicator = document.getElementById("scroll-indicator");
+      const indicatorText = document.getElementById("indicator-text");
+      const indicatorArrow = document.getElementById("indicator-arrow");
+
+      // Coordinates for each chapter: [X in vw, Y in vh]
+      // 0: Identity (0, 0)
+      // 1: The Spark (28vw, 100vh)   -> Down & Right ↘
+      // 2: The Mind (-22vw, 200vh)   -> Down & Left ↙
+      // 3: The Frontier (26vw, 300vh)-> Down & Right ↘
+      // 4: The Sandbox (-24vw, 400vh)-> Down & Left ↙
+      // 5: Rabbit Holes (22vw, 500vh)-> Down & Right ↘
+      // 6: The Portal (0vw, 600vh)   -> Down & Center ↓
+      const panelCoords = [
+        { x: 0,   y: 0 },
+        { x: 28,  y: 100 },
+        { x: -22, y: 200 },
+        { x: 26,  y: 300 },
+        { x: -24, y: 400 },
+        { x: 22,  y: 500 },
+        { x: 0,   y: 600 }
+      ];
+
+      let currentIndex = 0;
+      let isTransitioning = false;
+
+      function updateScrollIndicator() {
+        if (!scrollIndicator || !indicatorText || !indicatorArrow) return;
+        const isMob = isMobileDevice();
+
+        if (currentIndex < panels.length - 1) {
+          scrollIndicator.classList.remove("is-top");
+          indicatorText.textContent = isMob ? "Swipe Down" : "Scroll Down";
+          const arrowMap = ["↘", "↙", "↘", "↙", "↘", "↓"];
+          indicatorArrow.textContent = arrowMap[currentIndex] || "↓";
+        } else {
+          scrollIndicator.classList.add("is-top");
+          indicatorText.textContent = "Back to Top";
+          indicatorArrow.textContent = "↖";
+        }
+      }
+
+      function goToPanel(index) {
+        if (index < 0 || index >= panels.length) return;
+        currentIndex = index;
+
+        const isMob = isMobileDevice();
+        // On mobile, keep targetX at 0 to guarantee perfect horizontal centering
+        const targetX = isMob ? 0 : panelCoords[index].x;
+        const targetY = panelCoords[index].y;
+
+        // Apply 2D glide transformation to master canvas
+        brochureCanvas.classList.add("gliding");
+        brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
         setTimeout(() => {
-            document.body.classList.add("loaded"); 
-            document.body.style.overflow = ""; 
-        }, 50); 
-        const sections = document.querySelectorAll("section");
-        sections[0].classList.add("active"); 
-        document.querySelectorAll(".project").forEach(project => {
-        project.addEventListener("mousemove", (e) => {
-            const bubble = project.querySelector(".thought-bubble");
-            const rect = project.getBoundingClientRect();
-            const offsetX = e.clientX - rect.left;
-            if (!isMobileDevice()) {
-              bubble.style.left = `${offsetX}px`;
-            }
+          brochureCanvas.classList.remove("gliding");
+        }, 950);
+
+        // Update active classes on panels
+        panels.forEach((panel, i) => {
+          panel.classList.toggle("active", i === index);
+        });
+
+        // Update HUD pills
+        hudPills.forEach((pill, i) => {
+          pill.classList.toggle("active", i === index);
+        });
+
+        // Update Timeline SVG Nodes
+        timelineNodes.forEach((node, i) => {
+          node.classList.toggle("active", i === index);
+        });
+
+        updateScrollIndicator();
+      }
+
+      // Initial Indicator Setup
+      updateScrollIndicator();
+      window.addEventListener("resize", () => {
+        goToPanel(currentIndex);
+      });
+
+      // Indicator Pill Click
+      if (scrollIndicator) {
+        scrollIndicator.addEventListener("click", function () {
+          if (currentIndex < panels.length - 1) {
+            goToPanel(currentIndex + 1);
+          } else {
+            goToPanel(0);
+          }
+        });
+      }
+
+      // HUD Navigation Pill Click
+      hudPills.forEach((pill) => {
+        pill.addEventListener("click", function () {
+          const idx = parseInt(this.getAttribute("data-index"));
+          goToPanel(idx);
+        });
+      });
+
+      // Wheel Event Handling (Down & Sideways Navigation)
+      function handleWheel(event) {
+        if (isTransitioning) return;
+
+        // Don't intercept scroll inside chatbot
+        const chatbotWidget = document.getElementById("chatbot-widget");
+        if (chatbotWidget && chatbotWidget.contains(event.target)) return;
+
+        if (event.deltaY > 18 && currentIndex < panels.length - 1) {
+          isTransitioning = true;
+          goToPanel(currentIndex + 1);
+          setTimeout(() => { isTransitioning = false; }, 850);
+        } else if (event.deltaY < -18 && currentIndex > 0) {
+          isTransitioning = true;
+          goToPanel(currentIndex - 1);
+          setTimeout(() => { isTransitioning = false; }, 850);
+        }
+      }
+      document.addEventListener("wheel", handleWheel, { passive: true });
+
+      // Keyboard Navigation (Arrow Keys)
+      document.addEventListener("keydown", function (e) {
+        const chatbotWidget = document.getElementById("chatbot-widget");
+        if (chatbotWidget && chatbotWidget.classList.contains("open") && document.activeElement === document.getElementById("chatbot-input")) {
+          return;
+        }
+
+        if ((e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") && currentIndex < panels.length - 1) {
+          goToPanel(currentIndex + 1);
+        } else if ((e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") && currentIndex > 0) {
+          goToPanel(currentIndex - 1);
+        }
+      });
+
+      // Touch Vertical & Diagonal Swipes
+      let touchStartY = 0, touchStartX = 0;
+      document.addEventListener("touchstart", function (e) {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      document.addEventListener("touchend", function (e) {
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+
+        // Check for vertical swipe gesture
+        if (Math.abs(diffY) > 45 && Math.abs(diffY) > Math.abs(diffX) * 1.1) {
+          if (diffY > 0 && currentIndex < panels.length - 1) {
+            goToPanel(currentIndex + 1);
+          } else if (diffY < 0 && currentIndex > 0) {
+            goToPanel(currentIndex - 1);
+          }
+        }
+      }, { passive: true });
+
+      // ==========================================================================
+      // 5. Interactive Mind Tabs (Chapter 03)
+      // ==========================================================================
+      const foundationPhases = [
+        {
+          title: "01 // Understanding The Brain Before The Machine",
+          badge: "UCSD CogSci • GPA 3.76",
+          avatar: "assets/ucsd-logo.png",
+          text: "Why Cognitive Science? Because I wanted to understand biological intelligence before teaching machines how to think. Studying synaptic plasticity, visual perception, and computational neuroscience gave me a foundational appreciation for neural networks, gradient optimization, and transformer attention mechanisms.",
+          tags: ["Neural Computation", "Biological Intelligence", "Cognitive Science", "PyTorch"]
+        },
+        {
+          title: "02 // Turning Chaos Into Clean Signal",
+          badge: "Data Science Minor",
+          avatar: "assets/ucsd-logo.png",
+          text: "Numbers tell stories. Through data science, I fell in love with turning high-dimensional chaos into structured signals. Writing parallel ETL pipelines, training statistical models, and discovering patterns in messy data felt like giving sight to an otherwise blind computer.",
+          tags: ["Data Science Minor", "Signal vs Noise", "Statistical Modeling", "PostgreSQL"]
+        },
+        {
+          title: "03 // Collaborative Leadership & DS3",
+          badge: "DS3 & CSSA",
+          avatar: "assets/ucsd-logo.png",
+          text: "Active leader and mentor within the UCSD engineering community. Collaborated in the Data Science Student Society (DS3) and CSSA Web Team, orchestrating hackathons and engineering platforms to empower students to build real-world machine learning systems.",
+          tags: ["DS3 Society", "CSSA Web Team", "Hackathon Mentor", "Open Collaboration"]
+        }
+      ];
+
+      const foundationTabs = document.querySelectorAll("#sec-mind .journey-tab");
+      const foundationTitle = document.getElementById("foundation-title");
+      const foundationBadge = document.getElementById("foundation-badge");
+      const foundationAvatar = document.getElementById("foundation-avatar-img");
+      const foundationNarrative = document.getElementById("foundation-narrative");
+      const foundationTags = document.getElementById("foundation-tags-container");
+
+      if (foundationTabs.length > 0) {
+        foundationTabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            foundationTabs.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+
+            const phaseIndex = parseInt(this.getAttribute("data-phase"));
+            const phaseData = foundationPhases[phaseIndex];
+
+            $("#sec-mind .journey-card").fadeOut(150, function () {
+              foundationTitle.textContent = phaseData.title;
+              foundationBadge.textContent = phaseData.badge;
+              foundationAvatar.src = phaseData.avatar;
+              foundationNarrative.textContent = phaseData.text;
+
+              foundationTags.innerHTML = phaseData.tags
+                .map((tag) => `<span class="journey-pill">${tag}</span>`)
+                .join("");
+
+              $("#sec-mind .journey-card").fadeIn(200);
+            });
           });
         });
-        document.querySelectorAll(".project").forEach((project) => {
-        const bubble = project.querySelector(".thought-bubble"); 
-        const text = bubble.textContent;
-        let typingInterval;
+      }
+
+      // ==========================================================================
+      // 6. Projects Setup (Chapter 05: 3D Tilt & Mobile Swipe Carousel)
+      // ==========================================================================
+      const projects = document.querySelectorAll(".project");
+      let currentProjectIndex = 0;
+
+      // Project Click to Open URL
+      projects.forEach((proj) => {
+        proj.addEventListener("click", function () {
+          const url = this.getAttribute("data-url");
+          if (url && !isMobileDevice()) {
+            window.open(url, "_blank");
+          }
+        });
+      });
+
+      function updateMobileProjects() {
+        if (!isMobileDevice()) {
+          projects.forEach((p) => {
+            p.classList.remove("active", "prev", "next");
+            p.style.opacity = "1";
+          });
+          return;
+        }
+
+        projects.forEach((project, idx) => {
+          project.classList.remove("active", "prev", "next");
+          if (idx === currentProjectIndex) {
+            project.classList.add("active");
+          } else if (idx === (currentProjectIndex + 1) % projects.length) {
+            project.classList.add("next");
+          } else if (idx === (currentProjectIndex - 1 + projects.length) % projects.length) {
+            project.classList.add("prev");
+          } else {
+            project.style.opacity = "0";
+          }
+        });
+      }
+
+      function nextProject() {
+        currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+        updateMobileProjects();
+      }
+
+      function prevProject() {
+        currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+        updateMobileProjects();
+      }
+
+      // Mobile Horizontal Touch Swipe for Projects
+      const projectsContainer = document.querySelector(".projects-container");
+      let projTouchStartX = 0;
+
+      if (projectsContainer) {
+        projectsContainer.addEventListener("touchstart", function (e) {
+          if (isMobileDevice()) {
+            projTouchStartX = e.changedTouches[0].clientX;
+          }
+        }, { passive: true });
+
+        projectsContainer.addEventListener("touchend", function (e) {
+          if (isMobileDevice()) {
+            const projTouchEndX = e.changedTouches[0].clientX;
+            const diff = projTouchStartX - projTouchEndX;
+            if (diff > 45) {
+              nextProject();
+            } else if (diff < -45) {
+              prevProject();
+            }
+          }
+        }, { passive: true });
+      }
+
+      updateMobileProjects();
+      window.addEventListener("resize", updateMobileProjects);
+
+      // Desktop 3D Tilt for Projects
+      if (!isMobileDevice()) {
+        projects.forEach((project) => {
+          let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+          let isHovering = false;
+
+          function updateTilt() {
+            if (!isHovering) return;
+            mouseX += (targetX - mouseX) * 0.4;
+            mouseY += (targetY - mouseY) * 0.4;
+
+            const rect = project.getBoundingClientRect();
+            const x = (mouseX - rect.left) / rect.width - 0.5;
+            const y = (mouseY - rect.top) / rect.height - 0.5;
+
+            const tiltX = y * 26;
+            const tiltY = x * -26;
+
+            project.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
+            requestAnimationFrame(updateTilt);
+          }
 
           project.addEventListener("mouseenter", () => {
-              bubble.style.opacity = "1"; 
-              bubble.style.visibility = "visible";
-              bubble.textContent = ""; 
+            isHovering = true;
+            updateTilt();
+          });
 
-              if (isMobileDevice()) {
-                bubble.style.top = "105%"; 
-                bubble.style.left = "50%";
-                bubble.style.transform = "translateX(-50%)";
-              }
-
-              let i = 0;
-              typingInterval = setInterval(() => {
-                  if (i < text.length) {
-                      bubble.textContent += text[i]; 
-                      i++;
-                  } else {
-                      clearInterval(typingInterval);
-                  }
-              }, 50);
-
-              bubble.style.width = `${project.clientWidth}px`;
+          project.addEventListener("mousemove", (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
           });
 
           project.addEventListener("mouseleave", () => {
-              clearInterval(typingInterval); 
-              bubble.style.opacity = "0";
-              bubble.style.visibility = "hidden";
+            isHovering = false;
+            project.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
           });
         });
-        if (!isMobileDevice()) {
-          document.querySelectorAll(".project").forEach((project) => {
-            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-            let isHovering = false;
+      }
 
-            function updateTilt() {
-                if (!isHovering) return; 
-
-                mouseX += (targetX - mouseX) * 0.75;
-                mouseY += (targetY - mouseY) * 0.75;
-
-                const rect = project.getBoundingClientRect();
-                const x = (mouseX - rect.left) / rect.width - 0.5; 
-                const y = (mouseY - rect.top) / rect.height - 0.5;
-
-                const tiltX = y * 70;
-                const tiltY = x * -70;
-
-                project.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.1)`;
-                project.style.boxShadow = `${-tiltY * 1.5}px ${tiltX * 1.5}px 30px rgba(0, 0, 0, 0.4)`;
-
-                requestAnimationFrame(updateTilt);
-            }
-
-            project.addEventListener("mouseenter", () => {
-                isHovering = true;
-                updateTilt();
-            });
-
-            project.addEventListener("mousemove", (e) => {
-                targetX = e.clientX;
-                targetY = e.clientY;
-            });
-
-            project.addEventListener("mouseleave", () => {
-                isHovering = false;
-                project.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
-                project.style.boxShadow = "none";
-            });
-          });
-        }
-
-        const projects = document.querySelectorAll(".project");
-        function hideAllThoughtBubbles() {
-            document.querySelectorAll(".thought-bubble").forEach((bubble) => {
-                bubble.style.opacity = "0";
-                bubble.style.visibility = "hidden";
-            });
-        }
-
-        projects.forEach((project) => {
-            const bubble = project.querySelector(".thought-bubble");
-            const text = bubble.textContent;
-            let typingInterval;
-
-            function showBubble() {
-              hideAllThoughtBubbles();
-              bubble.style.opacity = "1";
-              bubble.style.visibility = "visible";
-              bubble.innerHTML = ""; // Start fresh
-
-              if (isMobileDevice()) {
-                  bubble.style.top = "105%";
-                  bubble.style.left = "50%";
-                  bubble.style.transform = "translateX(-50%)";
-              }
-
-              let fullHTML = bubble.dataset.fullText || bubble.innerHTML;
-              let i = 0;
-              
-              if (typingInterval) {
-                  clearInterval(typingInterval);
-                  typingInterval = null;
-              }
-
-              bubble.dataset.fullText = fullHTML;
-              
-              typingInterval = setInterval(() => {
-                  if (i < fullHTML.length) {
-                      bubble.innerHTML = fullHTML.substring(0, i + 1); 
-                      i++;
-                  } else {
-                      clearInterval(typingInterval);
-                      typingInterval = null;
-                  }
-              }, 50);
-            }
-
-            function hideBubble() {
-                clearInterval(typingInterval);
-                bubble.style.opacity = "0";
-                bubble.style.visibility = "hidden";
-            }
-
-            project.addEventListener("mouseenter", showBubble);
-            project.addEventListener("mouseleave", hideBubble);
-
-            document.addEventListener("click", (event) => {
-                if (!project.contains(event.target)) {
-                    hideBubble();
-                }
-            });
+      // ==========================================================================
+      // 7. Chapter 07 Portal Actions
+      // ==========================================================================
+      const launchBotBanner = document.getElementById("launch-bot-banner");
+      if (launchBotBanner) {
+        launchBotBanner.addEventListener("click", function () {
+          document.getElementById("chatbot-toggle").click();
         });
+      }
 
-        const scrollDown = document.getElementById("scroll-down");
-        const scrollUp = document.getElementById("scroll-up");
-        const scrollDownText = document.getElementById("scroll-down-text");
-        const scrollUpText = document.getElementById("scroll-up-text");
-        let currentIndex = 0;
-        let isScrolling = false;
-
-        function hasCursor() {
-            return window.matchMedia("(pointer: fine)").matches && navigator.maxTouchPoints === 0;
-        }
-
-        function isTouchOnlyDevice() {
-            return 'ontouchstart' in window && navigator.maxTouchPoints > 0 && !hasCursor();
-        }
-
-        function adjustSectionPositioning() {
-          const viewportHeight = window.innerHeight;
-          sections.forEach((section) => {
-              const offsetTop = Math.max(viewportHeight * 0.1, 50); 
-              section.style.top = `${offsetTop}px`;
+      const copyEmailBtn = document.getElementById("copy-email-btn");
+      const copyEmailText = document.getElementById("copy-email-text");
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener("click", function () {
+          navigator.clipboard.writeText("ishaankor@gmail.com").then(() => {
+            copyEmailText.textContent = "Email Copied! ✓";
+            setTimeout(() => {
+              copyEmailText.textContent = "Copy Email (ishaankor@gmail.com)";
+            }, 2000);
+          }).catch(() => {
+            window.location.href = "mailto:ishaankor@gmail.com";
           });
-        }
+        });
+      }
 
-        function setInitialScrollText() {
-            if (isTouchOnlyDevice()) {
-                scrollDownText.innerHTML = "Swipe Down";
-                scrollUpText.innerHTML = "Swipe Up";
-            } else {
-                scrollDownText.innerHTML = "Scroll Down";
-                scrollUpText.innerHTML = "Scroll Up";
+      // ==========================================================================
+      // 8. Chapter 06: Live Pulse Telemetry (GitHub & Spotify)
+      // ==========================================================================
+      async function initLivePulse() {
+        // 1. Fetch GitHub Meta
+        try {
+          const ghRes = await fetch('https://github-meta-fetcher.vercel.app/api/github');
+          if (ghRes.ok) {
+            const data = await ghRes.json();
+            const latestRepo = data.repos && data.repos[0];
+            const latestCommit = data.commits && data.commits[0];
+
+            if (latestRepo) {
+              const nameEl = document.getElementById('gh-repo-name');
+              const langEl = document.getElementById('gh-repo-lang');
+              const descEl = document.getElementById('gh-repo-desc');
+              const linkEl = document.getElementById('gh-repo-link');
+              if (nameEl) nameEl.textContent = latestRepo.name;
+              if (langEl) langEl.textContent = latestRepo.language || 'Code';
+              if (descEl && latestRepo.description) descEl.textContent = latestRepo.description;
+              if (linkEl && latestRepo.html_url) linkEl.href = latestRepo.html_url;
             }
+
+            if (latestCommit) {
+              const msgEl = document.getElementById('gh-commit-msg');
+              const shaEl = document.getElementById('gh-commit-sha');
+              const timeEl = document.getElementById('gh-commit-time');
+              if (msgEl) msgEl.textContent = `"${latestCommit.message}"`;
+              if (shaEl) shaEl.textContent = `sha: ${latestCommit.shortSha || (latestCommit.sha ? latestCommit.sha.slice(0, 7) : '33cf916')}`;
+              if (timeEl) timeEl.textContent = latestCommit.timeAgo || 'recently';
+            }
+
+            if (data.totalRepos) {
+              const countEl = document.getElementById('gh-repos-count');
+              if (countEl) countEl.textContent = `${data.totalRepos} Public Repositories`;
+            }
+
+            const syncEl = document.getElementById('gh-sync-time');
+            if (syncEl) syncEl.textContent = 'Live Synced';
+          }
+        } catch (err) {
+          console.warn('GitHub meta-fetcher notice:', err);
         }
 
-        setInitialScrollText();
-        adjustSectionPositioning();
+        // 2. Fetch Spotify Live Status
+        const SPOTIFY_ENDPOINT_URL = "/api/spotify";
 
-        document.addEventListener("DOMContentLoaded", setInitialScrollText);
-        window.matchMedia("(pointer: fine)").addEventListener("change", setInitialScrollText);
+        async function fetchSpotifyTelemetry() {
+          if (!SPOTIFY_ENDPOINT_URL) return;
+          try {
+            const spotRes = await fetch(SPOTIFY_ENDPOINT_URL);
+            if (spotRes.ok) {
+              const spot = await spotRes.json();
+              if (spot.title) {
+                const titleEl = document.getElementById('spotify-title');
+                const artistEl = document.getElementById('spotify-artist');
+                const albumEl = document.getElementById('spotify-album');
+                const artEl = document.getElementById('spotify-art');
+                const linkEl = document.getElementById('spotify-link');
+                const statusText = document.getElementById('spotify-status-text');
+                const contextTag = document.getElementById('spotify-context');
+                const eq = document.getElementById('spotify-equalizer');
+                const beacon = document.getElementById('spotify-beacon');
+                const prog = document.getElementById('spotify-progress');
 
-        function updateSections(index) {
-            sections.forEach((section, i) => {
-                section.classList.remove("active", "prev", "next");
+                if (titleEl) titleEl.textContent = spot.title;
+                if (artistEl) artistEl.textContent = spot.artist || 'Unknown Artist';
+                if (albumEl) albumEl.textContent = spot.album || 'Single';
+                if (artEl && spot.albumImageUrl) artEl.src = spot.albumImageUrl;
+                if (linkEl && spot.songUrl) linkEl.href = spot.songUrl;
 
-                if (i === index) {
-                    section.classList.add("active");
-                } else if (i < index) {
-                    section.classList.add("prev");
+                if (spot.isPlaying) {
+                  if (statusText) statusText.textContent = 'LISTENING ON SPOTIFY';
+                  if (contextTag) contextTag.textContent = 'NOW PLAYING';
+                  if (eq) eq.classList.add('active');
+                  if (beacon) beacon.classList.add('playing');
                 } else {
-                    section.classList.add("next");
+                  if (statusText) statusText.textContent = 'RECENTLY PLAYED';
+                  if (contextTag) contextTag.textContent = 'HEAVY ROTATION';
+                  if (eq) eq.classList.add('active');
+                  if (beacon) beacon.classList.remove('playing');
                 }
-            });
 
-            setTimeout(checkScrollIndicators, 500);
-        }
-
-        function checkScrollIndicators() {
-            if (currentIndex === 0) {
-                scrollDown.classList.add("visible");
-                scrollUp.classList.remove("visible");
-            } else if (currentIndex === sections.length - 1) {
-                scrollDown.classList.remove("visible");
-                scrollUp.classList.add("visible");
-            } else {
-                scrollDown.classList.remove("visible");
-                scrollUp.classList.remove("visible");
-            }
-        }
-
-        function scrollHandler(event) {
-            if (isScrolling) return;
-            
-            const chatbotWidget = document.getElementById('chatbot-widget');
-            const chatbotMessages = document.getElementById('chatbot-messages');
-            
-            if (chatbotWidget && chatbotMessages) {
-                let target = event.target;
-                while (target && target !== document) {
-                    if (target === chatbotWidget || target === chatbotMessages) {
-                        console.log('Scroll event from chatbot widget, ignoring slide navigation');
-                        return;
-                    }
-                    target = target.parentNode;
+                if (prog && spot.durationMs && spot.progressMs) {
+                  const pct = Math.min(100, Math.round((spot.progressMs / spot.durationMs) * 100));
+                  prog.style.width = pct + '%';
                 }
+              }
             }
-            
-            isScrolling = true;
-
-            if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-                currentIndex++;
-            } else if (event.deltaY < 0 && currentIndex > 0) {
-                currentIndex--;
-            }
-
-            updateSections(currentIndex);
-
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
+          } catch (e) {
+            // Silently maintain current live display
+          }
         }
 
-        let touchStartY = 0;
-        let touchEndY = 0;
-        const swipeThreshold = 50;
+        fetchSpotifyTelemetry();
+        setInterval(fetchSpotifyTelemetry, 25000);
+      }
 
-        function handleTouchStart(event) {
-            touchStartY = event.touches[0].clientY;
-        }
-
-        function handleTouchMove(event) {
-            touchEndY = event.touches[0].clientY;
-        }
-
-        function handleTouchEnd() {
-            if (isScrolling) return;
-
-            const swipeDistance = touchStartY - touchEndY;
-
-            if (Math.abs(swipeDistance) > swipeThreshold) {
-                if (swipeDistance > 0 && currentIndex < sections.length - 1) {
-                    currentIndex++;
-                } else if (swipeDistance < 0 && currentIndex > 0) {
-                    currentIndex--;
-                }
-                updateSections(currentIndex);
-            }
-
-            isScrolling = true;
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
-        }
-
-        document.addEventListener("touchstart", function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener("wheel", function(event) {
-            if (isTouchOnlyDevice() && event.ctrlKey) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener("wheel", scrollHandler);
-        document.addEventListener("touchstart", handleTouchStart);
-        document.addEventListener("touchmove", handleTouchMove);
-        document.addEventListener("touchend", handleTouchEnd);
-
-        updateSections(currentIndex);
-        checkScrollIndicators();
-
-        window.addEventListener("orientationchange", function () {
-        setTimeout(adjustSectionPositioning, 300);
-      });
+      initLivePulse();
     });
   </script>
 
-<!-- Chatbot Widget HTML (moved to end of body for z-index and pointer-events) -->
-<div id="chatbot-toggle" title="Chat with me!" style="z-index:2147483647; pointer-events:auto;">💬</div>
-<div id="chatbot-widget" style="z-index:2147483647; pointer-events:auto;">
-  <div id="chatbot-header">
-    Chat with IshaanBot
-    <span id="chatbot-debug" style="cursor:pointer; float:right; margin-right: 10px;" title="Debug conversation history">🔍</span>
-    <span id="chatbot-clear" style="cursor:pointer; float:right; margin-right: 10px;" title="Clear conversation">🗑️</span>
-    <span id="chatbot-close" style="cursor:pointer; float:right;">❌</span>
-  </div>
-  <div id="chatbot-messages"></div>
-  <div id="chatbot-input-row">
-    <input id="chatbot-input" type="text" placeholder="Type your message..." autocomplete="off" />
-    <button id="chatbot-send">Send</button>
-  </div>
-</div>
+  <!-- ==========================================================================
+       Chatbot Logic (IshaanBot - Digital Twin)
+       ========================================================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbotWidget = document.getElementById('chatbot-widget');
+      const chatbotMessages = document.getElementById('chatbot-messages');
+      const chatbotInput = document.getElementById('chatbot-input');
+      const chatbotSend = document.getElementById('chatbot-send');
+      const chatbotClose = document.getElementById('chatbot-close');
+      const chatbotClear = document.getElementById('chatbot-clear');
+      const chatbotChips = document.querySelectorAll('.chatbot-chip');
 
-<!-- Add an immediate alert to test if script runs -->
-<script>
-// alert('CHATBOT SCRIPT IS LOADING - Check console now!');
-console.log('🚀 SCRIPT EXECUTION STARTED!');
-</script>
+      if (!chatbotWidget) return;
 
-<script>
-// IMMEDIATE DEBUGGING - runs as soon as script loads
-console.log('=== CHATBOT SCRIPT LOADING ===');
-console.log('Current time:', new Date().toISOString());
-console.log('Document ready state:', document.readyState);
-console.log('localStorage available?', typeof(Storage) !== "undefined");
+      let conversationHistory = [];
+      const STORAGE_KEY = 'ishaan-chatbot-history';
+      const MAX_HISTORY_LENGTH = 20;
 
-// Test localStorage immediately
-try {
-  localStorage.setItem('immediate-test', 'immediate-value');
-  const immediateTest = localStorage.getItem('immediate-test');
-  console.log('IMMEDIATE localStorage test:', immediateTest);
-  localStorage.removeItem('immediate-test');
-  console.log('IMMEDIATE localStorage working!');
-} catch (e) {
-  console.error('IMMEDIATE localStorage test FAILED:', e);
-}
+      function appendMessageToUI(text, sender) {
+        const msg = document.createElement('div');
+        msg.className = 'chatbot-msg ' + sender;
 
-console.log('About to add DOMContentLoaded listener...');
+        if (sender === 'bot') {
+          if (typeof marked !== "undefined") {
+            msg.innerHTML = marked.parse(text);
+          } else {
+            msg.textContent = text;
+          }
+        } else {
+          msg.textContent = text;
+        }
 
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('=== DOM CONTENT LOADED - CHATBOT INITIALIZING ===');
-  
-  const chatbotToggle = document.getElementById('chatbot-toggle');
-  const chatbotWidget = document.getElementById('chatbot-widget');
-  const chatbotMessages = document.getElementById('chatbot-messages');
-  const chatbotInput = document.getElementById('chatbot-input');
-  const chatbotSend = document.getElementById('chatbot-send');
-  const chatbotClose = document.getElementById('chatbot-close');
-  const chatbotClear = document.getElementById('chatbot-clear');
-  const chatbotDebug = document.getElementById('chatbot-debug');
-
-  console.log('Elements found:');
-  console.log('- chatbotToggle:', !!chatbotToggle);
-  console.log('- chatbotWidget:', !!chatbotWidget);
-  console.log('- chatbotMessages:', !!chatbotMessages);
-
-  if (chatbotWidget) {
-    chatbotWidget.classList.remove('open');
-    console.log('Widget initial state set to closed');
-  }
-
-  let conversationHistory = [];
-  const STORAGE_KEY = 'ishaan-chatbot-history';
-  const MAX_HISTORY_LENGTH = 20;
-
-  function loadConversationHistory() {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        conversationHistory = JSON.parse(stored);
-        console.log('Loaded conversation history:', conversationHistory.length, 'messages');
-        conversationHistory.forEach(msg => {
-          appendMessageToUI(msg.content, msg.role === 'user' ? 'user' : 'bot');
-        });
-        return true;
+        chatbotMessages.appendChild(msg);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
       }
-    } catch (error) {
-      console.error('Error loading conversation history:', error);
-      conversationHistory = [];
-    }
-    return false;
-  }
 
-  function saveConversationHistory() {
-    try {
-      console.log('=== SAVING CONVERSATION HISTORY ===');
-      console.log('STORAGE_KEY:', STORAGE_KEY);
-      console.log('Current conversationHistory length:', conversationHistory.length);
-      console.log('localStorage available?', typeof(Storage) !== "undefined");
-      
-      if (typeof(Storage) === "undefined") {
-        console.error('localStorage is not supported by this browser');
-        return;
+      function addToHistory(content, role) {
+        const message = {
+          content: content,
+          role: role,
+          timestamp: new Date().toISOString()
+        };
+        conversationHistory.push(message);
+        try {
+          const historyToSave = conversationHistory.slice(-MAX_HISTORY_LENGTH);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(historyToSave));
+        } catch (e) {
+          console.error('Error saving chatbot history:', e);
+        }
       }
-      
-      const historyToSave = conversationHistory.slice(-MAX_HISTORY_LENGTH);
-      console.log('Saving', historyToSave.length, 'messages to localStorage');
-      console.log('Messages being saved:', historyToSave);
-      
-      const jsonString = JSON.stringify(historyToSave);
-      console.log('JSON string to save:', jsonString);
-      
-      localStorage.setItem(STORAGE_KEY, jsonString);
-      console.log('setItem completed successfully');
-      
-      const verification = localStorage.getItem(STORAGE_KEY);
-      console.log('Verification - raw localStorage content:', verification);
-      console.log('Verification - localStorage now contains:', verification ? JSON.parse(verification).length : 0, 'messages');
-      
-      localStorage.setItem('test-key', 'test-value');
-      const testValue = localStorage.getItem('test-key');
-      console.log('localStorage test - stored "test-value", retrieved:', testValue);
-      localStorage.removeItem('test-key');
-      
-      console.log('=== SAVE COMPLETE ===');
-    } catch (error) {
-      console.error('=== ERROR SAVING CONVERSATION HISTORY ===');
-      console.error('Error details:', error);
-      console.error('Error name:', error.name);
-      console.error('Error message:', error.message);
-    }
-  }
 
-  function addToHistory(content, role) {
-    console.log('=== addToHistory CALLED ===');
-    console.log('Content:', content.substring(0, 100) + '...');
-    console.log('Role:', role);
-    console.log('Current history length BEFORE adding:', conversationHistory.length);
-    
-    const message = {
-      content: content,
-      role: role,
-      timestamp: new Date().toISOString()
-    };
-    conversationHistory.push(message);
-    
-    console.log('Current history length AFTER adding:', conversationHistory.length);
-    console.log('Added message:', message);
-    console.log('Full history after adding:', conversationHistory);
-    
-    saveConversationHistory();
-    console.log('=== addToHistory COMPLETE ===');
-  }
+      function appendMessage(text, sender) {
+        appendMessageToUI(text, sender);
+        if (text !== 'IshaanBot is thinking...') {
+          const role = sender === 'user' ? 'user' : 'assistant';
+          addToHistory(text, role);
+        }
+      }
 
-  function clearConversationHistory() {
-    conversationHistory = [];
-    localStorage.removeItem(STORAGE_KEY);
-    chatbotMessages.innerHTML = '';
-    const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
-    appendMessageToUI(welcomeMessage, 'bot');
-  }
+      function loadConversationHistory() {
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (stored) {
+            conversationHistory = JSON.parse(stored);
+            conversationHistory.forEach(msg => {
+              appendMessageToUI(msg.content, msg.role === 'user' ? 'user' : 'bot');
+            });
+            return true;
+          }
+        } catch (error) {
+          console.error('Error loading chatbot history:', error);
+          conversationHistory = [];
+        }
+        return false;
+      }
 
-  console.log('=== INITIALIZING CHATBOT ===');
-  console.log('Testing localStorage availability...');
-  
-  try {
-    localStorage.setItem('chatbot-init-test', 'test-value');
-    const testRetrieve = localStorage.getItem('chatbot-init-test');
-    console.log('localStorage test result:', testRetrieve);
-    localStorage.removeItem('chatbot-init-test');
-    console.log('localStorage is working properly');
-  } catch (e) {
-    console.error('localStorage test failed:', e);
-  }
+      function clearConversationHistory() {
+        conversationHistory = [];
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        chatbotMessages.innerHTML = '';
+        appendMessageToUI("Hi! I'm IshaanBot. I can help you learn more about Ishaan's engineering projects, MCP servers, and background. What would you like to know?", 'bot');
+      }
 
-  const hasHistory = loadConversationHistory();
+      const hasHistory = loadConversationHistory();
+      if (!hasHistory) {
+        appendMessageToUI("Hi! I'm IshaanBot. I can help you learn more about Ishaan's engineering projects, MCP servers, and background. What would you like to know?", 'bot');
+      }
 
-  if (!hasHistory) {
-    const welcomeMessage = "Hi! I'm IshaanBot. I can help you learn more about Ishaan Koradia. What would you like to know?";
-    appendMessageToUI(welcomeMessage, 'bot');
-  }
+      function sendMessage(customMsg) {
+        const userMsg = (customMsg !== undefined ? customMsg : chatbotInput.value).trim();
+        if (!userMsg) return;
 
-  chatbotClose.addEventListener('click', function() {
-    chatbotWidget.classList.remove('open');
-    console.log('Widget closed via close button');
-  });
+        chatbotInput.disabled = true;
+        chatbotSend.disabled = true;
 
-  chatbotClear.addEventListener('click', function() {
-    if (confirm('Clear conversation history? This cannot be undone.')) {
-      clearConversationHistory();
-    }
-  });
+        const contextMessages = conversationHistory.slice(-10);
+        appendMessage(userMsg, 'user');
 
-  chatbotDebug.addEventListener('click', function() {
-    console.log('=== CONVERSATION HISTORY DEBUG ===');
-    console.log('Total messages:', conversationHistory.length);
-    console.log('Full history:', conversationHistory);
-    console.log('LocalStorage content:', localStorage.getItem(STORAGE_KEY));
-    // alert(`Conversation History:\nTotal messages: ${conversationHistory.length}\nCheck console for details.`);
-  });
+        chatbotInput.value = '';
 
-  function appendMessageToUI(text, sender) {
-    const msg = document.createElement('div');
-    msg.className = 'chatbot-msg ' + sender;
+        const thinkingMsg = 'IshaanBot is thinking...';
+        appendMessageToUI(thinkingMsg, 'bot');
 
-    if (sender === 'bot') {
-      msg.innerHTML = marked.parse(text);
-    } else {
-      msg.textContent = text;
-    }
+        let accumulatedResponse = '';
+        let isFirstChunk = true;
 
-    chatbotMessages.appendChild(msg);
-    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-  }
+        const requestBody = {
+          message: userMsg,
+          conversation_history: contextMessages
+        };
 
-  function appendMessage(text, sender) {
-    console.log('=== appendMessage called ===');
-    console.log('appendMessage params - text:', text.substring(0, 50) + '...', 'sender:', sender);
-    
-    appendMessageToUI(text, sender);
-    
-    if (text !== 'Ishaanbot is thinking...') {
-      const role = sender === 'user' ? 'user' : 'assistant';
-      console.log('About to call addToHistory with role:', role);
-      addToHistory(text, role);
-    } else {
-      console.log('Skipping "thinking" message from history');
-    }
-    
-    console.log('=== appendMessage complete ===');
-  }
+        fetch('https://personal-website-image-latest-5zj3.onrender.com/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody)
+        })
+          .then(response => {
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
 
-  function sendMessage() {
-    const userMsg = chatbotInput.value.trim();
-    if (!userMsg) return;
+            function readChunk() {
+              return reader.read().then(({ done, value }) => {
+                if (done) {
+                  const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+                  const lastMessage = botMessages[botMessages.length - 1];
+                  if (typeof marked !== "undefined") {
+                    lastMessage.innerHTML = marked.parse(accumulatedResponse);
+                  } else {
+                    lastMessage.textContent = accumulatedResponse;
+                  }
 
-    chatbotInput.disabled = true;
-    chatbotSend.disabled = true;
+                  addToHistory(accumulatedResponse, 'assistant');
+                  chatbotInput.disabled = false;
+                  chatbotSend.disabled = false;
+                  chatbotInput.focus();
+                  return;
+                }
 
-    console.log('=== BEFORE ADDING USER MESSAGE ===');
-    console.log('conversationHistory length:', conversationHistory.length);
-    console.log('conversationHistory content:', conversationHistory);
-    
-    const contextMessages = conversationHistory.slice(-10);
-    
-    console.log('=== CONTEXT PREPARATION ===');
-    console.log('Current conversation history:', conversationHistory.length, 'messages');
-    console.log('Sending context messages:', contextMessages.length, 'messages');
-    console.log('Context messages content:', contextMessages);
+                const chunk = decoder.decode(value, { stream: true });
+                accumulatedResponse += chunk;
 
-    appendMessage(userMsg, 'user');
-    
-    console.log('=== AFTER ADDING USER MESSAGE ===');
-    console.log('conversationHistory length:', conversationHistory.length);
-    console.log('conversationHistory content:', conversationHistory);
+                const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+                const lastMessage = botMessages[botMessages.length - 1];
 
-    chatbotInput.value = '';
-    chatbotInput.focus();
+                if (isFirstChunk) {
+                  lastMessage.textContent = '';
+                  isFirstChunk = false;
+                }
 
-    const thinkingMsg = 'Ishaanbot is thinking...';
-    appendMessageToUI(thinkingMsg, 'bot');
+                try {
+                  const parsedContent = typeof marked !== "undefined" ? marked.parse(accumulatedResponse) : accumulatedResponse;
+                  lastMessage.innerHTML = parsedContent + '<span class="typing-cursor">▊</span>';
+                  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                } catch (error) {
+                  lastMessage.textContent = accumulatedResponse + '▊';
+                }
 
-    let accumulatedResponse = '';
-    let isFirstChunk = true;
-    
-    const requestBody = {
-      message: userMsg,
-      conversation_history: contextMessages
-    };
-
-    console.log('Request body:', JSON.stringify(requestBody, null, 2));
-
-    fetch('https://personal-website-image-latest-5zj3.onrender.com/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then(response => {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder('utf-8');
-
-        function readChunk() {
-          return reader.read().then(({ done, value }) => {
-            if (done) {
-              const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-              const lastMessage = botMessages[botMessages.length - 1];
-              lastMessage.innerHTML = marked.parse(accumulatedResponse);
-              
-              addToHistory(accumulatedResponse, 'assistant');
-              
-              chatbotInput.disabled = false;
-              chatbotSend.disabled = false;
-              return;
-            }
-
-            const chunk = decoder.decode(value, { stream: true });
-            accumulatedResponse += chunk;
-            
-            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-            const lastMessage = botMessages[botMessages.length - 1];
-
-            if (isFirstChunk) {
-              lastMessage.textContent = '';
-              isFirstChunk = false;
-            }
-
-            try {
-              const parsedContent = marked.parse(accumulatedResponse);
-              
-              if (accumulatedResponse.length > 0) {
-                lastMessage.innerHTML = parsedContent + '<span class="typing-cursor">▊</span>';
-              } else {
-                lastMessage.innerHTML = parsedContent;
-              }
-              
-              chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-              
-            } catch (error) {
-              lastMessage.textContent = accumulatedResponse + '▊';
+                return readChunk();
+              });
             }
 
             return readChunk();
+          })
+          .catch(error => {
+            console.error('Chatbot error:', error);
+            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+            const lastMessage = botMessages[botMessages.length - 1];
+            if (lastMessage) lastMessage.textContent = 'Failed to connect to the assistant server. Please try again in a moment!';
+            chatbotInput.disabled = false;
+            chatbotSend.disabled = false;
           });
-        }
+      }
 
-        return readChunk();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-        botMessages[botMessages.length - 1].textContent = 'Failed to connect to the server.';
-        chatbotInput.disabled = false;
-        chatbotSend.disabled = false;
+      // Toggle Open/Close
+      if (chatbotToggle) {
+        chatbotToggle.onclick = () => {
+          const isOpen = chatbotWidget.classList.contains('open');
+          if (isOpen) {
+            chatbotWidget.classList.remove('open');
+          } else {
+            chatbotWidget.classList.add('open');
+            setTimeout(() => { chatbotInput.focus(); }, 250);
+          }
+        };
+      }
+
+      if (chatbotClose) {
+        chatbotClose.onclick = () => {
+          chatbotWidget.classList.remove('open');
+        };
+      }
+
+      if (chatbotClear) {
+        chatbotClear.onclick = () => {
+          if (confirm('Clear conversation history?')) {
+            clearConversationHistory();
+          }
+        };
+      }
+
+      if (chatbotSend) {
+        chatbotSend.onclick = () => sendMessage();
+      }
+
+      if (chatbotInput) {
+        chatbotInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+      }
+
+      // Quick Prompt Chips
+      chatbotChips.forEach(chip => {
+        chip.addEventListener('click', function () {
+          const prompt = this.getAttribute('data-prompt');
+          if (prompt) {
+            sendMessage(prompt);
+          }
+        });
       });
-  }
-
-  chatbotToggle.onclick = () => {
-    console.log('=== CHATBOT TOGGLE CLICKED ===');
-    console.log('chatbotWidget before toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
-    
-    const isCurrentlyOpen = chatbotWidget.classList.contains('open');
-    
-    if (isCurrentlyOpen) {
-      chatbotWidget.classList.remove('open');
-      console.log('Widget closed');
-    } else {
-      chatbotWidget.classList.add('open');
-      console.log('Widget opened');
-      setTimeout(() => {
-        if (chatbotInput) chatbotInput.focus();
-      }, 300);
-    }
-    
-    console.log('chatbotWidget after toggle:', chatbotWidget.classList.contains('open') ? 'OPEN' : 'CLOSED');
-    console.log('chatbotWidget classes:', chatbotWidget.classList.toString());
-  };
-
-  chatbotSend.onclick = sendMessage;
-  chatbotInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') sendMessage();
-  });
-});
-</script>
+    });
+  </script>
 </body>
 </html>
