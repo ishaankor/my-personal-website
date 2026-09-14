@@ -872,13 +872,21 @@
       const projects = document.querySelectorAll(".project");
       let currentProjectIndex = 0;
 
-      // Project Click to Open URL
+      // Project Click to Open URL & Thought Bubble Hover
       projects.forEach((proj) => {
         proj.addEventListener("click", function () {
           const url = this.getAttribute("data-url");
           if (url && !isMobileDevice()) {
             window.open(url, "_blank");
           }
+        });
+
+        proj.addEventListener("mouseenter", function () {
+          document.body.classList.add("project-hovered");
+        });
+
+        proj.addEventListener("mouseleave", function () {
+          document.body.classList.remove("project-hovered");
         });
       });
 

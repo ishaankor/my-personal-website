@@ -1041,13 +1041,13 @@ p {
     gap: 26px;
     width: 90%;
     max-width: 1150px;
-    margin: 1.5rem auto 0;
+    margin: 0.8rem auto 0;
     perspective: 1200px;
 }
 
 .project {
-    width: 250px;
-    height: 350px;
+    width: 235px;
+    height: 300px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 18px;
@@ -1085,21 +1085,21 @@ p {
 /* Thought Bubble */
 .thought-bubble {
     position: absolute;
-    top: 106%;
+    top: 103%;
     left: 50%;
     transform: translateX(-50%);
     background: var(--bubble-bg);
     color: var(--text-light);
     font-family: var(--font-body);
-    font-size: 0.86rem;
-    line-height: 1.5;
-    padding: 12px 16px;
+    font-size: 0.81rem;
+    line-height: 1.45;
+    padding: 10px 14px;
     border-radius: 14px;
     border: 1px solid var(--bubble-border);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(56, 189, 248, 0.2);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    width: 280px;
+    width: 290px;
     max-width: 90vw;
     opacity: 0;
     visibility: hidden;
@@ -1130,6 +1130,14 @@ p {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(-2px);
+}
+
+/* Dim & slide down scroll-indicator when project thought bubble is visible */
+body:has(#sec-sandbox .project:hover) .scroll-indicator,
+body.project-hovered .scroll-indicator {
+    opacity: 0.1;
+    transform: translateX(-50%) translateY(12px);
+    pointer-events: none;
 }
 
 /* ==========================================================================
