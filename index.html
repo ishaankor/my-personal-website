@@ -6,6 +6,35 @@
   <title>Ishaan Koradia | Personal Website</title>
   <link rel="icon" href="./favicon.ico">
   
+  <!-- Pre-render Critical Chapter Synchronization (Zero-Flicker Restore) -->
+  <script>
+    (function () {
+      try {
+        var hash = window.location.hash;
+        var saved = sessionStorage.getItem("active_chapter_index");
+        var map = {
+          "#sec-identity": 0,
+          "#sec-spark": 1,
+          "#sec-mind": 2,
+          "#sec-frontier": 3,
+          "#sec-sandbox": 4,
+          "#sec-rabbitholes": 5,
+          "#sec-portal": 6
+        };
+        var idx = 0;
+        if (hash && map[hash] !== undefined) {
+          idx = map[hash];
+        } else if (saved !== null) {
+          var p = parseInt(saved, 10);
+          if (!isNaN(p) && p >= 0 && p <= 6) idx = p;
+        }
+        if (idx > 0) {
+          document.documentElement.setAttribute("data-initial-chapter", idx);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Modern Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,23 +161,33 @@
           I have an innate aversion to manual repetition. Long before training neural networks or designing agent pipelines, my obsession started with Apple Shortcuts. Chaining micro-actions, eliminating daily friction, and seeing logic bring computers to life sparked an enduring drive to build software that thinks, automates, and empowers.
         </p>
 
-        <!-- Interactive Workflow Node Diagram -->
+        <!-- Interactive Workflow Node Diagram
         <div class="workflow-flow">
           <div class="workflow-node">
-            <span class="wf-icon">🔔</span>
+            <span class="wf-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </span>
             <span class="wf-text">Manual Friction</span>
           </div>
-          <div class="wf-arrow">→</div>
+          <div class="wf-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
           <div class="workflow-node active">
-            <span class="wf-icon">⚡</span>
+            <span class="wf-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4a2 2 0 0 1 2 2v5.5"/></svg>
+            </span>
             <span class="wf-text">Chained Logic</span>
           </div>
-          <div class="wf-arrow">→</div>
+          <div class="wf-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
           <div class="workflow-node">
-            <span class="wf-icon">🚀</span>
+            <span class="wf-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
             <span class="wf-text">Autonomous Solution</span>
           </div>
-        </div>
+        </div> -->
 
         <!-- Real Apple Shortcuts Showcase -->
         <div class="shortcuts-showcase">
@@ -160,7 +199,7 @@
             <!-- Shortcut 1: Parked Car Pinner -->
             <a href="https://www.icloud.com/shortcuts/d435f7d0583c4d15840314f2481d4a3b" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Parked Car Pinner on iOS/macOS">
               <div class="sc-icon-wrap sc-car">
-                <span class="sc-emoji">📍</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div class="sc-info">
                 <div class="sc-title-row">
@@ -174,7 +213,7 @@
             <!-- Shortcut 2: Assignment Teller -->
             <a href="https://www.icloud.com/shortcuts/f4f2bb9234d34c30944f685479c436f7" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Assignment Teller on iOS/macOS">
               <div class="sc-icon-wrap sc-task">
-                <span class="sc-emoji">📚</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
               </div>
               <div class="sc-info">
                 <div class="sc-title-row">
@@ -188,7 +227,7 @@
             <!-- Shortcut 3: Alarm Clock Setter -->
             <a href="https://www.icloud.com/shortcuts/ca64449b87594beba7cc07d18eb25442" target="_blank" rel="noopener noreferrer" class="shortcut-card" title="Install Alarm Clock Setter on iOS/macOS">
               <div class="sc-icon-wrap sc-alarm">
-                <span class="sc-emoji">⏰</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 15 15"/><line x1="5" y1="3" x2="7" y2="5"/><line x1="19" y1="3" x2="17" y2="5"/></svg>
               </div>
               <div class="sc-info">
                 <div class="sc-title-row">
@@ -275,8 +314,18 @@
 
       <div class="frontier-card spacious">
         <div class="frontier-header">
-          <div class="avatar">
-            <img src="assets/personal-picture.avif" alt="Ishaan Koradia">
+          <div class="frontier-avatar-box">
+            <a href="https://portfolio.ishaankoradia.com" target="_blank" rel="noopener noreferrer" class="frontier-speech-bubble" aria-label="Check out my portfolio website">
+              <span class="bubble-text">Check out my portfolio website!</span>
+              <span class="bubble-arrow-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+              </span>
+              <span class="bubble-tail"></span>
+            </a>
+            <a href="https://portfolio.ishaankoradia.com" target="_blank" rel="noopener noreferrer" class="avatar frontier-avatar" aria-label="Visit portfolio website">
+              <img src="assets/personal-picture.avif" alt="Ishaan Koradia">
+            </a>
+            <div class="avatar-ground-shadow"></div>
           </div>
           <div class="frontier-meta">
             <span class="frontier-badge">Handshake AI • NVIDIA Collaboration</span>
@@ -287,25 +336,6 @@
         <p class="frontier-narrative">
           Today as an AI Engineer at Handshake AI, I collaborate directly with NVIDIA evaluating Nemotron-12B, curating golden benchmark datasets across frontier models, and designing 300+ context strategies with ~95% accuracy. I actively architect with the Model Context Protocol (MCP) to power autonomous, reliable agentic workflows that can reliably use tools and reason in production.
         </p>
-
-        <!-- <div class="frontier-stats-grid">
-          <div class="stat-pill">
-            <span class="stat-val">~95%</span>
-            <span class="stat-desc">Context Strategy Accuracy</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-val">300+</span>
-            <span class="stat-desc">Benchmark Scenarios</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-val">Nemotron</span>
-            <span class="stat-desc">NVIDIA 12B Evaluation</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-val">MCP</span>
-            <span class="stat-desc">Model Context Protocol</span>
-          </div>
-        </div> -->
       </div>
     </section>
 
@@ -374,7 +404,9 @@
           <div class="workbench-body">
             <div class="repo-hero-row">
               <div class="repo-title-group">
-                <span class="repo-icon">⚡</span>
+                <span class="repo-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
+                </span>
                 <h3 id="gh-repo-name" class="repo-name">RigScouter-AI-DataBase-</h3>
               </div>
               <span id="gh-repo-lang" class="repo-lang-pill">Python</span>
@@ -403,7 +435,9 @@
 
           <div class="pulse-card-footer">
             <div class="footer-meta">
-              <span class="footer-meta-icon">📦</span>
+              <span class="footer-meta-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              </span>
               <span id="gh-repos-count" class="footer-meta-text">20 Public Repositories</span>
             </div>
             <a id="gh-repo-link" href="https://github.com/ishaankor/RigScouter-AI-DataBase-" target="_blank" rel="noopener noreferrer" class="pulse-action-btn github-btn">
@@ -451,7 +485,9 @@
 
           <div class="pulse-card-footer">
             <div class="footer-meta">
-              <span class="footer-meta-icon">🎧</span>
+              <span class="footer-meta-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              </span>
               <span id="spotify-meta-text" class="footer-meta-text">Coding Flow Audio</span>
             </div>
             <a id="spotify-link" href="https://open.spotify.com/track/2thxrmgPTNvDS4uyJbja0h" target="_blank" rel="noopener noreferrer" class="pulse-action-btn spotify-action-btn">
@@ -498,7 +534,10 @@
 
         <!-- Subtle Conversational Invite for Digital Twin -->
         <div id="launch-bot-banner" class="digital-twin-invite" title="Chat with IshaanBot">
-          <span class="invite-text">💬 Wondering something specific? Tap to chat with <strong>IshaanBot</strong> — trained on my background and projects.</span>
+          <div class="invite-content">
+            <svg class="invite-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span class="invite-text">Wondering something specific? Tap to chat with <strong>IshaanBot</strong> — trained on my background and projects.</span>
+          </div>
           <span class="invite-arrow">→</span>
         </div>
 
@@ -523,7 +562,9 @@
   <!-- ==========================================================================
        Chatbot Widget (IshaanBot - Digital Twin)
        ========================================================================== -->
-  <div id="chatbot-toggle" title="Chat with IshaanBot!">💬</div>
+  <div id="chatbot-toggle" title="Chat with IshaanBot!">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </div>
   <div id="chatbot-widget">
     <div id="chatbot-header">
       <div class="bot-title-area">
@@ -531,17 +572,21 @@
         <span>Chat with IshaanBot</span>
       </div>
       <div class="header-controls">
-        <span id="chatbot-clear" title="Clear conversation">🗑️</span>
-        <span id="chatbot-close" title="Close window">❌</span>
+        <span id="chatbot-clear" title="Clear conversation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </span>
+        <span id="chatbot-close" title="Close window">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- Starter Quick Prompt Chips (Digital Twin) -->
     <div class="chatbot-chips">
-      <button class="chatbot-chip" data-prompt="Why did Ishaan choose to study Cognitive Science &amp; Neural Computation at UCSD?">🧠 Why Cognitive Science?</button>
-      <button class="chatbot-chip" data-prompt="Tell me about Ishaan's work evaluating NVIDIA Nemotron and building MCP agents.">⚡ Handshake AI &amp; NVIDIA</button>
-      <button class="chatbot-chip" data-prompt="What tools is Ishaan tinkering with right now, and what are his current rabbit holes?">🛠️ Current Rabbit Holes</button>
-      <button class="chatbot-chip" data-prompt="What is the story behind Transformi and Datafy?">🤖 Transformi &amp; Datafy</button>
+      <button class="chatbot-chip" data-prompt="Why did Ishaan choose to study Cognitive Science &amp; Neural Computation at UCSD?">Why Cognitive Science?</button>
+      <button class="chatbot-chip" data-prompt="Tell me about Ishaan's work evaluating NVIDIA Nemotron and building MCP agents.">Handshake AI &amp; NVIDIA</button>
+      <button class="chatbot-chip" data-prompt="What tools is Ishaan tinkering with right now, and what are his current rabbit holes?">Current Rabbit Holes</button>
+      <button class="chatbot-chip" data-prompt="What is the story behind Transformi and Datafy?">Transformi &amp; Datafy</button>
     </div>
 
     <div id="chatbot-messages"></div>
@@ -693,21 +738,38 @@
         }
       }
 
-      function goToPanel(index) {
+      function goToPanel(index, instant = false) {
         if (index < 0 || index >= panels.length) return;
         currentIndex = index;
+
+        // Persist chapter across page reloads and sync URL hash
+        try {
+          sessionStorage.setItem("active_chapter_index", index);
+          if (panels[index] && panels[index].id) {
+            history.replaceState(null, null, "#" + panels[index].id);
+          }
+        } catch (e) {}
 
         const isMob = isMobileDevice();
         // On mobile, keep targetX at 0 to guarantee perfect horizontal centering
         const targetX = isMob ? 0 : panelCoords[index].x;
         const targetY = panelCoords[index].y;
 
-        // Apply 2D glide transformation to master canvas
-        brochureCanvas.classList.add("gliding");
-        brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
-        setTimeout(() => {
-          brochureCanvas.classList.remove("gliding");
-        }, 950);
+        if (instant) {
+          brochureCanvas.style.transition = "none";
+          brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
+          void brochureCanvas.offsetHeight;
+          setTimeout(() => {
+            brochureCanvas.style.transition = "";
+          }, 50);
+        } else {
+          // Apply 2D glide transformation to master canvas
+          brochureCanvas.classList.add("gliding");
+          brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
+          setTimeout(() => {
+            brochureCanvas.classList.remove("gliding");
+          }, 950);
+        }
 
         // Update active classes on panels
         panels.forEach((panel, i) => {
@@ -727,10 +789,43 @@
         updateScrollIndicator();
       }
 
-      // Initial Indicator Setup
-      updateScrollIndicator();
+      function getInitialChapterIndex() {
+        if (window.location.hash) {
+          const hashId = window.location.hash.substring(1);
+          for (let i = 0; i < panels.length; i++) {
+            if (panels[i].id === hashId) return i;
+          }
+        }
+        try {
+          const saved = sessionStorage.getItem("active_chapter_index");
+          if (saved !== null) {
+            const idx = parseInt(saved, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < panels.length) {
+              return idx;
+            }
+          }
+        } catch (e) {}
+        return 0;
+      }
+
+      // Initial Indicator Setup & Restore Last Chapter on Reload
+      const initialIndex = getInitialChapterIndex();
+      if (initialIndex > 0) {
+        goToPanel(initialIndex, true);
+      } else {
+        updateScrollIndicator();
+      }
+      document.documentElement.removeAttribute("data-initial-chapter");
+
+      window.addEventListener("hashchange", function () {
+        const hashIdx = getInitialChapterIndex();
+        if (hashIdx !== currentIndex) {
+          goToPanel(hashIdx);
+        }
+      });
+
       window.addEventListener("resize", () => {
-        goToPanel(currentIndex);
+        goToPanel(currentIndex, true);
       });
 
       // Indicator Pill Click
@@ -865,6 +960,8 @@
           });
         });
       }
+
+
 
       // ==========================================================================
       // 6. Projects Setup (Chapter 05: 3D Tilt & Mobile Swipe Carousel)
@@ -1004,7 +1101,7 @@
       if (copyEmailBtn) {
         copyEmailBtn.addEventListener("click", function () {
           navigator.clipboard.writeText("ishaankor@gmail.com").then(() => {
-            copyEmailText.textContent = "Email Copied! ✓";
+            copyEmailText.textContent = "Email Copied!";
             setTimeout(() => {
               copyEmailText.textContent = "Copy Email (ishaankor@gmail.com)";
             }, 2000);

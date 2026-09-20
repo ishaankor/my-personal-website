@@ -191,6 +191,38 @@ html, body {
     z-index: 5;
 }
 
+/* Zero-Flicker Pre-render Chapter Restore Rules */
+html[data-initial-chapter="1"] #brochure-canvas { transform: translate3d(-28vw, -100vh, 0) !important; }
+html[data-initial-chapter="2"] #brochure-canvas { transform: translate3d(22vw, -200vh, 0) !important; }
+html[data-initial-chapter="3"] #brochure-canvas { transform: translate3d(-26vw, -300vh, 0) !important; }
+html[data-initial-chapter="4"] #brochure-canvas { transform: translate3d(24vw, -400vh, 0) !important; }
+html[data-initial-chapter="5"] #brochure-canvas { transform: translate3d(-22vw, -500vh, 0) !important; }
+html[data-initial-chapter="6"] #brochure-canvas { transform: translate3d(0vw, -600vh, 0) !important; }
+
+@media (max-width: 900px) {
+    html[data-initial-chapter="1"] #brochure-canvas { transform: translate3d(0vw, -100vh, 0) !important; }
+    html[data-initial-chapter="2"] #brochure-canvas { transform: translate3d(0vw, -200vh, 0) !important; }
+    html[data-initial-chapter="3"] #brochure-canvas { transform: translate3d(0vw, -300vh, 0) !important; }
+    html[data-initial-chapter="4"] #brochure-canvas { transform: translate3d(0vw, -400vh, 0) !important; }
+    html[data-initial-chapter="5"] #brochure-canvas { transform: translate3d(0vw, -500vh, 0) !important; }
+    html[data-initial-chapter="6"] #brochure-canvas { transform: translate3d(0vw, -600vh, 0) !important; }
+}
+
+html[data-initial-chapter] #sec-identity {
+    display: none !important;
+}
+
+html[data-initial-chapter="1"] #sec-spark,
+html[data-initial-chapter="2"] #sec-mind,
+html[data-initial-chapter="3"] #sec-frontier,
+html[data-initial-chapter="4"] #sec-sandbox,
+html[data-initial-chapter="5"] #sec-rabbitholes,
+html[data-initial-chapter="6"] #sec-portal {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    pointer-events: auto !important;
+}
+
 .brochure-panel {
     position: absolute;
     top: 0;
@@ -363,20 +395,20 @@ p {
     display: inline-block;
 }
 
-.my-name span:nth-child(1)  { animation-delay: 0s; }
-.my-name span:nth-child(2)  { animation-delay: 0.12s; }
-.my-name span:nth-child(3)  { animation-delay: 0.24s; }
+.my-name span:nth-child(1)  { animation-delay: 0.06s; }
+.my-name span:nth-child(2)  { animation-delay: 0.16s; }
+.my-name span:nth-child(3)  { animation-delay: 0.26s; }
 .my-name span:nth-child(4)  { animation-delay: 0.36s; }
-.my-name span:nth-child(5)  { animation-delay: 0.48s; }
-.my-name span:nth-child(6)  { animation-delay: 0.60s; }
-.my-name span:nth-child(7)  { animation-delay: 0.72s; } /* space */
-.my-name span:nth-child(8)  { animation-delay: 0.84s; color: var(--accent-cyan); }
-.my-name span:nth-child(9)  { animation-delay: 0.96s; }
-.my-name span:nth-child(10) { animation-delay: 1.08s; }
-.my-name span:nth-child(11) { animation-delay: 1.20s; }
-.my-name span:nth-child(12) { animation-delay: 1.32s; }
-.my-name span:nth-child(13) { animation-delay: 1.44s; }
-.my-name span:nth-child(14) { animation-delay: 1.56s; }
+.my-name span:nth-child(5)  { animation-delay: 0.46s; }
+.my-name span:nth-child(6)  { animation-delay: 0.56s; }
+.my-name span:nth-child(7)  { animation-delay: 0.66s; } /* space */
+.my-name span:nth-child(8)  { animation-delay: 0.76s; color: var(--accent-cyan); }
+.my-name span:nth-child(9)  { animation-delay: 0.86s; }
+.my-name span:nth-child(10) { animation-delay: 0.96s; }
+.my-name span:nth-child(11) { animation-delay: 1.06s; }
+.my-name span:nth-child(12) { animation-delay: 1.16s; }
+.my-name span:nth-child(13) { animation-delay: 1.26s; }
+.my-name span:nth-child(14) { animation-delay: 1.36s; }
 
 @keyframes drop {
     0% {
@@ -487,7 +519,6 @@ p {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--glass-glow);
-    animation: fadeInSpark 1.2s ease 1.8s both;
     transition: all 0.3s ease;
 }
 
@@ -500,11 +531,6 @@ p {
 .spark-card:hover {
     border-color: rgba(56, 189, 248, 0.35);
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 30px rgba(56, 189, 248, 0.2);
-}
-
-@keyframes fadeInSpark {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .spark-badge {
@@ -566,7 +592,14 @@ p {
 }
 
 .wf-icon {
-    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-cyan);
+}
+
+.workflow-node:not(.active) .wf-icon {
+    color: #94a3b8;
 }
 
 .wf-text {
@@ -574,9 +607,10 @@ p {
 }
 
 .wf-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent-cyan);
-    font-size: 1.2rem;
-    font-weight: 700;
     opacity: 0.7;
 }
 
@@ -664,10 +698,10 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
     flex-shrink: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     transition: transform 0.25s ease;
+    color: #ffffff;
 }
 
 .shortcut-card:hover .sc-icon-wrap {
@@ -927,40 +961,159 @@ p {
 }
 
 /* ==========================================================================
-   Chapter 04: The Frontier & Agentic Systems (NVIDIA Nemotron & MCP)
+   Chapter 04: The Frontier & Bouncing Portfolio Avatar Card
    ========================================================================== */
 .frontier-card {
+    border-radius: 20px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 22px;
-    padding: 34px 38px;
-    max-width: 820px;
-    width: 88vw;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), var(--glass-glow);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), var(--glass-glow);
+    max-width: 820px;
+    width: 86vw;
+    padding: 60px 36px 30px;
+    box-sizing: border-box;
+    text-align: left;
+    margin-top: 18px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    text-align: left;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .frontier-card:hover {
     border-color: rgba(56, 189, 248, 0.35);
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 26px rgba(56, 189, 248, 0.16);
 }
 
 .frontier-header {
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
+}
+
+.frontier-avatar-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    animation: frontierAvatarBounce 2.5s ease-in-out infinite alternate;
+}
+
+.frontier-avatar-box:hover {
+    animation-play-state: paused;
+}
+
+@keyframes frontierAvatarBounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-6px);
+    }
+}
+
+.avatar-ground-shadow {
+    width: 52px;
+    height: 7px;
+    background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.42) 0%, rgba(15, 23, 42, 0.75) 50%, transparent 80%);
+    border-radius: 50%;
+    margin-top: 6px;
+    animation: frontierShadowPulse 2.5s ease-in-out infinite alternate;
+}
+
+.frontier-avatar-box:hover .avatar-ground-shadow {
+    animation-play-state: paused;
+}
+
+@keyframes frontierShadowPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0.78);
+        opacity: 0.45;
+    }
+}
+
+.avatar.frontier-avatar {
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.frontier-avatar-box:hover .avatar.frontier-avatar {
+    transform: scale(1.04);
+    box-shadow: 0 0 26px rgba(56, 189, 248, 0.65), 0 0 40px rgba(99, 102, 241, 0.45);
+    filter: brightness(1.08);
+}
+
+/* Speech Bubble pointing to avatar */
+.frontier-speech-bubble {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: linear-gradient(135deg, #0284c7, #6366f1);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 9999px;
+    padding: 6px 14px;
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4), 0 0 16px rgba(99, 102, 241, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.frontier-avatar-box:hover .frontier-speech-bubble,
+.frontier-speech-bubble:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(2, 132, 199, 0.55), 0 0 24px rgba(99, 102, 241, 0.4);
+    filter: brightness(1.1);
+}
+
+.frontier-speech-bubble .bubble-tail {
+    position: absolute;
+    bottom: -5px;
+    left: 42px;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: #0284c7;
+    border-right: 1px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.frontier-speech-bubble .bubble-arrow-icon {
+    display: flex;
+    align-items: center;
+    opacity: 0.9;
+    transition: transform 0.2s ease;
+}
+
+.frontier-speech-bubble:hover .bubble-arrow-icon {
+    transform: translate(2px, -2px);
+    opacity: 1;
 }
 
 .frontier-meta {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    flex: 1;
 }
 
 .frontier-badge {
@@ -981,54 +1134,15 @@ p {
     font-size: clamp(1.15rem, 2vw, 1.45rem);
     color: #ffffff;
     margin: 0;
+    font-weight: 700;
 }
 
 .frontier-narrative {
     font-family: var(--font-body);
-    font-size: clamp(0.92rem, 1.2vw, 1.04rem);
+    font-size: clamp(0.92rem, 1.2vw, 1.02rem);
     line-height: 1.7;
     color: var(--text-bone);
     margin: 0;
-}
-
-.frontier-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.stat-pill {
-    background: rgba(14, 22, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 4px;
-    transition: all 0.25s ease;
-}
-
-.stat-pill:hover {
-    border-color: var(--accent-cyan);
-    background: rgba(56, 189, 248, 0.08);
-    transform: translateY(-2px);
-}
-
-.stat-val {
-    font-family: var(--font-mono);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--accent-cyan);
-}
-
-.stat-desc {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    letter-spacing: 0.02em;
 }
 
 /* ==========================================================================
@@ -1302,7 +1416,9 @@ body.project-hovered .scroll-indicator {
 }
 
 .repo-icon {
-    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent-cyan);
 }
 
@@ -1519,7 +1635,10 @@ body.project-hovered .scroll-indicator {
 }
 
 .footer-meta-icon {
-    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-cyan);
 }
 
 .footer-meta-text {
@@ -1703,6 +1822,17 @@ body.project-hovered .scroll-indicator {
     cursor: pointer;
     transition: all 0.25s ease;
     box-sizing: border-box;
+}
+
+.invite-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.invite-icon {
+    color: var(--accent-cyan);
+    flex-shrink: 0;
 }
 
 .digital-twin-invite:hover {
@@ -2069,21 +2199,38 @@ body.project-hovered .scroll-indicator {
         display: none;
     }
 
-    /* Chapter 04: The Frontier & Agentic Systems on Mobile */
+    /* Chapter 04: The Frontier on Mobile */
     .frontier-card {
         width: 92vw;
-        max-width: 390px;
-        padding: 18px 16px;
-        gap: 12px;
+        max-width: 440px;
+        padding: 50px 18px 22px;
+        gap: 14px;
     }
 
     .frontier-header {
-        gap: 12px;
+        gap: 14px;
     }
 
     .frontier-header .avatar {
-        width: 52px;
-        height: 52px;
+        width: 58px;
+        height: 58px;
+    }
+
+    .frontier-speech-bubble {
+        font-size: 0.72rem;
+        padding: 5px 11px;
+    }
+
+    .frontier-speech-bubble .bubble-tail {
+        left: 29px;
+        bottom: -4px;
+        width: 8px;
+        height: 8px;
+    }
+
+    .avatar-ground-shadow {
+        width: 44px;
+        height: 6px;
     }
 
     .frontier-badge {
@@ -2096,25 +2243,8 @@ body.project-hovered .scroll-indicator {
     }
 
     .frontier-narrative {
-        font-size: 0.82rem !important;
-        line-height: 1.55;
-    }
-
-    .frontier-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .stat-pill {
-        padding: 8px 10px;
-    }
-
-    .stat-val {
-        font-size: 1.05rem;
-    }
-
-    .stat-desc {
-        font-size: 0.64rem;
+        font-size: 0.84rem !important;
+        line-height: 1.6;
     }
 
     /* Chapter 06: The Live Pulse on Mobile */
