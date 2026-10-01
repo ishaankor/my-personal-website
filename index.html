@@ -1388,24 +1388,46 @@
           });
       }
 
+      // Open / Close helper functions
+      function openChatbot() {
+        chatbotWidget.classList.add('open');
+        if (chatbotToggle) {
+          chatbotToggle.classList.add('hidden');
+        }
+        setTimeout(() => { chatbotInput.focus(); }, 250);
+      }
+
+      function closeChatbot() {
+        chatbotWidget.classList.remove('open');
+        if (chatbotToggle) {
+          chatbotToggle.classList.remove('hidden');
+        }
+      }
+
       // Toggle Open/Close
       if (chatbotToggle) {
         chatbotToggle.onclick = () => {
           const isOpen = chatbotWidget.classList.contains('open');
           if (isOpen) {
-            chatbotWidget.classList.remove('open');
+            closeChatbot();
           } else {
-            chatbotWidget.classList.add('open');
-            setTimeout(() => { chatbotInput.focus(); }, 250);
+            openChatbot();
           }
         };
       }
 
       if (chatbotClose) {
         chatbotClose.onclick = () => {
-          chatbotWidget.classList.remove('open');
+          closeChatbot();
         };
       }
+
+      // Allow pressing Escape to close out of IshaanBot
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && chatbotWidget.classList.contains('open')) {
+          closeChatbot();
+        }
+      });
 
       if (chatbotClear) {
         chatbotClear.onclick = () => {

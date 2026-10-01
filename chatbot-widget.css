@@ -17,30 +17,54 @@
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(2, 132, 199, 0.45), 0 0 20px rgba(99, 102, 241, 0.35);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s,
+              opacity 0.35s ease 0.05s,
+              box-shadow 0.3s ease,
+              visibility 0.45s ease 0.05s;
   z-index: 2147483647;
   user-select: none;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
 }
 
 #chatbot-toggle svg {
   width: 24px;
   height: 24px;
   stroke: #ffffff;
+  transition: transform 0.3s ease;
 }
 
-#chatbot-toggle:hover {
+#chatbot-toggle:hover:not(.hidden) {
   transform: scale(1.1) translateY(-2px);
   box-shadow: 0 12px 35px rgba(2, 132, 199, 0.6), 0 0 30px rgba(99, 102, 241, 0.5);
 }
 
+#chatbot-toggle:hover:not(.hidden) svg {
+  transform: scale(1.05);
+}
+
+/* Hidden state when chat widget is active */
+#chatbot-toggle.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: scale(0.3) translateY(24px) !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.2s ease,
+              box-shadow 0.2s ease,
+              visibility 0.25s ease;
+}
+
 #chatbot-widget {
   position: fixed;
-  bottom: 92px;
+  bottom: 24px;
   right: 24px;
   width: 390px;
   max-width: calc(100vw - 32px);
   height: 560px;
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 48px);
   background: rgba(9, 15, 30, 0.94);
   border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 20px;
