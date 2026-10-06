@@ -1459,6 +1459,20 @@
           }
         });
       });
+
+      // Automatically open chatbot if URL has ?chat=open, ?chat=true, or #chat
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('chat') === 'open' || urlParams.get('chat') === 'true' || window.location.hash === '#chat') {
+        setTimeout(() => {
+          openChatbot();
+        }, 400);
+      }
+
+      window.addEventListener('hashchange', function () {
+        if (window.location.hash === '#chat') {
+          openChatbot();
+        }
+      });
     });
   </script>
 </body>
