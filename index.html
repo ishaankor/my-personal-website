@@ -1326,66 +1326,82 @@
           conversation_history: contextMessages
         };
 
-        fetch('https://personal-website-image-latest-5zj3.onrender.com/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        })
-          .then(response => {
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder('utf-8');
+        let attempts = 0;
+        function executeChatRequest() {
+          fetch('https://personal-website-image-latest-5zj3.onrender.com/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+              }
+              const reader = response.body.getReader();
+              const decoder = new TextDecoder('utf-8');
 
-            function readChunk() {
-              return reader.read().then(({ done, value }) => {
-                if (done) {
-                  const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-                  const lastMessage = botMessages[botMessages.length - 1];
-                  if (typeof marked !== "undefined") {
-                    lastMessage.innerHTML = marked.parse(accumulatedResponse);
-                  } else {
-                    lastMessage.textContent = accumulatedResponse;
+              function readChunk() {
+                return reader.read().then(({ done, value }) => {
+                  if (done) {
+                    const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+                    const lastMessage = botMessages[botMessages.length - 1];
+                    if (typeof marked !== "undefined") {
+                      lastMessage.innerHTML = marked.parse(accumulatedResponse);
+                    } else {
+                      lastMessage.textContent = accumulatedResponse;
+                    }
+
+                    addToHistory(accumulatedResponse, 'assistant');
+                    chatbotInput.disabled = false;
+                    chatbotSend.disabled = false;
+                    chatbotInput.focus();
+                    return;
                   }
 
-                  addToHistory(accumulatedResponse, 'assistant');
-                  chatbotInput.disabled = false;
-                  chatbotSend.disabled = false;
-                  chatbotInput.focus();
-                  return;
-                }
+                  const chunk = decoder.decode(value, { stream: true });
+                  accumulatedResponse += chunk;
 
-                const chunk = decoder.decode(value, { stream: true });
-                accumulatedResponse += chunk;
+                  const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+                  const lastMessage = botMessages[botMessages.length - 1];
 
-                const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-                const lastMessage = botMessages[botMessages.length - 1];
+                  if (isFirstChunk) {
+                    lastMessage.textContent = '';
+                    isFirstChunk = false;
+                  }
 
-                if (isFirstChunk) {
-                  lastMessage.textContent = '';
-                  isFirstChunk = false;
-                }
+                  try {
+                    const parsedContent = typeof marked !== "undefined" ? marked.parse(accumulatedResponse) : accumulatedResponse;
+                    lastMessage.innerHTML = parsedContent + '<span class="typing-cursor">▊</span>';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                  } catch (error) {
+                    lastMessage.textContent = accumulatedResponse + '▊';
+                  }
 
-                try {
-                  const parsedContent = typeof marked !== "undefined" ? marked.parse(accumulatedResponse) : accumulatedResponse;
-                  lastMessage.innerHTML = parsedContent + '<span class="typing-cursor">▊</span>';
-                  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-                } catch (error) {
-                  lastMessage.textContent = accumulatedResponse + '▊';
-                }
+                  return readChunk();
+                });
+              }
 
-                return readChunk();
-              });
-            }
+              return readChunk();
+            })
+            .catch(error => {
+              console.error('Chatbot error:', error);
+              attempts++;
+              const botMessages = document.querySelectorAll('.chatbot-msg.bot');
+              const lastMessage = botMessages[botMessages.length - 1];
 
-            return readChunk();
-          })
-          .catch(error => {
-            console.error('Chatbot error:', error);
-            const botMessages = document.querySelectorAll('.chatbot-msg.bot');
-            const lastMessage = botMessages[botMessages.length - 1];
-            if (lastMessage) lastMessage.textContent = 'Failed to connect to the assistant server. Please try again in a moment!';
-            chatbotInput.disabled = false;
-            chatbotSend.disabled = false;
-          });
+              if (attempts === 1) {
+                if (lastMessage) lastMessage.textContent = 'Assistant server is warming up, reconnecting...';
+                setTimeout(executeChatRequest, 3000);
+                return;
+              }
+
+              if (lastMessage) lastMessage.textContent = 'Failed to connect to the assistant server. Please try again in a moment!';
+              chatbotInput.disabled = false;
+              chatbotSend.disabled = false;
+            });
+        }
+
+        executeChatRequest();
       }
 
       // Open / Close helper functions
