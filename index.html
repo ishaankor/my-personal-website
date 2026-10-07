@@ -681,10 +681,15 @@
     });
 
     // 3. Helper Functions
-    function isMobileDevice() {
+    function isCompactOrSplitViewport() {
+      // Clean vertical column for split-screen windows, iPads, or narrow viewports
+      return window.innerWidth <= 1200 || ((window.innerWidth / window.innerHeight) < 1.35 && window.innerWidth <= 1440);
+    }
+
+    function isTouchMobile() {
       return (
         "ontouchstart" in window || navigator.maxTouchPoints > 0
-      ) && window.innerWidth <= 900;
+      ) && window.innerWidth <= 768;
     }
 
     // 4. Option A: 7-Chapter 2D Canvas Glide Engine (Down & Sideways Timeline)
@@ -724,12 +729,12 @@
 
       function updateScrollIndicator() {
         if (!scrollIndicator || !indicatorText || !indicatorArrow) return;
-        const isMob = isMobileDevice();
+        const isSplit = isCompactOrSplitViewport();
 
         if (currentIndex < panels.length - 1) {
           scrollIndicator.classList.remove("is-top");
-          indicatorText.textContent = isMob ? "Swipe Down" : "Scroll Down";
-          const arrowMap = ["↘", "↙", "↘", "↙", "↘", "↓"];
+          indicatorText.textContent = isTouchMobile() ? "Swipe Down" : "Scroll Down";
+          const arrowMap = isSplit ? ["↓", "↓", "↓", "↓", "↓", "↓"] : ["↘", "↙", "↘", "↙", "↘", "↓"];
           indicatorArrow.textContent = arrowMap[currentIndex] || "↓";
         } else {
           scrollIndicator.classList.add("is-top");
@@ -750,9 +755,9 @@
           }
         } catch (e) {}
 
-        const isMob = isMobileDevice();
-        // On mobile, keep targetX at 0 to guarantee perfect horizontal centering
-        const targetX = isMob ? 0 : panelCoords[index].x;
+        const isSplit = isCompactOrSplitViewport();
+        // On split screen, iPad, or mobile, keep targetX at 0 for optimal horizontal centering
+        const targetX = isSplit ? 0 : panelCoords[index].x;
         const targetY = panelCoords[index].y;
 
         if (instant) {
