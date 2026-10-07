@@ -105,17 +105,30 @@
           <stop offset="100%" stop-color="#34d399" />
         </linearGradient>
       </defs>
-      <!-- Continuous Serpentine Timeline Vector across 7000 units -->
-      <path class="timeline-path" d="M 500 500 C 650 900, 780 1100, 780 1500 C 780 1900, 280 2100, 280 2500 C 280 2900, 760 3100, 760 3500 C 760 3900, 260 4100, 260 4500 C 260 4900, 720 5100, 720 5500 C 720 5900, 500 6100, 500 6500" />
-      
-      <!-- Subtle Waypoint Nodes (One per chapter) -->
-      <circle class="timeline-node active" cx="500" cy="500" r="3.5" />
-      <circle class="timeline-node" cx="780" cy="1500" r="3.5" />
-      <circle class="timeline-node" cx="280" cy="2500" r="3.5" />
-      <circle class="timeline-node" cx="760" cy="3500" r="3.5" />
-      <circle class="timeline-node" cx="260" cy="4500" r="3.5" />
-      <circle class="timeline-node" cx="720" cy="5500" r="3.5" />
-      <circle class="timeline-node" cx="500" cy="6500" r="3.5" />
+
+      <!-- Desktop Serpentine Timeline (Down & Sideways Zig-Zag) -->
+      <g class="timeline-group-desktop">
+        <path class="timeline-path" d="M 500 500 C 650 900, 780 1100, 780 1500 C 780 1900, 280 2100, 280 2500 C 280 2900, 760 3100, 760 3500 C 760 3900, 260 4100, 260 4500 C 260 4900, 720 5100, 720 5500 C 720 5900, 500 6100, 500 6500" />
+        <circle class="timeline-node active" data-index="0" cx="500" cy="500" r="3.5" />
+        <circle class="timeline-node" data-index="1" cx="780" cy="1500" r="3.5" />
+        <circle class="timeline-node" data-index="2" cx="280" cy="2500" r="3.5" />
+        <circle class="timeline-node" data-index="3" cx="760" cy="3500" r="3.5" />
+        <circle class="timeline-node" data-index="4" cx="260" cy="4500" r="3.5" />
+        <circle class="timeline-node" data-index="5" cx="720" cy="5500" r="3.5" />
+        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="3.5" />
+      </g>
+
+      <!-- Split-Screen / Compact Vertical Constellation Timeline (Straight Center Axis) -->
+      <g class="timeline-group-split">
+        <path class="timeline-path" d="M 500 350 L 500 6650" />
+        <circle class="timeline-node active" data-index="0" cx="500" cy="500" r="3.5" />
+        <circle class="timeline-node" data-index="1" cx="500" cy="1500" r="3.5" />
+        <circle class="timeline-node" data-index="2" cx="500" cy="2500" r="3.5" />
+        <circle class="timeline-node" data-index="3" cx="500" cy="3500" r="3.5" />
+        <circle class="timeline-node" data-index="4" cx="500" cy="4500" r="3.5" />
+        <circle class="timeline-node" data-index="5" cx="500" cy="5500" r="3.5" />
+        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="3.5" />
+      </g>
     </svg>
 
     <!-- ==========================================================================
@@ -786,9 +799,10 @@
           pill.classList.toggle("active", i === index);
         });
 
-        // Update Timeline SVG Nodes
-        timelineNodes.forEach((node, i) => {
-          node.classList.toggle("active", i === index);
+        // Update Timeline SVG Nodes (both desktop & split-screen groups)
+        document.querySelectorAll(".timeline-node").forEach((node) => {
+          const nodeIdx = parseInt(node.getAttribute("data-index"), 10);
+          node.classList.toggle("active", nodeIdx === index);
         });
 
         updateScrollIndicator();
@@ -985,16 +999,23 @@
 
 
       // ==========================================================================
-      // 6. Projects Setup (Chapter 05: 3D Tilt & Mobile Swipe Carousel)
+      // 6. Projects Setup (Chapter 05: The Creative Sandbox)
       // ==========================================================================
       const projects = document.querySelectorAll(".project");
-      let currentProjectIndex = 0;
 
-      // Project Click to Open URL & Thought Bubble Hover
+      // Project Click to Open URL & Touch/Mouse Handling
       projects.forEach((proj) => {
-        proj.addEventListener("click", function () {
+        proj.addEventListener("click", function (e) {
           const url = this.getAttribute("data-url");
-          if (url && !isMobileDevice()) {
+          if (isTouchMobile()) {
+            if (!this.classList.contains("touch-active")) {
+              e.preventDefault();
+              projects.forEach((p) => p.classList.remove("touch-active"));
+              this.classList.add("touch-active");
+              return;
+            }
+          }
+          if (url) {
             window.open(url, "_blank");
           }
         });
@@ -1005,71 +1026,12 @@
 
         proj.addEventListener("mouseleave", function () {
           document.body.classList.remove("project-hovered");
+          this.classList.remove("touch-active");
         });
       });
 
-      function updateMobileProjects() {
-        if (!isMobileDevice()) {
-          projects.forEach((p) => {
-            p.classList.remove("active", "prev", "next");
-            p.style.opacity = "1";
-          });
-          return;
-        }
-
-        projects.forEach((project, idx) => {
-          project.classList.remove("active", "prev", "next");
-          if (idx === currentProjectIndex) {
-            project.classList.add("active");
-          } else if (idx === (currentProjectIndex + 1) % projects.length) {
-            project.classList.add("next");
-          } else if (idx === (currentProjectIndex - 1 + projects.length) % projects.length) {
-            project.classList.add("prev");
-          } else {
-            project.style.opacity = "0";
-          }
-        });
-      }
-
-      function nextProject() {
-        currentProjectIndex = (currentProjectIndex + 1) % projects.length;
-        updateMobileProjects();
-      }
-
-      function prevProject() {
-        currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
-        updateMobileProjects();
-      }
-
-      // Mobile Horizontal Touch Swipe for Projects
-      const projectsContainer = document.querySelector(".projects-container");
-      let projTouchStartX = 0;
-
-      if (projectsContainer) {
-        projectsContainer.addEventListener("touchstart", function (e) {
-          if (isMobileDevice()) {
-            projTouchStartX = e.changedTouches[0].clientX;
-          }
-        }, { passive: true });
-
-        projectsContainer.addEventListener("touchend", function (e) {
-          if (isMobileDevice()) {
-            const projTouchEndX = e.changedTouches[0].clientX;
-            const diff = projTouchStartX - projTouchEndX;
-            if (diff > 45) {
-              nextProject();
-            } else if (diff < -45) {
-              prevProject();
-            }
-          }
-        }, { passive: true });
-      }
-
-      updateMobileProjects();
-      window.addEventListener("resize", updateMobileProjects);
-
-      // Desktop 3D Tilt for Projects
-      if (!isMobileDevice()) {
+      // Desktop & Split-Screen 3D Tilt for Projects (Mouse Devices)
+      if (!isTouchMobile()) {
         projects.forEach((project) => {
           let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
           let isHovering = false;
@@ -1083,10 +1045,10 @@
             const x = (mouseX - rect.left) / rect.width - 0.5;
             const y = (mouseY - rect.top) / rect.height - 0.5;
 
-            const tiltX = y * 26;
-            const tiltY = x * -26;
+            const tiltX = y * 22;
+            const tiltY = x * -22;
 
-            project.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
+            project.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.04, 1.04, 1.04)`;
             requestAnimationFrame(updateTilt);
           }
 

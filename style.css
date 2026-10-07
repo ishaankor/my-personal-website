@@ -285,9 +285,24 @@ html[data-initial-chapter="6"] #sec-portal {
     #sec-rabbitholes { transform: translate3d(0vw, 500vh, 0) !important; }
     #sec-portal { transform: translate3d(0vw, 600vh, 0) !important; }
 
-    .timeline-svg {
+    .timeline-desktop-layout {
         display: none !important;
     }
+    .timeline-split-layout {
+        display: block !important;
+    }
+    .timeline-svg {
+        display: block !important;
+        opacity: 0.12 !important;
+    }
+}
+
+/* Timeline Layout Groups */
+.timeline-group-desktop {
+    display: block;
+}
+.timeline-group-split {
+    display: none;
 }
 
 /* ==========================================================================
@@ -1973,9 +1988,16 @@ body.project-hovered .scroll-indicator {
    Mobile & Responsive Enhancements (Phones & Tablets)
    ========================================================================== */
 @media (max-width: 900px) {
-    /* Hide desktop SVG timeline on mobile to preserve vertical cleanliness */
+    /* Responsive SVG timeline: vertical constellation in background */
+    .timeline-desktop-layout {
+        display: none !important;
+    }
+    .timeline-split-layout {
+        display: block !important;
+    }
     .timeline-svg {
-        display: none;
+        display: block !important;
+        opacity: 0.10 !important;
     }
 
     .brochure-panel {
@@ -2141,62 +2163,66 @@ body.project-hovered .scroll-indicator {
         height: 22px;
     }
 
-    /* Section 3: The Engineering Lab Carousel */
+    /* Chapter 05: The Sandbox (Creator Projects in Responsive & Split Viewports) */
     .projects-container {
-        width: 100%;
-        height: 400px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: clamp(14px, 2.5vw, 24px);
+        width: 95%;
+        max-width: 1050px;
+        height: auto;
         position: relative;
-        overflow: hidden;
-        margin-top: 0.8rem;
+        overflow: visible;
+        margin: 1rem auto 0;
     }
 
     .project {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
-        width: 82vw;
-        max-width: 310px;
-        height: 380px;
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: clamp(175px, 24vw, 225px);
+        height: clamp(225px, 32vh, 285px);
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        border-radius: 16px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
-    .project.active {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .project.next {
-        transform: translate(60%, -50%) scale(0.85);
-        opacity: 0.4;
-        pointer-events: none;
-    }
-
-    .project.prev {
-        transform: translate(-160%, -50%) scale(0.85);
-        opacity: 0.4;
-        pointer-events: none;
+    .project:hover {
+        transform: translateY(-4px) scale(1.02);
     }
 
     .thought-bubble {
-        width: 86vw;
-        max-width: 285px;
-        font-size: 0.78rem;
-        top: auto;
-        bottom: 10px;
+        position: absolute;
+        top: 103%;
         left: 50%;
+        bottom: auto;
         transform: translateX(-50%);
+        width: clamp(220px, 85vw, 285px);
+        max-width: 90vw;
+        font-size: 0.78rem;
         background: rgba(9, 15, 30, 0.96);
+        border: 1px solid var(--bubble-border);
+        border-radius: 12px;
         padding: 10px 14px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(56, 189, 248, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 100;
     }
 
-    .project.active .thought-bubble {
+    .project:hover .thought-bubble,
+    .project.touch-active .thought-bubble {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+        transform: translateX(-50%) translateY(-2px);
     }
 
     .thought-bubble::after {
@@ -2353,3 +2379,30 @@ body.project-hovered .scroll-indicator {
         font-size: 22px;
     }
 }
+
+@media (max-width: 580px) {
+    .projects-container {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        gap: 16px !important;
+        width: 100vw !important;
+        max-width: 100% !important;
+        padding: 8px 1.5rem 1.5rem !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .projects-container::-webkit-scrollbar {
+        display: none !important;
+    }
+    .projects-container .project {
+        flex: 0 0 230px !important;
+        width: 230px !important;
+        height: 290px !important;
+        scroll-snap-align: center !important;
+    }
+}
+
