@@ -694,9 +694,11 @@
     });
 
     // 3. Helper Functions
+    const SPLIT_MEDIA_QUERY = "(max-width: 1200px), ((max-aspect-ratio: 13/10) and (max-width: 1440px))";
+    const splitMediaQueryList = window.matchMedia(SPLIT_MEDIA_QUERY);
+
     function isCompactOrSplitViewport() {
-      // Clean vertical column for split-screen windows, iPads, or narrow viewports
-      return window.innerWidth <= 1200 || ((window.innerWidth / window.innerHeight) < 1.35 && window.innerWidth <= 1440);
+      return splitMediaQueryList.matches;
     }
 
     function isTouchMobile() {
@@ -740,6 +742,12 @@
       let currentIndex = 0;
       let isTransitioning = false;
 
+      function updateFlowMode() {
+        const isSplit = isCompactOrSplitViewport();
+        document.body.classList.toggle("flow-straight", isSplit);
+        document.body.classList.toggle("flow-zigzag", !isSplit);
+      }
+
       function updateScrollIndicator() {
         if (!scrollIndicator || !indicatorText || !indicatorArrow) return;
         const isSplit = isCompactOrSplitViewport();
@@ -754,6 +762,20 @@
           indicatorText.textContent = "Back to Top";
           indicatorArrow.textContent = "↖";
         }
+      }
+
+      updateFlowMode();
+
+      if (splitMediaQueryList.addEventListener) {
+        splitMediaQueryList.addEventListener("change", () => {
+          updateFlowMode();
+          goToPanel(currentIndex, true);
+        });
+      } else if (splitMediaQueryList.addListener) {
+        splitMediaQueryList.addListener(() => {
+          updateFlowMode();
+          goToPanel(currentIndex, true);
+        });
       }
 
       function goToPanel(index, instant = false) {
@@ -860,6 +882,7 @@
       });
 
       window.addEventListener("resize", () => {
+        updateFlowMode();
         goToPanel(currentIndex, true);
       });
 
