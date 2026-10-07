@@ -288,12 +288,12 @@ html[data-initial-chapter="6"] #sec-portal {
     pointer-events: none;
     z-index: 1;
     overflow: visible;
-    opacity: 0.18; /* Discernible, elegant constellation guide */
+    opacity: 0.16; /* Subtle, delicate cosmic background guide */
     transition: opacity 0.6s ease;
 }
 
 #brochure-canvas.gliding .timeline-svg {
-    opacity: 0.50; /* Gently guides during motion */
+    opacity: 0.32; /* Gently illuminates during chapter transitions */
 }
 
 /* Timeline Layout Groups - Default Desktop Serpentine */
@@ -308,55 +308,58 @@ html[data-initial-chapter="6"] #sec-portal {
 
 /* Desktop Serpentine Path */
 .timeline-group-desktop .timeline-path {
+    stroke: #38bdf8;
     stroke: url(#timeline-grad);
-    stroke-width: 1.8;
-    stroke-dasharray: 6 7;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 6;
     fill: none;
-    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
-    animation: timelineDash 32s linear infinite;
+    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
+    animation: timelineDash 34s linear infinite;
 }
 
 /* Split-Screen & Compact Vertical Constellation Branch */
 .timeline-group-split .timeline-path {
+    stroke: #38bdf8;
     stroke: url(#timeline-grad);
-    stroke-width: 3.2;
-    stroke-dasharray: 8 9;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 6;
     fill: none;
-    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6)) drop-shadow(0 0 16px rgba(129, 140, 248, 0.4));
-    animation: timelineDash 24s linear infinite;
+    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
+    animation: timelineDash 28s linear infinite;
 }
 
 .timeline-path {
+    stroke: #38bdf8;
     stroke: url(#timeline-grad);
-    stroke-width: 1.8;
-    stroke-dasharray: 6 7;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 6;
     fill: none;
-    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
+    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
     animation: timelineDash 30s linear infinite;
 }
 
 .timeline-node {
     fill: #060913;
     stroke: var(--accent-cyan);
-    stroke-width: 1.8;
-    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.45));
+    stroke-width: 1.4;
+    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.35));
     transition: all 0.4s ease;
 }
 
 .timeline-group-split .timeline-node {
-    stroke-width: 2.2;
-    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65));
+    stroke-width: 1.4;
+    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.35));
 }
 
 .timeline-node.active {
     fill: var(--accent-cyan);
     stroke: #ffffff;
-    stroke-width: 2.4;
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.5));
+    stroke-width: 1.8;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65));
 }
 
 .timeline-group-split .timeline-node.active {
-    stroke-width: 2.8;
+    stroke-width: 1.8;
 }
 
 @keyframes timelineDash {
@@ -384,10 +387,10 @@ html[data-initial-chapter="6"] #sec-portal {
     }
     .timeline-svg {
         display: block !important;
-        opacity: 0.38 !important; /* Clearly visible, elegant constellation guide in split screen */
+        opacity: 0.18 !important; /* Subtle, non-distracting constellation branch */
     }
     #brochure-canvas.gliding .timeline-svg {
-        opacity: 0.65 !important;
+        opacity: 0.34 !important;
     }
 }
 
@@ -410,27 +413,7 @@ body.flow-straight .timeline-split-layout {
 }
 body.flow-straight .timeline-svg {
     display: block !important;
-    opacity: 0.38 !important;
-}
-
-.timeline-node {
-    fill: #060913;
-    stroke: var(--accent-cyan);
-    stroke-width: 1.2;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
-    transition: all 0.4s ease;
-}
-
-.timeline-node.active {
-    fill: var(--accent-cyan);
-    stroke: #ffffff;
-    stroke-width: 1.8;
-    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
-}
-
-@keyframes timelineDash {
-    from { stroke-dashoffset: 600; }
-    to { stroke-dashoffset: 0; }
+    opacity: 0.18 !important;
 }
 
 /* Chapter Marker Pill */
@@ -2078,10 +2061,10 @@ body.project-hovered .scroll-indicator {
     }
     .timeline-svg {
         display: block !important;
-        opacity: 0.38 !important;
+        opacity: 0.18 !important;
     }
     #brochure-canvas.gliding .timeline-svg {
-        opacity: 0.65 !important;
+        opacity: 0.34 !important;
     }
 
     .brochure-panel {
