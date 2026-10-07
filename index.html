@@ -794,6 +794,22 @@
         updateScrollIndicator();
       }
 
+      function getCurrentChapterContext() {
+        const activePanel = (panels && panels[currentIndex]) ? panels[currentIndex] : document.querySelector(".brochure-panel.active");
+        const marker = activePanel ? (activePanel.querySelector(".chapter-marker")?.textContent || "").replace(/^\/\/\s*/, "").trim() : `CHAPTER 0${currentIndex + 1}`;
+        const title = activePanel ? (activePanel.querySelector("h1")?.textContent || "").trim() : "";
+        const subtitle = activePanel ? (activePanel.querySelector("p")?.textContent || "").trim() : "";
+        return {
+          index: currentIndex,
+          chapter_number: currentIndex + 1,
+          chapter_name: marker,
+          section_id: activePanel ? activePanel.id : `sec-${currentIndex + 1}`,
+          title: title,
+          subtitle: subtitle
+        };
+      }
+      window.getCurrentChapterContext = getCurrentChapterContext;
+
       function getInitialChapterIndex() {
         if (window.location.hash) {
           const hashId = window.location.hash.substring(1);
@@ -1326,9 +1342,14 @@
         let accumulatedResponse = '';
         let isFirstChunk = true;
 
+        const currentSectionContext = typeof window.getCurrentChapterContext === "function"
+          ? window.getCurrentChapterContext()
+          : null;
+
         const requestBody = {
           message: userMsg,
-          conversation_history: contextMessages
+          conversation_history: contextMessages,
+          current_section: currentSectionContext
         };
 
         let attempts = 0;
