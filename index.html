@@ -121,13 +121,13 @@
       <!-- Split-Screen / Compact Vertical Constellation Timeline (Straight Center Axis) -->
       <g class="timeline-group-split">
         <path class="timeline-path" d="M 500 350 L 500 6650" />
-        <circle class="timeline-node active" data-index="0" cx="500" cy="500" r="3.5" />
-        <circle class="timeline-node" data-index="1" cx="500" cy="1500" r="3.5" />
-        <circle class="timeline-node" data-index="2" cx="500" cy="2500" r="3.5" />
-        <circle class="timeline-node" data-index="3" cx="500" cy="3500" r="3.5" />
-        <circle class="timeline-node" data-index="4" cx="500" cy="4500" r="3.5" />
-        <circle class="timeline-node" data-index="5" cx="500" cy="5500" r="3.5" />
-        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="3.5" />
+        <circle class="timeline-node active" data-index="0" cx="500" cy="500" r="4.5" />
+        <circle class="timeline-node" data-index="1" cx="500" cy="1500" r="4.5" />
+        <circle class="timeline-node" data-index="2" cx="500" cy="2500" r="4.5" />
+        <circle class="timeline-node" data-index="3" cx="500" cy="3500" r="4.5" />
+        <circle class="timeline-node" data-index="4" cx="500" cy="4500" r="4.5" />
+        <circle class="timeline-node" data-index="5" cx="500" cy="5500" r="4.5" />
+        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="4.5" />
       </g>
     </svg>
 
@@ -694,11 +694,14 @@
     });
 
     // 3. Helper Functions
-    const SPLIT_MEDIA_QUERY = "(max-width: 1200px), ((max-aspect-ratio: 13/10) and (max-width: 1440px))";
-    const splitMediaQueryList = window.matchMedia(SPLIT_MEDIA_QUERY);
+    const SPLIT_MEDIA_QUERY = "(max-width: 1200px), (max-aspect-ratio: 13/10) and (max-width: 1440px)";
+    const splitMediaQueryList = window.matchMedia ? window.matchMedia(SPLIT_MEDIA_QUERY) : null;
 
     function isCompactOrSplitViewport() {
-      return splitMediaQueryList.matches;
+      if (splitMediaQueryList && typeof splitMediaQueryList.matches === "boolean") {
+        return splitMediaQueryList.matches;
+      }
+      return window.innerWidth <= 1200 || ((window.innerWidth / window.innerHeight) <= 1.30 && window.innerWidth <= 1440);
     }
 
     function isTouchMobile() {
@@ -766,16 +769,18 @@
 
       updateFlowMode();
 
-      if (splitMediaQueryList.addEventListener) {
-        splitMediaQueryList.addEventListener("change", () => {
-          updateFlowMode();
-          goToPanel(currentIndex, true);
-        });
-      } else if (splitMediaQueryList.addListener) {
-        splitMediaQueryList.addListener(() => {
-          updateFlowMode();
-          goToPanel(currentIndex, true);
-        });
+      if (splitMediaQueryList) {
+        if (splitMediaQueryList.addEventListener) {
+          splitMediaQueryList.addEventListener("change", () => {
+            updateFlowMode();
+            goToPanel(currentIndex, true);
+          });
+        } else if (splitMediaQueryList.addListener) {
+          splitMediaQueryList.addListener(() => {
+            updateFlowMode();
+            goToPanel(currentIndex, true);
+          });
+        }
       }
 
       function goToPanel(index, instant = false) {

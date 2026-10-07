@@ -276,6 +276,95 @@ html[data-initial-chapter="6"] #sec-portal {
     transform: translate3d(0vw, 600vh, 0);
 }
 
+/* ==========================================================================
+   SVG Glowing Vector Timeline Path (Subtle, Discreet Constellation Guide)
+   ========================================================================== */
+.timeline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+    opacity: 0.18; /* Discernible, elegant constellation guide */
+    transition: opacity 0.6s ease;
+}
+
+#brochure-canvas.gliding .timeline-svg {
+    opacity: 0.50; /* Gently guides during motion */
+}
+
+/* Timeline Layout Groups - Default Desktop Serpentine */
+.timeline-group-desktop,
+.timeline-desktop-layout {
+    display: block !important;
+}
+.timeline-group-split,
+.timeline-split-layout {
+    display: none !important;
+}
+
+/* Desktop Serpentine Path */
+.timeline-group-desktop .timeline-path {
+    stroke: url(#timeline-grad);
+    stroke-width: 1.8;
+    stroke-dasharray: 6 7;
+    fill: none;
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
+    animation: timelineDash 32s linear infinite;
+}
+
+/* Split-Screen & Compact Vertical Constellation Branch */
+.timeline-group-split .timeline-path {
+    stroke: url(#timeline-grad);
+    stroke-width: 3.2;
+    stroke-dasharray: 8 9;
+    fill: none;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6)) drop-shadow(0 0 16px rgba(129, 140, 248, 0.4));
+    animation: timelineDash 24s linear infinite;
+}
+
+.timeline-path {
+    stroke: url(#timeline-grad);
+    stroke-width: 1.8;
+    stroke-dasharray: 6 7;
+    fill: none;
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
+    animation: timelineDash 30s linear infinite;
+}
+
+.timeline-node {
+    fill: #060913;
+    stroke: var(--accent-cyan);
+    stroke-width: 1.8;
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.45));
+    transition: all 0.4s ease;
+}
+
+.timeline-group-split .timeline-node {
+    stroke-width: 2.2;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65));
+}
+
+.timeline-node.active {
+    fill: var(--accent-cyan);
+    stroke: #ffffff;
+    stroke-width: 2.4;
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.5));
+}
+
+.timeline-group-split .timeline-node.active {
+    stroke-width: 2.8;
+}
+
+@keyframes timelineDash {
+    from { stroke-dashoffset: 600; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* Straight Flow in Split-Screen, Tablets, and Compact Viewports */
 @media (max-width: 1200px), (max-aspect-ratio: 13/10) and (max-width: 1440px) {
     #sec-identity { transform: translate3d(0vw, 0vh, 0) !important; }
     #sec-spark { transform: translate3d(0vw, 100vh, 0) !important; }
@@ -295,11 +384,14 @@ html[data-initial-chapter="6"] #sec-portal {
     }
     .timeline-svg {
         display: block !important;
-        opacity: 0.12 !important;
+        opacity: 0.38 !important; /* Clearly visible, elegant constellation guide in split screen */
+    }
+    #brochure-canvas.gliding .timeline-svg {
+        opacity: 0.65 !important;
     }
 }
 
-/* Explicit Flow Mode Classes (synchronized directly with layout engine) */
+/* Explicit Flow Mode Classes synced with JavaScript */
 body.flow-straight #sec-identity { transform: translate3d(0vw, 0vh, 0) !important; }
 body.flow-straight #sec-spark { transform: translate3d(0vw, 100vh, 0) !important; }
 body.flow-straight #sec-mind { transform: translate3d(0vw, 200vh, 0) !important; }
@@ -318,55 +410,7 @@ body.flow-straight .timeline-split-layout {
 }
 body.flow-straight .timeline-svg {
     display: block !important;
-    opacity: 0.12 !important;
-}
-
-body.flow-zigzag .timeline-group-desktop,
-body.flow-zigzag .timeline-desktop-layout {
-    display: block !important;
-}
-body.flow-zigzag .timeline-group-split,
-body.flow-zigzag .timeline-split-layout {
-    display: none !important;
-}
-
-/* Timeline Layout Groups - Default Desktop Serpentine */
-.timeline-group-desktop,
-.timeline-desktop-layout {
-    display: block;
-}
-.timeline-group-split,
-.timeline-split-layout {
-    display: none;
-}
-
-/* ==========================================================================
-   SVG Glowing Vector Timeline Path (Subtle, Discreet Constellation Guide)
-   ========================================================================== */
-.timeline-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 700vh;
-    pointer-events: none;
-    z-index: 1;
-    overflow: visible;
-    opacity: 0.07; /* Whisper faint by default */
-    transition: opacity 0.85s ease;
-}
-
-#brochure-canvas.gliding .timeline-svg {
-    opacity: 0.22; /* Gently guides during motion, then fades away */
-}
-
-.timeline-path {
-    stroke: url(#timeline-grad);
-    stroke-width: 1.2;
-    stroke-dasharray: 5 6;
-    fill: none;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.25));
-    animation: timelineDash 32s linear infinite;
+    opacity: 0.38 !important;
 }
 
 .timeline-node {
@@ -2034,7 +2078,10 @@ body.project-hovered .scroll-indicator {
     }
     .timeline-svg {
         display: block !important;
-        opacity: 0.10 !important;
+        opacity: 0.38 !important;
+    }
+    #brochure-canvas.gliding .timeline-svg {
+        opacity: 0.65 !important;
     }
 
     .brochure-panel {
