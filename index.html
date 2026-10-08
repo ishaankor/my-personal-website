@@ -129,7 +129,7 @@
           <span>h</span>
           <span>a</span>
           <span>a</span>
-          <span>n</span><i class="name-baseline-probe" style="display:inline-block;vertical-align:baseline;width:0;height:0;font-size:0;line-height:0;margin:0;padding:0;border:0;opacity:0;pointer-events:none;"></i>
+          <span>n</span>
         </div>
         <div class="name-space">&nbsp;</div>
         <div class="name-last">
@@ -146,7 +146,6 @@
         <h1>I am <span class="typing-text"></span></h1>
       </div>
       <!-- <p class="hero-subtext">Cognitive Science &amp; Neural Computation • AI Systems • Continuous Tinkerer</p> -->
-      <!-- <div class="hero-scroll-hint">Scroll Down ↘ to explore the chronicle</div> -->
     </section>
 
     <!-- ==========================================================================
@@ -196,7 +195,7 @@
         <div class="shortcuts-showcase">
           <div class="shortcuts-header">
             <span class="shortcuts-tag">// THREE REAL SHORTCUTS THAT STARTED IT ALL</span>
-            <!-- <span class="shortcuts-hint">Direct iCloud Install Links ↗</span> -->
+            <span class="shortcuts-hint">Swipe ↔</span>
           </div>
           <div class="shortcuts-grid">
             <!-- Shortcut 1: Parked Car Pinner -->
@@ -350,37 +349,134 @@
       <h1>The Creative Sandbox</h1>
       <p>Some of my passion projects while studying in college.</p>
       
-      <div class="projects-container">
-        <!-- Project 1: Transformi -->
-        <div class="project" data-url="https://github.com/ishaankor/Transformi" title="Click to view repository">
-          <img src="./assets/transformi_photo.jpeg" alt="Transformi Bot">
-          <div class="thought-bubble" data-full-text="Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.">
-            Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.
+      <div class="projects-showcase-stage">
+        <!-- Floating Navigation Chevrons for Mobile Showcase -->
+        <button type="button" class="showcase-nav-btn showcase-prev-btn" aria-label="Previous project" title="Previous project">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+
+        <div class="projects-container">
+          <!-- Project 1: Transformi -->
+          <div class="project" data-url="https://github.com/ishaankor/Transformi" data-title="Transformi" data-category="Discord Bot &amp; Neural Nets" title="Click to view repository">
+            <img src="./assets/transformi_photo.jpeg" alt="Transformi Bot">
+            
+            <div class="thought-bubble" data-full-text="Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.">
+              Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.
+            </div>
+
+            <!-- Mobile Showcase Tap Indicator -->
+            <div class="project-tap-badge">
+              <span class="badge-icon">✦</span>
+              <span class="badge-text">Tap for Details</span>
+            </div>
+
+            <!-- Viewport-Contained Info Overlay (Reveals on Tap or Hover) -->
+            <div class="project-info-overlay">
+              <div class="info-overlay-header">
+                <span class="info-tag">DISCORD BOT // NEURAL NETS</span>
+                <button type="button" class="info-close-btn" aria-label="Close details">✕</button>
+              </div>
+              <h3 class="info-title">Transformi</h3>
+              <div class="info-body">
+                Meet <strong>Transformi</strong>! A Discord bot I built because my server needed custom data and ML tools. Seeing 10,000+ people run neural nets and parallel ETL right inside chat channels was my first taste of shipping software people genuinely love.
+              </div>
+              <div class="info-footer">
+                <a href="https://github.com/ishaankor/Transformi" target="_blank" rel="noopener noreferrer" class="info-action-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <span>View Repository ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Datafy -->
+          <!-- <div class="project" data-url="https://github.com/ishaankor/Datafy" data-title="Datafy" data-category="AI Data Analytics" title="Click to view repository">
+            <img src="./assets/datafy-photo.png" alt="Datafy AI Copilot">
+            <div class="thought-bubble" data-full-text="Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!">
+              Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!
+            </div>
+          </div> -->
+
+          <!-- Project 3: Daily Motivation -->
+          <div class="project" data-url="https://github.com/ishaankor/Daily-Motivation-" data-title="Daily Motivation" data-category="Automated Bot &amp; Analytics" title="Click to view repository">
+            <img src="./assets/daily_motivation.jpg" alt="Daily Motivation">
+            
+            <div class="thought-bubble" data-full-text="<strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.">
+              <strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.
+            </div>
+
+            <!-- Mobile Showcase Tap Indicator -->
+            <div class="project-tap-badge">
+              <span class="badge-icon">✦</span>
+              <span class="badge-text">Tap for Details</span>
+            </div>
+
+            <!-- Viewport-Contained Info Overlay (Reveals on Tap or Hover) -->
+            <div class="project-info-overlay">
+              <div class="info-overlay-header">
+                <span class="info-tag">TWITTER/X BOT // POSTGRESQL</span>
+                <button type="button" class="info-close-btn" aria-label="Close details">✕</button>
+              </div>
+              <h3 class="info-title">Daily Motivation</h3>
+              <div class="info-body">
+                <strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.
+              </div>
+              <div class="info-footer">
+                <a href="https://github.com/ishaankor/Daily-Motivation-" target="_blank" rel="noopener noreferrer" class="info-action-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <span>View Repository ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: NotesTaker! -->
+          <div class="project" data-url="https://github.com/ishaankor" data-title="NotesTaker!" data-category="AI Audio Transcriber" title="NotesTaker AI Tool">
+            <img src="./assets/notestaker-photo.png" alt="NotesTaker!">
+            
+            <div class="thought-bubble" data-full-text="<strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.">
+              <strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.
+            </div>
+
+            <!-- Mobile Showcase Tap Indicator -->
+            <div class="project-tap-badge">
+              <span class="badge-icon">✦</span>
+              <span class="badge-text">Tap for Details</span>
+            </div>
+
+            <!-- Viewport-Contained Info Overlay (Reveals on Tap or Hover) -->
+            <div class="project-info-overlay">
+              <div class="info-overlay-header">
+                <span class="info-tag">AI AUDIO // GOOGLE DRIVE</span>
+                <button type="button" class="info-close-btn" aria-label="Close details">✕</button>
+              </div>
+              <h3 class="info-title">NotesTaker!</h3>
+              <div class="info-body">
+                <strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.
+              </div>
+              <div class="info-footer">
+                <span class="info-pill-badge">
+                  <span>Student Survival Tool</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Project 2: Datafy -->
-        <!-- <div class="project" data-url="https://github.com/ishaankor/Datafy" title="Click to view repository">
-          <img src="./assets/datafy-photo.png" alt="Datafy AI Copilot">
-          <div class="thought-bubble" data-full-text="Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!">
-            Meet <strong>Datafy</strong>! Born out of personal frustration with spreadsheet formulas. An AI canvas where you drop a CSV and instantly chat with your data to produce charts and briefs. Now handling 25,000+ queries!
-          </div>
-        </div> -->
+        <button type="button" class="showcase-nav-btn showcase-next-btn" aria-label="Next project" title="Next project">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
 
-        <!-- Project 3: Daily Motivation -->
-        <div class="project" data-url="https://github.com/ishaankor/Daily-Motivation-" title="Click to view repository">
-          <img src="./assets/daily_motivation.jpg" alt="Daily Motivation">
-          <div class="thought-bubble" data-full-text="<strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.">
-            <strong>Daily Motivation</strong> was my very first passion project: could an automated Twitter/X bot crack engagement with scheduled quote polls? Stored sentiment statistics in PostgreSQL just to see what made people smile.
-          </div>
+      <!-- Mobile Showcase Status & Pagination Bar -->
+      <div class="showcase-meta-bar">
+        <div class="showcase-counter-badge">
+          <span class="showcase-step-num">01</span> / <span class="showcase-total-num">03</span> • <span class="showcase-project-name">Transformi</span>
         </div>
-
-        <!-- Project 4: NotesTaker! -->
-        <div class="project" title="NotesTaker AI Tool">
-          <img src="./assets/notestaker-photo.png" alt="NotesTaker!">
-          <div class="thought-bubble" data-full-text="<strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.">
-            <strong>NotesTaker!</strong> was built as a student survival tool! Transcribes freeform lecture audio and dumps formatted, structured study guides directly into Google Drive with zero manual effort.
-          </div>
+        <div class="showcase-dots" role="tablist" aria-label="Project Selection">
+          <button type="button" class="showcase-dot active" data-index="0" role="tab" aria-selected="true" aria-label="Project 1: Transformi"></button>
+          <button type="button" class="showcase-dot" data-index="1" role="tab" aria-selected="false" aria-label="Project 2: Daily Motivation"></button>
+          <button type="button" class="showcase-dot" data-index="2" role="tab" aria-selected="false" aria-label="Project 3: NotesTaker!"></button>
         </div>
       </div>
     </section>
@@ -393,9 +489,21 @@
       <h1>What I'm Doing Right Now</h1>
       <p>Live telemetry into active engineering projects &amp; heavy audio rotation.</p>
 
+      <!-- Mobile Segmented View Switcher (Visible only on mobile <= 900px) -->
+      <div class="pulse-mobile-switcher" role="tablist" aria-label="Live Pulse Mode">
+        <button class="pulse-switch-btn active" data-pulse-view="workbench" type="button" role="tab" aria-selected="true">
+          <span class="btn-live-dot"></span>
+          <span>GitHub Workbench</span>
+        </button>
+        <button class="pulse-switch-btn" data-pulse-view="spotify" type="button" role="tab" aria-selected="false">
+          <span class="btn-music-icon">🎵</span>
+          <span>In Headphones</span>
+        </button>
+      </div>
+
       <div class="live-pulse-grid">
         <!-- Card 1: The Workbench (Live GitHub Telemetry) -->
-        <div class="pulse-card workbench-card">
+        <div class="pulse-card workbench-card mobile-visible">
           <div class="pulse-card-header">
             <div class="pulse-status-badge">
               <span class="live-beacon"></span>
@@ -740,63 +848,23 @@
         const GAP_PX = 20; // Exact consistent pixel distance directly above each chapter marker
         const timelinePoints = [];
 
-        // Chapter 1 (Identity, index 0): treat first node like a typographical period (".") between "Ishaan" and "Koradia"
+        // Chapter 1 (Identity, index 0): dynamically anchored between 'n' and 'K' at line-height floor
         const panel0 = panels[0];
         const nameSpace = panel0 ? panel0.querySelector(".name-space") : null;
-        const charN = panel0 ? panel0.querySelector(".name-first span:last-child") : null;
-        const charK = panel0 ? panel0.querySelector(".name-last span:first-child") : null;
-        const baselineProbe = panel0 ? panel0.querySelector(".name-baseline-probe") : null;
         const nameFirst = panel0 ? panel0.querySelector(".name-first") : null;
-        const p0Rect = panel0 ? panel0.getBoundingClientRect() : null;
+        const myName = panel0 ? panel0.querySelector(".my-name") : null;
 
         let ch0_x = 500;
         let ch0_y = 502;
 
-        if (panel0 && p0Rect && p0Rect.width > 0 && p0Rect.height > 0) {
-          // Horizontal (X): centered in the gap between "Ishaan" and "Koradia"
-          let periodXPx = 0;
-          if (charN && charK) {
-            const nRect = charN.getBoundingClientRect();
-            const kRect = charK.getBoundingClientRect();
-            if (nRect.right > 0 && kRect.left > 0) {
-              periodXPx = (nRect.right + kRect.left) / 2;
-            }
-          }
-          if (!periodXPx && nameSpace) {
-            const spaceRect = nameSpace.getBoundingClientRect();
-            if (spaceRect.width > 0) {
-              periodXPx = spaceRect.left + spaceRect.width / 2;
-            }
-          }
-          if (periodXPx > 0) {
-            ch0_x = ((periodXPx - p0Rect.left) / p0Rect.width) * 1000;
-          }
+        if (nameSpace && (nameFirst || myName) && panel0) {
+          const spaceRect = nameSpace.getBoundingClientRect();
+          const nameRect = nameFirst ? nameFirst.getBoundingClientRect() : myName.getBoundingClientRect();
+          const p0Rect = panel0.getBoundingClientRect();
 
-          // Vertical (Y): resting directly on the typographical baseline like a period (".")
-          let baselineYPx = 0;
-          if (baselineProbe) {
-            const probeRect = baselineProbe.getBoundingClientRect();
-            if (probeRect.top > 0) {
-              baselineYPx = probeRect.top;
-            }
-          }
-          if (!baselineYPx && charN) {
-            const nRect = charN.getBoundingClientRect();
-            if (nRect.height > 0) {
-              baselineYPx = nRect.bottom - (nRect.height * 0.1818);
-            }
-          }
-          if (!baselineYPx && nameFirst) {
-            const nfRect = nameFirst.getBoundingClientRect();
-            baselineYPx = nfRect.bottom - (nfRect.height * 0.1818);
-          }
-
-          if (baselineYPx > 0) {
-            // A period glyph rests on the baseline; subtracting circle radius (4.2 SVG units ≈ 4.2px)
-            // places the bottom rim of the circle flush on the baseline
-            const nodeRadiusPx = 4.2;
-            const periodCenterY = baselineYPx - nodeRadiusPx;
-            ch0_y = ((periodCenterY - p0Rect.top) / p0Rect.height) * 1000;
+          if (p0Rect.width > 0 && p0Rect.height > 0) {
+            ch0_x = ((spaceRect.left + spaceRect.width / 2 - p0Rect.left) / p0Rect.width) * 1000;
+            ch0_y = ((nameRect.bottom - p0Rect.top) / p0Rect.height) * 1000;
           }
         }
 
@@ -922,6 +990,9 @@
         });
 
         updateScrollIndicator();
+        if (index === 4 && typeof updateShowcase === "function") {
+          updateShowcase(true);
+        }
       }
 
       function getCurrentChapterContext() {
@@ -974,7 +1045,6 @@
       setTimeout(updateTimelineCoordinates, 100);
       setTimeout(updateTimelineCoordinates, 400);
       setTimeout(updateTimelineCoordinates, 1000);
-      setTimeout(updateTimelineCoordinates, 1500); // Recalculate once letter drop animation settles
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(updateTimelineCoordinates);
       }
@@ -991,6 +1061,7 @@
       window.addEventListener("resize", () => {
         if (resizeRaf) cancelAnimationFrame(resizeRaf);
         resizeRaf = requestAnimationFrame(() => {
+          updateFlowMode();
           goToPanel(currentIndex, true);
           updateTimelineCoordinates();
         });
@@ -1057,6 +1128,9 @@
       }, { passive: true });
 
       document.addEventListener("touchend", function (e) {
+        // Prevent chapter gliding if user is interacting with project info overlay, chatbot or pulse cards
+        if (e.target && e.target.closest && (e.target.closest(".project-info-overlay") || e.target.closest("#chatbot-widget") || e.target.closest(".pulse-mobile-switcher"))) return;
+
         const diffY = touchStartY - e.changedTouches[0].clientY;
         const diffX = touchStartX - e.changedTouches[0].clientX;
 
@@ -1132,27 +1206,163 @@
 
 
       // ==========================================================================
-      // 6. Projects Setup (Chapter 05: The Creative Sandbox)
+      // 6. Projects Showcase Engine (Chapter 05: The Creative Sandbox)
       // ==========================================================================
+      const showcaseStage = document.querySelector(".projects-showcase-stage");
+      const projectsContainer = document.querySelector(".projects-container");
       const projects = document.querySelectorAll(".project");
+      const showcasePrevBtn = document.querySelector(".showcase-prev-btn");
+      const showcaseNextBtn = document.querySelector(".showcase-next-btn");
+      const showcaseDots = document.querySelectorAll(".showcase-dot");
+      const showcaseStepNum = document.querySelector(".showcase-step-num");
+      const showcaseProjectName = document.querySelector(".showcase-project-name");
 
-      // Project Click to Open URL & Touch/Mouse Handling
-      projects.forEach((proj) => {
-        proj.addEventListener("click", function (e) {
-          const url = this.getAttribute("data-url");
-          if (isTouchMobile()) {
-            if (!this.classList.contains("touch-active")) {
-              e.preventDefault();
-              projects.forEach((p) => p.classList.remove("touch-active"));
-              this.classList.add("touch-active");
-              return;
-            }
+      let activeProjectIndex = 0;
+
+      function isMobileShowcaseMode() {
+        return window.innerWidth <= 768;
+      }
+
+      function updateShowcase(instant = false) {
+        if (!isMobileShowcaseMode()) {
+          // On desktop (> 768px): Reset inline transforms and classes, letting CSS flexbox layout handle desktop
+          if (projectsContainer) {
+            projectsContainer.style.transform = "";
+            projectsContainer.style.transition = "";
           }
-          if (url) {
-            window.open(url, "_blank");
+          projects.forEach((proj) => {
+            proj.classList.remove("showcase-active");
+            proj.classList.remove("info-active");
+          });
+          return;
+        }
+
+        if (!projectsContainer || projects.length === 0) return;
+
+        if (activeProjectIndex < 0) activeProjectIndex = 0;
+        if (activeProjectIndex >= projects.length) activeProjectIndex = projects.length - 1;
+
+        const screenWidth = window.innerWidth;
+        const activeCard = projects[activeProjectIndex];
+
+        if (activeCard) {
+          const screenCenter = screenWidth / 2;
+          const cardCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
+          const targetTranslateX = Math.round(screenCenter - cardCenter);
+
+          if (instant) {
+            projectsContainer.style.transition = "none";
+          } else {
+            projectsContainer.style.transition = "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)";
+          }
+          projectsContainer.style.transform = `translate3d(${targetTranslateX}px, 0, 0)`;
+        }
+
+        // Update card classes
+        projects.forEach((proj, i) => {
+          if (i === activeProjectIndex) {
+            proj.classList.add("showcase-active");
+          } else {
+            proj.classList.remove("showcase-active");
+            proj.classList.remove("info-active");
           }
         });
 
+        // Update navigation chevrons
+        if (showcasePrevBtn) {
+          showcasePrevBtn.classList.toggle("disabled", activeProjectIndex === 0);
+        }
+        if (showcaseNextBtn) {
+          showcaseNextBtn.classList.toggle("disabled", activeProjectIndex === projects.length - 1);
+        }
+
+        // Update pagination dots
+        showcaseDots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === activeProjectIndex);
+          dot.setAttribute("aria-selected", i === activeProjectIndex ? "true" : "false");
+        });
+
+        // Update meta counter & title
+        if (showcaseStepNum) {
+          showcaseStepNum.textContent = `0${activeProjectIndex + 1}`;
+        }
+        if (showcaseProjectName && activeCard) {
+          showcaseProjectName.textContent = activeCard.getAttribute("data-title") || "Project";
+        }
+      }
+      window.updateShowcase = updateShowcase;
+
+      function goToProject(index, instant = false) {
+        if (index < 0 || index >= projects.length) return;
+        activeProjectIndex = index;
+        updateShowcase(instant);
+      }
+
+      // Chevron Navigation Buttons
+      if (showcasePrevBtn) {
+        showcasePrevBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          goToProject(activeProjectIndex - 1);
+        });
+      }
+      if (showcaseNextBtn) {
+        showcaseNextBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          goToProject(activeProjectIndex + 1);
+        });
+      }
+
+      // Pagination Dots
+      showcaseDots.forEach((dot) => {
+        dot.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const targetIdx = parseInt(this.getAttribute("data-index"), 10);
+          if (!isNaN(targetIdx)) {
+            goToProject(targetIdx);
+          }
+        });
+      });
+
+      // Project Cards Interactions (Click, Tap, Info Toggle, Desktop Hover)
+      projects.forEach((proj, index) => {
+        // Close button inside info overlay
+        const closeBtn = proj.querySelector(".info-close-btn");
+        if (closeBtn) {
+          closeBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            proj.classList.remove("info-active");
+          });
+        }
+
+        // Action button inside info overlay
+        const actionBtn = proj.querySelector(".info-action-btn");
+        if (actionBtn) {
+          actionBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        }
+
+        // Project card click / tap handling
+        proj.addEventListener("click", function (e) {
+          if (!isMobileShowcaseMode()) {
+            const url = this.getAttribute("data-url");
+            if (url) window.open(url, "_blank");
+            return;
+          }
+
+          // If tapping an inactive peek card, bring it to center focus
+          if (index !== activeProjectIndex) {
+            e.preventDefault();
+            goToProject(index);
+            return;
+          }
+
+          // If tapping the active card, toggle info overlay
+          e.preventDefault();
+          this.classList.toggle("info-active");
+        });
+
+        // Desktop hover indicators
         proj.addEventListener("mouseenter", function () {
           document.body.classList.add("project-hovered");
         });
@@ -1163,14 +1373,92 @@
         });
       });
 
-      // Desktop & Split-Screen 3D Tilt for Projects (Mouse Devices)
+      // Touch Swipes & Mouse Drag for Project Showcase on Mobile
+      let projTouchStartX = 0, projTouchStartY = 0;
+      let isProjMouseDown = false, projMouseStartX = 0, projMouseStartY = 0;
+
+      if (showcaseStage) {
+        // Touch events
+        showcaseStage.addEventListener("touchstart", function (e) {
+          if (!isMobileShowcaseMode()) return;
+          projTouchStartX = e.touches[0].clientX;
+          projTouchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        showcaseStage.addEventListener("touchend", function (e) {
+          if (!isMobileShowcaseMode()) return;
+          const diffX = projTouchStartX - e.changedTouches[0].clientX;
+          const diffY = projTouchStartY - e.changedTouches[0].clientY;
+
+          // Horizontal swipe: diffX > 35px and dominant over vertical
+          if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0 && activeProjectIndex < projects.length - 1) {
+              goToProject(activeProjectIndex + 1);
+            } else if (diffX < 0 && activeProjectIndex > 0) {
+              goToProject(activeProjectIndex - 1);
+            }
+          }
+        }, { passive: true });
+
+        // Mouse drag support for desktop responsive testing
+        showcaseStage.addEventListener("mousedown", function (e) {
+          if (!isMobileShowcaseMode()) return;
+          if (e.target.closest("button, a")) return;
+          isProjMouseDown = true;
+          projMouseStartX = e.clientX;
+          projMouseStartY = e.clientY;
+        });
+
+        window.addEventListener("mouseup", function (e) {
+          if (!isProjMouseDown) return;
+          isProjMouseDown = false;
+          const diffX = projMouseStartX - e.clientX;
+          const diffY = projMouseStartY - e.clientY;
+          if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0 && activeProjectIndex < projects.length - 1) {
+              goToProject(activeProjectIndex + 1);
+            } else if (diffX < 0 && activeProjectIndex > 0) {
+              goToProject(activeProjectIndex - 1);
+            }
+          }
+        });
+      }
+
+      // Outside click closes open info overlays on mobile
+      document.addEventListener("click", function (e) {
+        if (isMobileShowcaseMode()) {
+          const inProj = e.target.closest(".project");
+          if (!inProj) {
+            projects.forEach((p) => p.classList.remove("info-active"));
+          }
+        }
+      });
+
+      // Keyboard arrow navigation for projects when Section 05 is active
+      document.addEventListener("keydown", function (e) {
+        if (currentIndex === 4 && isMobileShowcaseMode()) {
+          if (e.key === "ArrowRight") {
+            if (activeProjectIndex < projects.length - 1) {
+              goToProject(activeProjectIndex + 1);
+            }
+          } else if (e.key === "ArrowLeft") {
+            if (activeProjectIndex > 0) {
+              goToProject(activeProjectIndex - 1);
+            }
+          } else if (e.key === "Escape") {
+            projects.forEach((p) => p.classList.remove("info-active"));
+          }
+        }
+      });
+
+      // Desktop & Split-Screen 3D Tilt for Projects (Mouse Devices on Desktop)
       if (!isTouchMobile()) {
         projects.forEach((project) => {
           let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
           let isHovering = false;
 
           function updateTilt() {
-            if (!isHovering) return;
+            if (!isHovering || isMobileShowcaseMode()) return;
             mouseX += (targetX - mouseX) * 0.4;
             mouseY += (targetY - mouseY) * 0.4;
 
@@ -1186,21 +1474,40 @@
           }
 
           project.addEventListener("mouseenter", () => {
+            if (isMobileShowcaseMode()) return;
             isHovering = true;
             updateTilt();
           });
 
           project.addEventListener("mousemove", (e) => {
+            if (isMobileShowcaseMode()) return;
             targetX = e.clientX;
             targetY = e.clientY;
           });
 
           project.addEventListener("mouseleave", () => {
+            if (isMobileShowcaseMode()) return;
             isHovering = false;
             project.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
           });
         });
       }
+
+      // Initial Showcase Setup & Multi-Stage Lifecycle Hooks
+      updateShowcase(true);
+      requestAnimationFrame(() => updateShowcase(true));
+      setTimeout(() => updateShowcase(true), 150);
+      setTimeout(() => updateShowcase(true), 500);
+      window.addEventListener("load", () => updateShowcase(true));
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => updateShowcase(true));
+      }
+      window.addEventListener("resize", () => {
+        updateShowcase(true);
+      });
+      window.addEventListener("orientationchange", () => {
+        setTimeout(() => updateShowcase(true), 200);
+      });
 
       // ==========================================================================
       // 7. Chapter 07 Portal Actions
@@ -1325,7 +1632,59 @@
         setInterval(fetchSpotifyTelemetry, 25000);
       }
 
+      // 8b. Chapter 06: Mobile Telemetry Switcher
+      function initPulseSwitcher() {
+        const switcherBtns = document.querySelectorAll(".pulse-switch-btn");
+        const workbenchCard = document.querySelector(".workbench-card");
+        const spotifyCard = document.querySelector(".spotify-card");
+        if (!switcherBtns.length || !workbenchCard || !spotifyCard) return;
+
+        function setPulseView(view) {
+          switcherBtns.forEach((b) => {
+            const isMatch = b.getAttribute("data-pulse-view") === view;
+            b.classList.toggle("active", isMatch);
+            b.setAttribute("aria-selected", isMatch ? "true" : "false");
+          });
+          if (view === "workbench") {
+            workbenchCard.classList.add("mobile-visible");
+            spotifyCard.classList.remove("mobile-visible");
+          } else {
+            spotifyCard.classList.add("mobile-visible");
+            workbenchCard.classList.remove("mobile-visible");
+          }
+        }
+
+        switcherBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-pulse-view");
+            setPulseView(target);
+          });
+        });
+
+        // Touch horizontal swipe between telemetry cards on mobile
+        const pulseGrid = document.querySelector(".live-pulse-grid");
+        if (pulseGrid) {
+          let pStartX = 0, pStartY = 0;
+          pulseGrid.addEventListener("touchstart", (e) => {
+            pStartX = e.touches[0].clientX;
+            pStartY = e.touches[0].clientY;
+          }, { passive: true });
+          pulseGrid.addEventListener("touchend", (e) => {
+            const dx = pStartX - e.changedTouches[0].clientX;
+            const dy = pStartY - e.changedTouches[0].clientY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+              if (dx > 0) {
+                setPulseView("spotify");
+              } else {
+                setPulseView("workbench");
+              }
+            }
+          }, { passive: true });
+        }
+      }
+
       initLivePulse();
+      initPulseSwitcher();
     });
   </script>
 

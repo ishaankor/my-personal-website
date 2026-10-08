@@ -1193,6 +1193,16 @@ p {
 /* ==========================================================================
    Chapter 05: The Sandbox (Creator-Perspective Projects & 3D Tilt)
    ========================================================================== */
+.projects-showcase-stage {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.8rem auto 0;
+}
+
 .projects-container {
     display: flex;
     justify-content: center;
@@ -1200,8 +1210,15 @@ p {
     gap: 26px;
     width: 90%;
     max-width: 1150px;
-    margin: 0.8rem auto 0;
     perspective: 1200px;
+}
+
+/* Hide mobile-specific showcase controls on desktop */
+.showcase-nav-btn,
+.showcase-meta-bar,
+.project-tap-badge,
+.project-info-overlay {
+    display: none;
 }
 
 .project {
@@ -1291,8 +1308,9 @@ p {
     transform: translateX(-50%) translateY(-2px);
 }
 
-/* Dim & slide down scroll-indicator when project thought bubble is visible */
+/* Dim & slide down scroll-indicator when project thought bubble or info is visible */
 body:has(#sec-sandbox .project:hover) .scroll-indicator,
+body:has(#sec-sandbox .project.info-active) .scroll-indicator,
 body.project-hovered .scroll-indicator {
     opacity: 0.1;
     transform: translateX(-50%) translateY(12px);
@@ -1302,6 +1320,10 @@ body.project-hovered .scroll-indicator {
 /* ==========================================================================
    Chapter 06: The Live Pulse (Workbench & Spotify Real-Time Telemetry)
    ========================================================================== */
+.pulse-mobile-switcher {
+    display: none;
+}
+
 .live-pulse-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -2023,166 +2045,272 @@ body.project-hovered .scroll-indicator {
     }
 
     .brochure-panel {
-        padding: 6.2rem 1.25rem 4.5rem;
-        justify-content: flex-start;
+        padding: clamp(3.6rem, 7.8vh, 4.6rem) 1.25rem clamp(3.6rem, 7.2vh, 4.4rem);
+        justify-content: center;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Chapter 01: Hero Identity Centering on Mobile (eliminates awkward top-jammed gap) */
+    #sec-identity {
+        justify-content: center !important;
+        padding-top: 0 !important;
+        padding-bottom: clamp(3rem, 7vh, 5rem) !important;
+        min-height: 100vh !important;
     }
 
     /* Typography scaling for mobile viewports */
     h1 {
-        font-size: clamp(1.6rem, 5.2vw, 2.2rem);
+        font-size: clamp(1.4rem, 4.8vw, 1.95rem);
+        margin-bottom: 0.25rem;
     }
 
     p {
-        font-size: clamp(0.85rem, 3.2vw, 0.95rem);
-        margin-bottom: 1rem;
+        font-size: clamp(0.78rem, 2.8vw, 0.9rem);
+        margin-bottom: 0.55rem;
     }
 
     .chapter-marker {
-        font-size: 0.68rem;
-        margin-bottom: 8px;
+        font-size: 0.66rem;
+        margin-bottom: 6px;
     }
 
     /* Hero Name on Mobile */
-    .my-name {
-        margin-bottom: 0.2rem;
+    #sec-identity .my-name {
+        margin-bottom: 0.45rem;
     }
 
-    .my-name span {
-        font-size: clamp(1.8rem, 6.8vw, 2.8rem);
+    #sec-identity .my-name span {
+        font-size: clamp(2.3rem, 8.4vw, 3.4rem);
     }
 
-    .typing-container h1 {
-        font-size: clamp(1.05rem, 3.8vw, 1.45rem);
+    #sec-identity .typing-container h1 {
+        font-size: clamp(1.15rem, 4.2vw, 1.55rem);
+        margin: 0.35rem 0;
     }
 
-    /* Chapter 02: The Spark Card on Mobile */
+    #sec-identity .hero-subtext {
+        font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+        max-width: 90vw;
+        margin-top: 12px;
+        margin-bottom: 0;
+        line-height: 1.5;
+        letter-spacing: 0.03em;
+    }
+
+    /* Chapter 02: The Spark Card on Mobile — Pure Viewport Fit */
     .spark-card {
         width: 92vw;
-        max-width: 440px;
-        padding: 16px 14px;
-        margin-top: 0.8rem;
+        max-width: 420px;
+        padding: 14px 14px 12px;
+        margin-top: 0.35rem;
+        box-sizing: border-box;
     }
 
     .spark-card.spacious {
-        max-width: 440px;
-        padding: 18px 14px;
-        gap: 8px;
+        max-width: 420px;
+        padding: 14px 14px 12px;
+        gap: 6px;
+    }
+
+    .spark-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
     }
 
     .spark-card h3 {
-        font-size: 1.05rem;
+        font-size: 0.95rem;
+        margin: 2px 0 4px;
+        line-height: 1.3;
     }
 
     .spark-card p {
-        font-size: 0.82rem;
-        line-height: 1.5;
-        margin-bottom: 10px;
+        font-size: 0.77rem;
+        line-height: 1.45;
+        margin-bottom: 6px;
     }
 
-    .workflow-flow {
-        flex-direction: column;
-        gap: 6px;
-        margin: 10px 0;
-    }
-
-    .wf-arrow {
-        transform: rotate(90deg);
-        margin: -2px 0;
-    }
-
-    .workflow-node {
+    .shortcuts-showcase {
         width: 100%;
-        justify-content: center;
-        padding: 7px 12px;
-        font-size: 0.76rem;
+        margin: 4px 0 2px;
+        gap: 5px;
     }
 
     .shortcuts-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 4px;
+        margin-bottom: 3px;
+    }
+
+    .shortcuts-tag {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--accent-cyan);
+    }
+
+    .shortcuts-hint {
+        font-size: 0.63rem;
+        color: var(--text-dim);
+        display: inline-block !important;
     }
 
     .shortcuts-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
         gap: 8px;
+        padding: 2px 2px 4px;
+        width: 100%;
+        box-sizing: border-box;
+        scrollbar-width: none;
+    }
+
+    .shortcuts-grid::-webkit-scrollbar {
+        display: none;
     }
 
     .shortcut-card {
-        flex-direction: row;
-        align-items: center;
-        padding: 10px 12px;
-        gap: 12px;
+        flex: 0 0 clamp(190px, 58vw, 220px);
+        scroll-snap-align: start;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 9px 11px;
+        gap: 5px;
+        background: rgba(14, 22, 42, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-sizing: border-box;
     }
 
     .sc-icon-wrap {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .sc-icon-wrap svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .sc-info {
+        width: 100%;
+    }
+
+    .sc-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .sc-title-row h4 {
+        font-size: 0.79rem;
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .sc-link-arrow {
+        font-size: 0.72rem;
+        color: var(--accent-cyan);
     }
 
     .sc-info p {
+        font-size: 0.69rem;
+        line-height: 1.34;
+        margin: 2px 0 0;
+        color: var(--text-bone);
+        display: -webkit-box;
         -webkit-line-clamp: 2;
-        font-size: 0.73rem;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    /* Section 2: The Foundation */
+    /* Chapter 03: The Foundation / The Mind on Mobile */
     .container {
-        gap: 12px;
+        gap: 8px;
+        width: 92vw;
+        max-width: 420px;
     }
 
     .journey-tabs {
-        gap: 6px;
-        margin-bottom: 10px;
+        gap: 5px;
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .journey-tab {
-        font-size: 0.7rem;
-        padding: 5px 12px;
+        font-size: 0.68rem;
+        padding: 4px 10px;
     }
 
     .journey-card {
-        width: 92vw;
-        max-width: 390px;
-        padding: 16px 18px;
-        gap: 12px;
+        width: 100%;
+        max-width: 420px;
+        padding: 13px 14px 11px;
+        gap: 7px;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        box-sizing: border-box;
     }
 
     .avatar {
-        width: 58px;
-        height: 58px;
+        width: 42px;
+        height: 42px;
     }
 
     .journey-phase-title {
         flex-direction: column;
-        gap: 4px;
-        font-size: 1.02rem;
+        gap: 2px;
+        font-size: 0.88rem;
+    }
+
+    .journey-phase-title span.badge {
+        font-size: 0.64rem;
+        padding: 2px 7px;
     }
 
     .journey-text {
-        font-size: 0.82rem !important;
-        line-height: 1.5;
+        font-size: 0.76rem !important;
+        line-height: 1.44;
+        margin: 3px 0 5px;
     }
 
     .journey-tags {
         justify-content: center;
+        gap: 4px;
+    }
+
+    .journey-pill {
+        font-size: 0.64rem;
+        padding: 2px 7px;
+    }
+
+    .contact-box {
+        margin-top: 2px;
     }
 
     .icons {
-        gap: 22px;
+        gap: 16px;
     }
 
     .icons a {
-        width: 46px;
-        height: 46px;
+        width: 36px;
+        height: 36px;
     }
 
     .icons img {
-        width: 22px;
-        height: 22px;
+        width: 18px;
+        height: 18px;
     }
 
     /* Chapter 05: The Sandbox (Creator Projects in Responsive & Split Viewports) */
@@ -2251,128 +2379,274 @@ body.project-hovered .scroll-indicator {
         display: none;
     }
 
-    /* Chapter 04: The Frontier on Mobile */
+    /* Chapter 04: The Frontier on Mobile — Pure Viewport Fit */
     .frontier-card {
         width: 92vw;
-        max-width: 440px;
-        padding: 50px 18px 22px;
-        gap: 14px;
+        max-width: 420px;
+        padding: 34px 14px 14px;
+        gap: 9px;
+        box-sizing: border-box;
     }
 
     .frontier-header {
-        gap: 14px;
+        gap: 10px;
+        align-items: center;
     }
 
     .frontier-header .avatar {
-        width: 58px;
-        height: 58px;
+        width: 44px;
+        height: 44px;
     }
 
     .frontier-speech-bubble {
-        font-size: 0.72rem;
-        padding: 5px 11px;
+        font-size: 0.66rem;
+        padding: 3px 9px;
+        bottom: calc(100% + 5px);
     }
 
     .frontier-speech-bubble .bubble-tail {
-        left: 29px;
+        left: 22px;
         bottom: -4px;
-        width: 8px;
-        height: 8px;
+        width: 7px;
+        height: 7px;
     }
 
     .avatar-ground-shadow {
-        width: 44px;
-        height: 6px;
+        width: 34px;
+        height: 5px;
     }
 
     .frontier-badge {
-        font-size: 0.68rem;
-        padding: 2px 8px;
+        font-size: 0.64rem;
+        padding: 2px 7px;
     }
 
     .frontier-meta h3 {
-        font-size: 1.02rem;
+        font-size: 0.92rem;
+        line-height: 1.3;
     }
 
     .frontier-narrative {
-        font-size: 0.84rem !important;
-        line-height: 1.6;
+        font-size: 0.77rem !important;
+        line-height: 1.46;
+        margin: 0;
     }
 
-    /* Chapter 06: The Live Pulse on Mobile */
+    /* Chapter 06: The Live Pulse on Mobile — Mobile Segmented Switcher */
+    .pulse-mobile-switcher {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        background: rgba(10, 16, 32, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 3px 4px;
+        border-radius: 999px;
+        margin: 0.2rem auto 0.55rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        width: fit-content;
+        max-width: 92vw;
+        z-index: 10;
+    }
+
+    .pulse-switch-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-dim);
+        font-family: var(--font-mono);
+        font-size: 0.71rem;
+        font-weight: 600;
+        padding: 5px 13px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all 0.22s ease;
+    }
+
+    .pulse-switch-btn.active {
+        background: rgba(56, 189, 248, 0.16);
+        border-color: rgba(56, 189, 248, 0.6);
+        color: #ffffff;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 8px #10b981;
+    }
+
+    .btn-music-icon {
+        font-size: 0.72rem;
+    }
+
     .live-pulse-grid {
         grid-template-columns: 1fr;
         width: 92vw;
-        max-width: 440px;
-        gap: 14px;
-        margin-top: 0.8rem;
+        max-width: 420px;
+        gap: 0;
+        margin-top: 0.2rem;
     }
 
     .pulse-card {
-        padding: 16px 18px;
-        gap: 12px;
+        padding: 13px 14px;
+        gap: 8px;
+        width: 100%;
+        max-width: 420px;
+        box-sizing: border-box;
+    }
+
+    .pulse-card:not(.mobile-visible) {
+        display: none !important;
+    }
+
+    .pulse-card.mobile-visible {
+        display: flex !important;
+        animation: pulseFadeIn 0.25s ease;
+    }
+
+    .repo-hero-row {
+        gap: 8px;
+    }
+
+    .repo-name {
+        font-size: 0.9rem;
+    }
+
+    .repo-lang-pill {
+        font-size: 0.64rem;
+        padding: 2px 7px;
+    }
+
+    .repo-description {
+        font-size: 0.73rem;
+        line-height: 1.38;
+        margin: 2px 0 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .commit-terminal-box {
+        margin: 2px 0 5px;
+    }
+
+    .terminal-bar {
+        padding: 3px 8px;
+    }
+
+    .term-title {
+        font-size: 0.64rem;
+    }
+
+    .terminal-content {
+        padding: 6px 8px;
+    }
+
+    .terminal-commit-text {
+        font-size: 0.7rem;
+        line-height: 1.34;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .terminal-meta-row {
+        font-size: 0.63rem;
+        margin-top: 3px;
+    }
+
+    .pulse-card-footer {
+        padding-top: 5px;
+    }
+
+    .footer-meta-text {
+        font-size: 0.68rem;
+    }
+
+    .pulse-action-btn {
+        padding: 5px 11px;
+        font-size: 0.7rem;
     }
 
     .spotify-body {
         flex-direction: row;
-        gap: 12px;
+        gap: 10px;
         align-items: center;
     }
 
     .spotify-art-container {
-        width: 64px;
-        height: 64px;
+        width: 54px;
+        height: 54px;
+        flex-shrink: 0;
+    }
+
+    .spotify-context-tag {
+        font-size: 0.62rem;
     }
 
     .track-title {
-        font-size: 0.95rem;
+        font-size: 0.86rem;
+        line-height: 1.24;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .track-artist {
-        font-size: 0.78rem;
+        font-size: 0.72rem;
     }
 
-    .terminal-commit-text {
-        font-size: 0.74rem;
+    .track-album {
+        font-size: 0.66rem;
     }
 
-    /* Chapter 07: The Open Door on Mobile */
+    .spotify-progress-container {
+        margin: 3px 0 2px;
+    }
+
+    /* Chapter 07: The Open Door on Mobile — Pure Viewport Fit */
     .open-door-card {
         width: 92vw;
-        max-width: 390px;
-        padding: 24px 18px;
-        gap: 16px;
+        max-width: 400px;
+        padding: 15px 14px 13px;
+        gap: 9px;
+        box-sizing: border-box;
     }
 
     .open-door-narrative {
-        font-size: 0.84rem !important;
-        line-height: 1.55;
+        font-size: 0.77rem !important;
+        line-height: 1.45;
+        margin-bottom: 2px;
     }
 
     .connect-actions-group {
         flex-direction: column;
-        gap: 10px;
+        gap: 7px;
         width: 100%;
     }
 
     .btn-copy-email {
         width: 100%;
         justify-content: center;
-        font-size: 0.8rem;
-        padding: 10px 18px;
-    }
-
-    .connect-social-links {
-        justify-content: center;
-        width: 100%;
+        font-size: 0.75rem;
+        padding: 8px 14px;
     }
 
     .digital-twin-invite {
-        font-size: 0.78rem;
-        padding: 10px 14px;
+        font-size: 0.72rem;
+        padding: 7px 10px;
         flex-direction: column;
         text-align: center;
-        gap: 6px;
+        gap: 3px;
     }
 
     .digital-twin-invite .invite-arrow {
@@ -2380,51 +2654,455 @@ body.project-hovered .scroll-indicator {
     }
 
     .portfolio-bridge {
-        font-size: 0.72rem;
+        font-size: 0.69rem;
         flex-direction: column;
         text-align: center;
-        gap: 6px;
-        padding-top: 10px;
+        gap: 2px;
+        padding-top: 3px;
+    }
+
+    .portfolio-bridge-link {
+        font-size: 0.71rem;
     }
 
     .scroll-indicator {
-        bottom: 18px;
-        padding: 8px 18px;
-        font-size: 0.76rem;
+        bottom: 16px;
+        padding: 7px 16px;
+        font-size: 0.74rem;
     }
 
     #chatbot-toggle {
-        bottom: 16px;
-        right: 16px;
-        width: 48px;
-        height: 48px;
-        font-size: 22px;
+        bottom: 14px;
+        right: 14px;
+        width: 46px;
+        height: 46px;
+        font-size: 21px;
     }
 }
 
-@media (max-width: 580px) {
+@keyframes pulseFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Chapter 05: The Sandbox — Mobile Project Showcase (Single Focus + Slide + Tap Info)
+   ========================================================================== */
+@media (max-width: 768px) {
+    #sec-sandbox {
+        padding-top: clamp(4.6rem, 11vh, 5.8rem) !important;
+        padding-bottom: clamp(3.5rem, 8vh, 4.2rem) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+
+    #sec-sandbox h1 {
+        margin-bottom: 0.25rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    #sec-sandbox p {
+        margin-bottom: 0.35rem !important;
+        font-size: clamp(0.8rem, 2.9vw, 0.9rem) !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    #sec-sandbox .chapter-marker {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    .projects-showcase-stage {
+        position: relative !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        display: block !important;
+        overflow: hidden !important;
+        padding: 4px 0 8px !important;
+        margin: 0.2rem auto 0 !important;
+        touch-action: pan-y !important;
+        perspective: 1000px !important;
+        box-sizing: border-box !important;
+    }
+
     .projects-container {
+        display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        gap: 16px !important;
-        width: 100vw !important;
-        max-width: 100% !important;
-        padding: 8px 1.5rem 1.5rem !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
-        scrollbar-width: none !important;
-        -webkit-overflow-scrolling: touch !important;
+        gap: 18px !important;
+        width: max-content !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 6px 0 !important;
+        overflow: visible !important;
+        transform: translate3d(0, 0, 0);
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        will-change: transform !important;
+        touch-action: pan-y !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
-    .projects-container::-webkit-scrollbar {
+
+    .projects-container .project {
+        position: relative !important;
+        flex: 0 0 clamp(235px, 70vw, 265px) !important;
+        width: clamp(235px, 70vw, 265px) !important;
+        height: clamp(275px, 38vh, 315px) !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        background: var(--glass-bg) !important;
+        border: 1px solid var(--glass-border) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 0.45s ease,
+                    filter 0.45s ease,
+                    box-shadow 0.45s ease,
+                    border-color 0.45s ease !important;
+        cursor: pointer !important;
+    }
+
+    /* Inactive / Peek Cards */
+    .projects-container .project:not(.showcase-active) {
+        transform: scale(0.85) !important;
+        opacity: 0.38 !important;
+        filter: blur(0.4px) brightness(0.72) !important;
+        pointer-events: auto !important;
+    }
+
+    /* Active Focused Primary Project Card - In dead center */
+    .projects-container .project.showcase-active {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+        filter: none !important;
+        border-color: rgba(56, 189, 248, 0.72) !important;
+        box-shadow: 0 16px 42px rgba(0, 0, 0, 0.8), 0 0 32px rgba(56, 189, 248, 0.36) !important;
+        z-index: 10 !important;
+        pointer-events: auto !important;
+    }
+
+    /* Hide desktop thought bubble on mobile to avoid overflow and clipping */
+    .projects-container .thought-bubble {
         display: none !important;
     }
-    .projects-container .project {
-        flex: 0 0 230px !important;
-        width: 230px !important;
-        height: 290px !important;
-        scroll-snap-align: center !important;
+
+    /* Tap Indicator Badge on Primary Card */
+    .project-tap-badge {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        position: absolute !important;
+        bottom: 12px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        background: rgba(8, 14, 28, 0.88) !important;
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        color: #f8fafc !important;
+        padding: 6px 14px !important;
+        border-radius: 999px !important;
+        font-family: var(--font-mono) !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.04em !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 16px rgba(56, 189, 248, 0.25) !important;
+        pointer-events: none !important;
+        z-index: 6 !important;
+        white-space: nowrap !important;
+        transition: opacity 0.25s ease, transform 0.25s ease !important;
+        animation: badgeBreathe 3s ease-in-out infinite !important;
+    }
+
+    .project:not(.showcase-active) .project-tap-badge {
+        display: none !important;
+    }
+
+    .project.info-active .project-tap-badge {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    .project-tap-badge .badge-icon {
+        color: var(--accent-cyan) !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Viewport-Contained Project Info Overlay */
+    .project-info-overlay {
+        display: flex !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(8, 14, 28, 0.95) !important;
+        backdrop-filter: blur(22px) !important;
+        -webkit-backdrop-filter: blur(22px) !important;
+        border-radius: 20px !important;
+        padding: 16px 14px 14px !important;
+        box-sizing: border-box !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(12px) scale(0.97) !important;
+        transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        z-index: 20 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        border: 1px solid rgba(56, 189, 248, 0.45) !important;
+        text-align: left !important;
+    }
+
+    .project.info-active .project-info-overlay {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateY(0) scale(1) !important;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .project.showcase-active:hover .project-info-overlay {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: translateY(0) scale(1) !important;
+        }
+        .project.showcase-active:hover .project-tap-badge {
+            opacity: 0 !important;
+        }
+    }
+
+    .info-overlay-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 4px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .info-tag {
+        font-family: var(--font-mono) !important;
+        font-size: 0.64rem !important;
+        color: var(--accent-cyan) !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.06em !important;
+        text-transform: uppercase !important;
+    }
+
+    .info-close-btn {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        color: #cbd5e1 !important;
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        font-size: 0.75rem !important;
+        transition: background 0.2s, color 0.2s, transform 0.2s !important;
+    }
+
+    .info-close-btn:active {
+        transform: scale(0.9) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .info-title {
+        font-family: var(--font-display) !important;
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        margin: 2px 0 6px 0 !important;
+        letter-spacing: -0.01em !important;
+    }
+
+    .info-body {
+        font-family: var(--font-body) !important;
+        font-size: clamp(0.76rem, 2.6vw, 0.83rem) !important;
+        line-height: 1.48 !important;
+        color: var(--text-bone) !important;
+        flex: 1 !important;
+        overflow-y: auto !important;
+        margin-bottom: 10px !important;
+        padding-right: 4px !important;
+    }
+
+    .info-body strong {
+        color: var(--accent-cyan) !important;
+        font-weight: 600 !important;
+    }
+
+    .info-footer {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: stretch !important;
+        width: 100% !important;
+        margin-top: auto !important;
+    }
+
+    .info-action-btn {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 7px !important;
+        padding: 9px 12px !important;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(99, 102, 241, 0.22)) !important;
+        border: 1px solid rgba(56, 189, 248, 0.6) !important;
+        border-radius: 12px !important;
+        color: var(--accent-cyan) !important;
+        font-family: var(--font-mono) !important;
+        font-size: 0.76rem !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
+    }
+
+    .info-action-btn:active {
+        transform: scale(0.98) !important;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.35)) !important;
+    }
+
+    .info-pill-badge {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 8px 12px !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 12px !important;
+        color: var(--text-dim) !important;
+        font-family: var(--font-mono) !important;
+        font-size: 0.74rem !important;
+        font-weight: 500 !important;
+    }
+
+    /* Chevrons */
+    .showcase-nav-btn {
+        display: flex !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        background: rgba(10, 16, 32, 0.84) !important;
+        border: 1px solid rgba(56, 189, 248, 0.45) !important;
+        color: var(--accent-cyan) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 25 !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(56, 189, 248, 0.22) !important;
+        transition: background 0.2s, transform 0.2s, opacity 0.25s, border-color 0.2s !important;
+    }
+
+    .showcase-prev-btn { left: 10px !important; }
+    .showcase-next-btn { right: 10px !important; }
+
+    .showcase-nav-btn.disabled {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    .showcase-nav-btn:active {
+        transform: translateY(-50%) scale(0.92) !important;
+    }
+
+    /* Meta bar */
+    .showcase-meta-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 7px !important;
+        margin-top: 0.4rem !important;
+        z-index: 15 !important;
+    }
+
+    .showcase-counter-badge {
+        font-family: var(--font-mono) !important;
+        font-size: 0.72rem !important;
+        letter-spacing: 0.04em !important;
+        color: var(--text-bone) !important;
+        background: rgba(10, 16, 32, 0.8) !important;
+        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        padding: 4px 12px !important;
+        border-radius: 999px !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    .showcase-step-num {
+        color: var(--accent-cyan) !important;
+        font-weight: 700 !important;
+    }
+
+    .showcase-project-name {
+        color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    .showcase-dots {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .showcase-dot {
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.22) !important;
+        border: none !important;
+        padding: 0 !important;
+        cursor: pointer !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .showcase-dot.active {
+        width: 22px !important;
+        border-radius: 6px !important;
+        background: var(--accent-cyan) !important;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.7) !important;
+    }
+}
+
+@keyframes badgeBreathe {
+    0%, 100% {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(56, 189, 248, 0.2);
+        border-color: rgba(56, 189, 248, 0.45);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 22px rgba(56, 189, 248, 0.5);
+        border-color: rgba(56, 189, 248, 0.85);
     }
 }
 
