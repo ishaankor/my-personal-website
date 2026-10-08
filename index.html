@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
   <title>Ishaan Koradia | Personal Website</title>
   <link rel="icon" href="./favicon.ico">
   
@@ -673,16 +673,27 @@
   <!-- ==========================================================================
        Chatbot Widget (IshaanBot - Digital Twin)
        ========================================================================== -->
+  <!-- Backdrop for Mobile Bottom Sheet -->
+  <div id="chatbot-backdrop" class="chatbot-backdrop"></div>
+
   <div id="chatbot-toggle" title="Chat with IshaanBot!">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </div>
   <div id="chatbot-widget">
+    <!-- iOS Style Sheet Grabber -->
+    <div id="chatbot-grabber" class="chatbot-grabber-area" title="Drag or tap to expand/collapse">
+      <div class="grabber-pill"></div>
+    </div>
     <div id="chatbot-header">
       <div class="bot-title-area">
         <span class="status-dot"></span>
         <span>Chat with IshaanBot</span>
       </div>
       <div class="header-controls">
+        <span id="chatbot-expand" class="mobile-expand-btn" title="Expand or collapse sheet">
+          <svg class="expand-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          <svg class="collapse-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="10" y1="14" x2="3" y2="21"/></svg>
+        </span>
         <span id="chatbot-clear" title="Clear conversation">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         </span>
@@ -1086,13 +1097,28 @@
         });
       });
 
-      // Wheel Event Handling (Down & Sideways Navigation)
+      // Wheel Event Handling (Down & Sideways Navigation with Zoom-Resilient Panel Scroll)
       function handleWheel(event) {
         if (isTransitioning) return;
 
         // Don't intercept scroll inside chatbot
         const chatbotWidget = document.getElementById("chatbot-widget");
         if (chatbotWidget && chatbotWidget.contains(event.target)) return;
+
+        // Check if the current active chapter panel is scrollable (e.g. zoomed in or compact height)
+        const activePanel = panels[currentIndex];
+        if (activePanel) {
+          const isScrollable = activePanel.scrollHeight > activePanel.clientHeight + 6;
+          if (isScrollable) {
+            const atBottom = activePanel.scrollTop + activePanel.clientHeight >= activePanel.scrollHeight - 8;
+            const atTop = activePanel.scrollTop <= 6;
+
+            // If scrolling down but haven't reached panel floor, scroll within the panel
+            if (event.deltaY > 0 && !atBottom) return;
+            // If scrolling up but haven't reached panel ceiling, scroll within the panel
+            if (event.deltaY < 0 && !atTop) return;
+          }
+        }
 
         if (event.deltaY > 18 && currentIndex < panels.length - 1) {
           isTransitioning = true;
@@ -1120,7 +1146,7 @@
         }
       });
 
-      // Touch Vertical & Diagonal Swipes
+      // Touch Vertical & Diagonal Swipes (Zoom & Scroll Aware)
       let touchStartY = 0, touchStartX = 0;
       document.addEventListener("touchstart", function (e) {
         touchStartY = e.touches[0].clientY;
@@ -1130,6 +1156,20 @@
       document.addEventListener("touchend", function (e) {
         // Prevent chapter gliding if user is interacting with project info overlay, chatbot or pulse cards
         if (e.target && e.target.closest && (e.target.closest(".project-info-overlay") || e.target.closest("#chatbot-widget") || e.target.closest(".pulse-mobile-switcher"))) return;
+
+        // If active panel is scrollable on mobile (e.g. zoomed or tall card), respect internal scrolling
+        const activePanel = panels[currentIndex];
+        if (activePanel) {
+          const isScrollable = activePanel.scrollHeight > activePanel.clientHeight + 10;
+          if (isScrollable) {
+            const atBottom = activePanel.scrollTop + activePanel.clientHeight >= activePanel.scrollHeight - 12;
+            const atTop = activePanel.scrollTop <= 10;
+            const diffY = touchStartY - e.changedTouches[0].clientY;
+
+            if (diffY > 0 && !atBottom) return;
+            if (diffY < 0 && !atTop) return;
+          }
+        }
 
         const diffY = touchStartY - e.changedTouches[0].clientY;
         const diffX = touchStartX - e.changedTouches[0].clientX;
@@ -1695,6 +1735,10 @@
     document.addEventListener("DOMContentLoaded", function () {
       const chatbotToggle = document.getElementById('chatbot-toggle');
       const chatbotWidget = document.getElementById('chatbot-widget');
+      const chatbotBackdrop = document.getElementById('chatbot-backdrop');
+      const chatbotGrabber = document.getElementById('chatbot-grabber');
+      const chatbotExpand = document.getElementById('chatbot-expand');
+      const chatbotHeader = document.getElementById('chatbot-header');
       const chatbotMessages = document.getElementById('chatbot-messages');
       const chatbotInput = document.getElementById('chatbot-input');
       const chatbotSend = document.getElementById('chatbot-send');
@@ -1779,6 +1823,7 @@
       }
 
       function sendMessage(customMsg) {
+        expandChatbot();
         const userMsg = (customMsg !== undefined ? customMsg : chatbotInput.value).trim();
         if (!userMsg) return;
 
@@ -1884,20 +1929,42 @@
         executeChatRequest();
       }
 
-      // Open / Close helper functions
+      // Open / Close / Expand helper functions
       function openChatbot() {
         chatbotWidget.classList.add('open');
+        chatbotWidget.classList.remove('expanded'); // Start in compact state (~56dvh)
+        if (chatbotBackdrop) {
+          chatbotBackdrop.classList.add('active');
+        }
         if (chatbotToggle) {
           chatbotToggle.classList.add('hidden');
         }
-        setTimeout(() => { chatbotInput.focus(); }, 250);
+        if (window.innerWidth > 640) {
+          setTimeout(() => { chatbotInput.focus(); }, 250);
+        }
       }
 
       function closeChatbot() {
         chatbotWidget.classList.remove('open');
+        chatbotWidget.classList.remove('expanded');
+        if (chatbotBackdrop) {
+          chatbotBackdrop.classList.remove('active');
+        }
         if (chatbotToggle) {
           chatbotToggle.classList.remove('hidden');
         }
+      }
+
+      function expandChatbot() {
+        chatbotWidget.classList.add('expanded');
+      }
+
+      function collapseChatbot() {
+        chatbotWidget.classList.remove('expanded');
+      }
+
+      function toggleExpandChatbot() {
+        chatbotWidget.classList.toggle('expanded');
       }
 
       // Toggle Open/Close
@@ -1916,6 +1983,64 @@
         chatbotClose.onclick = () => {
           closeChatbot();
         };
+      }
+
+      if (chatbotBackdrop) {
+        chatbotBackdrop.onclick = () => {
+          closeChatbot();
+        };
+      }
+
+      if (chatbotExpand) {
+        chatbotExpand.onclick = (e) => {
+          e.stopPropagation();
+          toggleExpandChatbot();
+        };
+      }
+
+      // Native touch gestures for bottom sheet swipe (down = collapse/close, up = expand)
+      let touchStartY = 0;
+      let touchMoveY = 0;
+
+      function onTouchStart(e) {
+        if (e.touches && e.touches.length > 0) {
+          touchStartY = e.touches[0].clientY;
+          touchMoveY = touchStartY;
+        }
+      }
+
+      function onTouchMove(e) {
+        if (e.touches && e.touches.length > 0) {
+          touchMoveY = e.touches[0].clientY;
+        }
+      }
+
+      function onTouchEnd() {
+        const deltaY = touchMoveY - touchStartY;
+        if (deltaY > 45) {
+          // Swiped down
+          if (chatbotWidget.classList.contains('expanded')) {
+            collapseChatbot();
+          } else {
+            closeChatbot();
+          }
+        } else if (deltaY < -35) {
+          // Swiped up
+          expandChatbot();
+        }
+      }
+
+      if (chatbotGrabber) {
+        chatbotGrabber.addEventListener('touchstart', onTouchStart, { passive: true });
+        chatbotGrabber.addEventListener('touchmove', onTouchMove, { passive: true });
+        chatbotGrabber.addEventListener('touchend', onTouchEnd);
+        chatbotGrabber.addEventListener('click', toggleExpandChatbot);
+      }
+
+      if (chatbotHeader) {
+        chatbotHeader.addEventListener('touchstart', onTouchStart, { passive: true });
+        chatbotHeader.addEventListener('touchmove', onTouchMove, { passive: true });
+        chatbotHeader.addEventListener('touchend', onTouchEnd);
       }
 
       // Allow pressing Escape to close out of IshaanBot
@@ -1938,6 +2063,11 @@
       }
 
       if (chatbotInput) {
+        chatbotInput.addEventListener('focus', function () {
+          if (window.innerWidth <= 640) {
+            expandChatbot();
+          }
+        });
         chatbotInput.addEventListener('keydown', function (e) {
           if (e.key === 'Enter') {
             e.preventDefault();
