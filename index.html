@@ -97,37 +97,23 @@
     <!-- Subtle, Discreet Vector Timeline Path connecting all 7 chapters -->
     <svg class="timeline-svg" viewBox="0 0 1000 7000" preserveAspectRatio="none">
       <defs>
-        <linearGradient id="timeline-grad" gradientUnits="userSpaceOnUse" x1="500" y1="500" x2="500" y2="6500">
-          <stop offset="0%" stop-color="#38bdf8" />
-          <stop offset="25%" stop-color="#818cf8" />
-          <stop offset="50%" stop-color="#c084fc" />
-          <stop offset="75%" stop-color="#38bdf8" />
-          <stop offset="100%" stop-color="#34d399" />
+        <linearGradient id="timeline-grad" gradientUnits="userSpaceOnUse" x1="500" y1="502" x2="500" y2="6180">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="50%" stop-color="#f8fafc" />
+          <stop offset="100%" stop-color="#ffffff" />
         </linearGradient>
       </defs>
 
-      <!-- Desktop Serpentine Timeline (Down & Sideways Zig-Zag) -->
+      <!-- Desktop Serpentine Timeline (Down & Sideways Zig-Zag Connecting Chapter Markers) -->
       <g class="timeline-group-desktop">
-        <path class="timeline-path" d="M 478 500 C 650 900, 780 1100, 780 1500 C 780 1900, 280 2100, 280 2500 C 280 2900, 760 3100, 760 3500 C 760 3900, 260 4100, 260 4500 C 260 4900, 720 5100, 720 5500 C 720 5900, 500 6100, 500 6500" />
-        <circle class="timeline-node active" data-index="0" cx="478" cy="500" r="3.5" />
-        <circle class="timeline-node" data-index="1" cx="780" cy="1500" r="3.5" />
-        <circle class="timeline-node" data-index="2" cx="280" cy="2500" r="3.5" />
-        <circle class="timeline-node" data-index="3" cx="760" cy="3500" r="3.5" />
-        <circle class="timeline-node" data-index="4" cx="260" cy="4500" r="3.5" />
-        <circle class="timeline-node" data-index="5" cx="720" cy="5500" r="3.5" />
-        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="3.5" />
-      </g>
-
-      <!-- Split-Screen / Compact Vertical Constellation Timeline (Straight Center Axis) -->
-      <g class="timeline-group-split">
-        <path class="timeline-path" d="M 478 500 C 478 900, 500 1100, 500 1500 L 500 6500" />
-        <circle class="timeline-node active" data-index="0" cx="478" cy="500" r="3.5" />
-        <circle class="timeline-node" data-index="1" cx="500" cy="1500" r="3.5" />
-        <circle class="timeline-node" data-index="2" cx="500" cy="2500" r="3.5" />
-        <circle class="timeline-node" data-index="3" cx="500" cy="3500" r="3.5" />
-        <circle class="timeline-node" data-index="4" cx="500" cy="4500" r="3.5" />
-        <circle class="timeline-node" data-index="5" cx="500" cy="5500" r="3.5" />
-        <circle class="timeline-node" data-index="6" cx="500" cy="6500" r="3.5" />
+        <path class="timeline-path" d="M 500 502 C 500 840, 780 840, 780 1180 C 780 1680, 280 1680, 280 2180 C 280 2680, 760 2680, 760 3180 C 760 3680, 260 3680, 260 4180 C 260 4680, 720 4680, 720 5180 C 720 5680, 500 5680, 500 6180" />
+        <circle class="timeline-node active" data-index="0" cx="500" cy="502" r="4.2" />
+        <circle class="timeline-node" data-index="1" cx="780" cy="1180" r="4.2" />
+        <circle class="timeline-node" data-index="2" cx="280" cy="2180" r="4.2" />
+        <circle class="timeline-node" data-index="3" cx="760" cy="3180" r="4.2" />
+        <circle class="timeline-node" data-index="4" cx="260" cy="4180" r="4.2" />
+        <circle class="timeline-node" data-index="5" cx="720" cy="5180" r="4.2" />
+        <circle class="timeline-node" data-index="6" cx="500" cy="6180" r="4.2" />
       </g>
     </svg>
 
@@ -137,20 +123,24 @@
     <section id="sec-identity" class="brochure-panel active" data-index="0">
       <div class="chapter-marker">// CHAPTER 01 — THE IDENTITY</div>
       <div class="my-name">
-        <span>I</span>
-        <span>s</span>
-        <span>h</span>
-        <span>a</span>
-        <span>a</span>
-        <span>n</span>
-        <span>&nbsp;</span>
-        <span>K</span>
-        <span>o</span>
-        <span>r</span>
-        <span>a</span>
-        <span>d</span>
-        <span>i</span>
-        <span>a</span>
+        <div class="name-first">
+          <span>I</span>
+          <span>s</span>
+          <span>h</span>
+          <span>a</span>
+          <span>a</span>
+          <span>n</span><i class="name-baseline-probe" style="display:inline-block;vertical-align:baseline;width:0;height:0;font-size:0;line-height:0;margin:0;padding:0;border:0;opacity:0;pointer-events:none;"></i>
+        </div>
+        <div class="name-space">&nbsp;</div>
+        <div class="name-last">
+          <span>K</span>
+          <span>o</span>
+          <span>r</span>
+          <span>a</span>
+          <span>d</span>
+          <span>i</span>
+          <span>a</span>
+        </div>
       </div>
       <div class="typing-container">
         <h1>I am <span class="typing-text"></span></h1>
@@ -653,7 +643,7 @@
           detectsOn: "window",
           events: {
             onHover: {
-              enable: true,
+              enable: false,
               mode: "grab"
             },
             onClick: {
@@ -694,16 +684,6 @@
     });
 
     // 3. Helper Functions
-    const SPLIT_MEDIA_QUERY = "(max-width: 1200px), (max-aspect-ratio: 13/10) and (max-width: 1440px)";
-    const splitMediaQueryList = window.matchMedia ? window.matchMedia(SPLIT_MEDIA_QUERY) : null;
-
-    function isCompactOrSplitViewport() {
-      if (splitMediaQueryList && typeof splitMediaQueryList.matches === "boolean") {
-        return splitMediaQueryList.matches;
-      }
-      return window.innerWidth <= 1200 || ((window.innerWidth / window.innerHeight) <= 1.30 && window.innerWidth <= 1440);
-    }
-
     function isTouchMobile() {
       return (
         "ontouchstart" in window || navigator.maxTouchPoints > 0
@@ -745,41 +725,149 @@
       let currentIndex = 0;
       let isTransitioning = false;
 
-      function updateFlowMode() {
-        const isSplit = isCompactOrSplitViewport();
-        document.body.classList.toggle("flow-straight", isSplit);
-        document.body.classList.toggle("flow-zigzag", !isSplit);
+      // ==========================================================================
+      // Dynamic Responsive Timeline Positioning Engine
+      // Anchors points to actual DOM elements across ANY viewport height and width
+      // ==========================================================================
+      function updateTimelineCoordinates() {
+        if (!brochureCanvas || !panels || panels.length < 7) return;
+
+        const canvasRect = brochureCanvas.getBoundingClientRect();
+        const winW = window.innerWidth || document.documentElement.clientWidth;
+        const winH = window.innerHeight || document.documentElement.clientHeight;
+        if (!winW || !winH) return;
+
+        const GAP_PX = 20; // Exact consistent pixel distance directly above each chapter marker
+        const timelinePoints = [];
+
+        // Chapter 1 (Identity, index 0): treat first node like a typographical period (".") between "Ishaan" and "Koradia"
+        const panel0 = panels[0];
+        const nameSpace = panel0 ? panel0.querySelector(".name-space") : null;
+        const charN = panel0 ? panel0.querySelector(".name-first span:last-child") : null;
+        const charK = panel0 ? panel0.querySelector(".name-last span:first-child") : null;
+        const baselineProbe = panel0 ? panel0.querySelector(".name-baseline-probe") : null;
+        const nameFirst = panel0 ? panel0.querySelector(".name-first") : null;
+        const p0Rect = panel0 ? panel0.getBoundingClientRect() : null;
+
+        let ch0_x = 500;
+        let ch0_y = 502;
+
+        if (panel0 && p0Rect && p0Rect.width > 0 && p0Rect.height > 0) {
+          // Horizontal (X): centered in the gap between "Ishaan" and "Koradia"
+          let periodXPx = 0;
+          if (charN && charK) {
+            const nRect = charN.getBoundingClientRect();
+            const kRect = charK.getBoundingClientRect();
+            if (nRect.right > 0 && kRect.left > 0) {
+              periodXPx = (nRect.right + kRect.left) / 2;
+            }
+          }
+          if (!periodXPx && nameSpace) {
+            const spaceRect = nameSpace.getBoundingClientRect();
+            if (spaceRect.width > 0) {
+              periodXPx = spaceRect.left + spaceRect.width / 2;
+            }
+          }
+          if (periodXPx > 0) {
+            ch0_x = ((periodXPx - p0Rect.left) / p0Rect.width) * 1000;
+          }
+
+          // Vertical (Y): resting directly on the typographical baseline like a period (".")
+          let baselineYPx = 0;
+          if (baselineProbe) {
+            const probeRect = baselineProbe.getBoundingClientRect();
+            if (probeRect.top > 0) {
+              baselineYPx = probeRect.top;
+            }
+          }
+          if (!baselineYPx && charN) {
+            const nRect = charN.getBoundingClientRect();
+            if (nRect.height > 0) {
+              baselineYPx = nRect.bottom - (nRect.height * 0.1818);
+            }
+          }
+          if (!baselineYPx && nameFirst) {
+            const nfRect = nameFirst.getBoundingClientRect();
+            baselineYPx = nfRect.bottom - (nfRect.height * 0.1818);
+          }
+
+          if (baselineYPx > 0) {
+            // A period glyph rests on the baseline; subtracting circle radius (4.2 SVG units ≈ 4.2px)
+            // places the bottom rim of the circle flush on the baseline
+            const nodeRadiusPx = 4.2;
+            const periodCenterY = baselineYPx - nodeRadiusPx;
+            ch0_y = ((periodCenterY - p0Rect.top) / p0Rect.height) * 1000;
+          }
+        }
+
+        timelinePoints.push({ x: ch0_x, y: ch0_y });
+
+        // Chapters 2 to 7 (indices 1 to 6): dynamically anchored at EXACTLY GAP_PX above each .chapter-marker
+        for (let i = 1; i < 7; i++) {
+          const panel = panels[i];
+          if (!panel) continue;
+
+          const marker = panel.querySelector(".chapter-marker");
+          const pRect = panel.getBoundingClientRect();
+          let ptY = (i * 1000) + 180;
+          let ptX = 500 + (panelCoords[i].x * 10);
+
+          if (marker && pRect.height > 0 && pRect.width > 0) {
+            const markerRect = marker.getBoundingClientRect();
+            // Exact Y: precisely GAP_PX above the top border of the chapter marker pill, relative to panel i
+            const relY = (markerRect.top - pRect.top - GAP_PX) / pRect.height;
+            ptY = (i * 1000) + (relY * 1000);
+
+            const relX = ((markerRect.left + markerRect.width / 2) - pRect.left) / pRect.width;
+            ptX = (500 + (panelCoords[i].x * 10)) + ((relX - 0.5) * 1000);
+          }
+
+          timelinePoints.push({ x: ptX, y: ptY });
+        }
+
+        // Update Timeline SVG Nodes
+        const nodes = document.querySelectorAll(".timeline-node");
+        nodes.forEach((node) => {
+          const idx = parseInt(node.getAttribute("data-index"), 10);
+          if (timelinePoints[idx]) {
+            node.setAttribute("cx", timelinePoints[idx].x.toFixed(1));
+            node.setAttribute("cy", timelinePoints[idx].y.toFixed(1));
+          }
+        });
+
+        // Generate smooth C1-continuous bezier path for Serpentine Zig-Zag Timeline
+        const timelinePath = document.querySelector(".timeline-path");
+        if (timelinePath && timelinePoints.length === 7) {
+          let d = `M ${timelinePoints[0].x.toFixed(1)} ${timelinePoints[0].y.toFixed(1)}`;
+          for (let i = 1; i < timelinePoints.length; i++) {
+            const prev = timelinePoints[i - 1];
+            const curr = timelinePoints[i];
+            const yMid = (prev.y + curr.y) / 2;
+            d += ` C ${prev.x.toFixed(1)} ${yMid.toFixed(1)}, ${curr.x.toFixed(1)} ${yMid.toFixed(1)}, ${curr.x.toFixed(1)} ${curr.y.toFixed(1)}`;
+          }
+          timelinePath.setAttribute("d", d);
+        }
+
+        // Synchronize Timeline Gradient bounds
+        const timelineGrad = document.getElementById("timeline-grad");
+        if (timelineGrad && timelinePoints.length === 7) {
+          timelineGrad.setAttribute("y1", timelinePoints[0].y.toFixed(1));
+          timelineGrad.setAttribute("y2", timelinePoints[6].y.toFixed(1));
+        }
       }
 
       function updateScrollIndicator() {
         if (!scrollIndicator || !indicatorText || !indicatorArrow) return;
-        const isSplit = isCompactOrSplitViewport();
 
         if (currentIndex < panels.length - 1) {
           scrollIndicator.classList.remove("is-top");
           indicatorText.textContent = isTouchMobile() ? "Swipe Down" : "Scroll Down";
-          const arrowMap = isSplit ? ["↓", "↓", "↓", "↓", "↓", "↓"] : ["↘", "↙", "↘", "↙", "↘", "↓"];
+          const arrowMap = ["↘", "↙", "↘", "↙", "↘", "↓"];
           indicatorArrow.textContent = arrowMap[currentIndex] || "↓";
         } else {
           scrollIndicator.classList.add("is-top");
           indicatorText.textContent = "Back to Top";
           indicatorArrow.textContent = "↖";
-        }
-      }
-
-      updateFlowMode();
-
-      if (splitMediaQueryList) {
-        if (splitMediaQueryList.addEventListener) {
-          splitMediaQueryList.addEventListener("change", () => {
-            updateFlowMode();
-            goToPanel(currentIndex, true);
-          });
-        } else if (splitMediaQueryList.addListener) {
-          splitMediaQueryList.addListener(() => {
-            updateFlowMode();
-            goToPanel(currentIndex, true);
-          });
         }
       }
 
@@ -795,9 +883,7 @@
           }
         } catch (e) {}
 
-        const isSplit = isCompactOrSplitViewport();
-        // On split screen, iPad, or mobile, keep targetX at 0 for optimal horizontal centering
-        const targetX = isSplit ? 0 : panelCoords[index].x;
+        const targetX = panelCoords[index].x;
         const targetY = panelCoords[index].y;
 
         if (instant) {
@@ -806,6 +892,7 @@
           void brochureCanvas.offsetHeight;
           setTimeout(() => {
             brochureCanvas.style.transition = "";
+            updateTimelineCoordinates();
           }, 50);
         } else {
           // Apply 2D glide transformation to master canvas
@@ -813,12 +900,14 @@
           brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
           setTimeout(() => {
             brochureCanvas.classList.remove("gliding");
+            updateTimelineCoordinates();
           }, 950);
         }
 
         // Update active classes on panels
         panels.forEach((panel, i) => {
           panel.classList.toggle("active", i === index);
+          if (i === index) panel.scrollTop = 0;
         });
 
         // Update HUD pills
@@ -879,6 +968,18 @@
       }
       document.documentElement.removeAttribute("data-initial-chapter");
 
+      // Initial Dynamic Timeline Coordinate Calculation
+      updateTimelineCoordinates();
+      requestAnimationFrame(updateTimelineCoordinates);
+      setTimeout(updateTimelineCoordinates, 100);
+      setTimeout(updateTimelineCoordinates, 400);
+      setTimeout(updateTimelineCoordinates, 1000);
+      setTimeout(updateTimelineCoordinates, 1500); // Recalculate once letter drop animation settles
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(updateTimelineCoordinates);
+      }
+      window.addEventListener("load", updateTimelineCoordinates);
+
       window.addEventListener("hashchange", function () {
         const hashIdx = getInitialChapterIndex();
         if (hashIdx !== currentIndex) {
@@ -886,9 +987,13 @@
         }
       });
 
+      let resizeRaf = null;
       window.addEventListener("resize", () => {
-        updateFlowMode();
-        goToPanel(currentIndex, true);
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(() => {
+          goToPanel(currentIndex, true);
+          updateTimelineCoordinates();
+        });
       });
 
       // Indicator Pill Click

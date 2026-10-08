@@ -176,6 +176,24 @@ html, body {
     }
 }
 
+@media (max-width: 768px) {
+    .hud-identity {
+        display: none;
+    }
+    .brochure-hud {
+        justify-content: center;
+        width: 100vw;
+        top: 12px;
+    }
+    .hud-timeline-nav {
+        gap: 2px;
+        padding: 3px 5px;
+    }
+    .hud-pill {
+        padding: 4px 8px;
+    }
+}
+
 /* ==========================================================================
    Option A: 2D Canvas Stage & Panels (Down & Sideways Timeline)
    ========================================================================== */
@@ -199,14 +217,7 @@ html[data-initial-chapter="4"] #brochure-canvas { transform: translate3d(24vw, -
 html[data-initial-chapter="5"] #brochure-canvas { transform: translate3d(-22vw, -500vh, 0) !important; }
 html[data-initial-chapter="6"] #brochure-canvas { transform: translate3d(0vw, -600vh, 0) !important; }
 
-@media (max-width: 1200px), (max-aspect-ratio: 13/10) and (max-width: 1440px) {
-    html[data-initial-chapter="1"] #brochure-canvas { transform: translate3d(0vw, -100vh, 0) !important; }
-    html[data-initial-chapter="2"] #brochure-canvas { transform: translate3d(0vw, -200vh, 0) !important; }
-    html[data-initial-chapter="3"] #brochure-canvas { transform: translate3d(0vw, -300vh, 0) !important; }
-    html[data-initial-chapter="4"] #brochure-canvas { transform: translate3d(0vw, -400vh, 0) !important; }
-    html[data-initial-chapter="5"] #brochure-canvas { transform: translate3d(0vw, -500vh, 0) !important; }
-    html[data-initial-chapter="6"] #brochure-canvas { transform: translate3d(0vw, -600vh, 0) !important; }
-}
+
 
 html[data-initial-chapter] #sec-identity {
     display: none !important;
@@ -241,6 +252,7 @@ html[data-initial-chapter="6"] #sec-portal {
     pointer-events: none;
     overflow-y: auto;
     scrollbar-width: none;
+    z-index: 2;
 }
 
 .brochure-panel::-webkit-scrollbar {
@@ -288,132 +300,54 @@ html[data-initial-chapter="6"] #sec-portal {
     pointer-events: none;
     z-index: 1;
     overflow: visible;
-    opacity: 0.16; /* Subtle, delicate cosmic background guide */
-    transition: opacity 0.6s ease;
+    opacity: 1;
 }
 
-#brochure-canvas.gliding .timeline-svg {
-    opacity: 0.32; /* Gently illuminates during chapter transitions */
+#brochure-canvas.gliding .timeline-path {
+    opacity: 0.65; /* Gently illuminates during chapter transitions */
 }
 
-/* Timeline Layout Groups - Default Desktop Serpentine */
+/* Timeline Layout Groups - Serpentine Zig-Zag */
 .timeline-group-desktop,
 .timeline-desktop-layout {
     display: block !important;
 }
-.timeline-group-split,
-.timeline-split-layout {
-    display: none !important;
-}
 
-/* Desktop Serpentine Path */
-.timeline-group-desktop .timeline-path {
-    stroke: #38bdf8;
-    stroke: url(#timeline-grad);
-    stroke-width: 1.5;
-    stroke-dasharray: 4 6;
-    fill: none;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
-    animation: timelineDash 34s linear infinite;
-}
-
-/* Split-Screen & Compact Vertical Constellation Branch */
-.timeline-group-split .timeline-path {
-    stroke: #38bdf8;
-    stroke: url(#timeline-grad);
-    stroke-width: 1.5;
-    stroke-dasharray: 4 6;
-    fill: none;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
-    animation: timelineDash 28s linear infinite;
-}
-
+/* Serpentine Zig-Zag Timeline Path */
 .timeline-path {
-    stroke: #38bdf8;
+    stroke: #ffffff;
     stroke: url(#timeline-grad);
     stroke-width: 1.5;
     stroke-dasharray: 4 6;
     fill: none;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.3));
+    opacity: 0.35; /* Delicate cosmic starlight guide */
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4));
     animation: timelineDash 30s linear infinite;
+    transition: opacity 0.6s ease;
 }
 
 .timeline-node {
-    fill: #060913;
-    stroke: var(--accent-cyan);
-    stroke-width: 1.4;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.35));
+    fill: #0284c7;
+    stroke: #ffffff;
+    stroke-width: 2.2px;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 7px rgba(56, 189, 248, 0.6));
+    opacity: 1 !important;
     transition: all 0.4s ease;
-}
-
-.timeline-group-split .timeline-node {
-    stroke-width: 1.4;
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.35));
 }
 
 .timeline-node.active {
     fill: var(--accent-cyan);
     stroke: #ffffff;
-    stroke-width: 1.8;
-    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65));
-}
-
-.timeline-group-split .timeline-node.active {
-    stroke-width: 1.8;
+    stroke-width: 2.8px;
+    filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 12px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.7));
+    opacity: 1 !important;
 }
 
 @keyframes timelineDash {
     from { stroke-dashoffset: 600; }
     to { stroke-dashoffset: 0; }
-}
-
-/* Straight Flow in Split-Screen, Tablets, and Compact Viewports */
-@media (max-width: 1200px), (max-aspect-ratio: 13/10) and (max-width: 1440px) {
-    #sec-identity { transform: translate3d(0vw, 0vh, 0) !important; }
-    #sec-spark { transform: translate3d(0vw, 100vh, 0) !important; }
-    #sec-mind { transform: translate3d(0vw, 200vh, 0) !important; }
-    #sec-frontier { transform: translate3d(0vw, 300vh, 0) !important; }
-    #sec-sandbox { transform: translate3d(0vw, 400vh, 0) !important; }
-    #sec-rabbitholes { transform: translate3d(0vw, 500vh, 0) !important; }
-    #sec-portal { transform: translate3d(0vw, 600vh, 0) !important; }
-
-    .timeline-group-desktop,
-    .timeline-desktop-layout {
-        display: none !important;
-    }
-    .timeline-group-split,
-    .timeline-split-layout {
-        display: block !important;
-    }
-    .timeline-svg {
-        display: block !important;
-        opacity: 0.18 !important; /* Subtle, non-distracting constellation branch */
-    }
-    #brochure-canvas.gliding .timeline-svg {
-        opacity: 0.34 !important;
-    }
-}
-
-/* Explicit Flow Mode Classes synced with JavaScript */
-body.flow-straight #sec-identity { transform: translate3d(0vw, 0vh, 0) !important; }
-body.flow-straight #sec-spark { transform: translate3d(0vw, 100vh, 0) !important; }
-body.flow-straight #sec-mind { transform: translate3d(0vw, 200vh, 0) !important; }
-body.flow-straight #sec-frontier { transform: translate3d(0vw, 300vh, 0) !important; }
-body.flow-straight #sec-sandbox { transform: translate3d(0vw, 400vh, 0) !important; }
-body.flow-straight #sec-rabbitholes { transform: translate3d(0vw, 500vh, 0) !important; }
-body.flow-straight #sec-portal { transform: translate3d(0vw, 600vh, 0) !important; }
-
-body.flow-straight .timeline-group-desktop,
-body.flow-straight .timeline-desktop-layout {
-    display: none !important;
-}
-body.flow-straight .timeline-group-split,
-body.flow-straight .timeline-split-layout {
-    display: block !important;
-}
-body.flow-straight .timeline-svg {
-    display: block !important;
-    opacity: 0.18 !important;
 }
 
 /* Chapter Marker Pill */
@@ -423,13 +357,17 @@ body.flow-straight .timeline-svg {
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--accent-cyan);
-    background: rgba(56, 189, 248, 0.08);
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    background: rgba(6, 9, 19, 0.82);
+    border: 1px solid rgba(56, 189, 248, 0.35);
     padding: 3px 12px;
     border-radius: 9999px;
     margin-bottom: 12px;
     display: inline-block;
-    opacity: 0.75;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 1;
+    position: relative;
+    z-index: 3;
 }
 
 h1 {
@@ -441,6 +379,8 @@ h1 {
     text-shadow: 0 0 25px rgba(255, 255, 255, 0.4), 0 0 45px rgba(56, 189, 248, 0.2);
     margin-bottom: 0.4rem;
     margin-top: 0;
+    position: relative;
+    z-index: 3;
 }
 
 p {
@@ -450,6 +390,8 @@ p {
     color: var(--text-dim);
     margin-top: 0.2rem;
     margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 3;
 }
 
 /* ==========================================================================
@@ -458,10 +400,30 @@ p {
 .my-name {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.name-first {
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1 1 0;
+}
+
+.name-space {
+    width: clamp(14px, 2.2vw, 26px);
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.name-last {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 0;
 }
 
 .my-name span {
@@ -476,20 +438,20 @@ p {
     display: inline-block;
 }
 
-.my-name span:nth-child(1)  { animation-delay: 0.06s; }
-.my-name span:nth-child(2)  { animation-delay: 0.16s; }
-.my-name span:nth-child(3)  { animation-delay: 0.26s; }
-.my-name span:nth-child(4)  { animation-delay: 0.36s; }
-.my-name span:nth-child(5)  { animation-delay: 0.46s; }
-.my-name span:nth-child(6)  { animation-delay: 0.56s; }
-.my-name span:nth-child(7)  { animation-delay: 0.66s; } /* space */
-.my-name span:nth-child(8)  { animation-delay: 0.76s; color: var(--accent-cyan); }
-.my-name span:nth-child(9)  { animation-delay: 0.86s; }
-.my-name span:nth-child(10) { animation-delay: 0.96s; }
-.my-name span:nth-child(11) { animation-delay: 1.06s; }
-.my-name span:nth-child(12) { animation-delay: 1.16s; }
-.my-name span:nth-child(13) { animation-delay: 1.26s; }
-.my-name span:nth-child(14) { animation-delay: 1.36s; }
+.name-first span:nth-child(1) { animation-delay: 0.06s; }
+.name-first span:nth-child(2) { animation-delay: 0.16s; }
+.name-first span:nth-child(3) { animation-delay: 0.26s; }
+.name-first span:nth-child(4) { animation-delay: 0.36s; }
+.name-first span:nth-child(5) { animation-delay: 0.46s; }
+.name-first span:nth-child(6) { animation-delay: 0.56s; }
+
+.name-last span:nth-child(1)  { animation-delay: 0.76s; color: var(--accent-cyan); }
+.name-last span:nth-child(2)  { animation-delay: 0.86s; }
+.name-last span:nth-child(3)  { animation-delay: 0.96s; }
+.name-last span:nth-child(4)  { animation-delay: 1.06s; }
+.name-last span:nth-child(5)  { animation-delay: 1.16s; }
+.name-last span:nth-child(6)  { animation-delay: 1.26s; }
+.name-last span:nth-child(7)  { animation-delay: 1.36s; }
 
 @keyframes drop {
     0% {
@@ -516,6 +478,8 @@ p {
     opacity: 0;
     animation: showTypingText 0.8s ease-out forwards;
     animation-delay: 2s;
+    position: relative;
+    z-index: 3;
 }
 
 .typing-container h1 {
@@ -2050,26 +2014,17 @@ body.project-hovered .scroll-indicator {
    Mobile & Responsive Enhancements (Phones & Tablets)
    ========================================================================== */
 @media (max-width: 900px) {
-    /* Responsive SVG timeline: vertical constellation in background */
-    .timeline-group-desktop,
-    .timeline-desktop-layout {
-        display: none !important;
-    }
-    .timeline-group-split,
-    .timeline-split-layout {
-        display: block !important;
-    }
     .timeline-svg {
         display: block !important;
-        opacity: 0.18 !important;
+        opacity: 1 !important;
     }
     #brochure-canvas.gliding .timeline-svg {
-        opacity: 0.34 !important;
+        opacity: 1 !important;
     }
 
     .brochure-panel {
-        padding: 4rem 1rem 4.5rem;
-        justify-content: center;
+        padding: 6.2rem 1.25rem 4.5rem;
+        justify-content: flex-start;
     }
 
     /* Typography scaling for mobile viewports */
