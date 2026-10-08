@@ -352,7 +352,12 @@
     width: 100vw;
     max-width: 100vw;
     height: 85vh;
+    height: 85dvh;
     max-height: 85vh;
+    max-height: 85dvh;
     border-radius: 20px 20px 0 0;
+  }
+  #chatbot-input-row {
+    padding-bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 8px));
   }
 }

@@ -183,7 +183,7 @@ html, body {
     .brochure-hud {
         justify-content: center;
         width: 100vw;
-        top: 12px;
+        top: max(10px, calc(env(safe-area-inset-top, 0px) + 6px));
     }
     .hud-timeline-nav {
         gap: 2px;
@@ -2045,17 +2045,23 @@ body.project-hovered .scroll-indicator {
     }
 
     .brochure-panel {
-        padding: clamp(3.6rem, 7.8vh, 4.6rem) 1.25rem clamp(3.6rem, 7.2vh, 4.4rem);
+        padding-top: max(3.2rem, calc(env(safe-area-inset-top, 0px) + 2.2rem));
+        padding-bottom: max(3.2rem, calc(env(safe-area-inset-bottom, 0px) + 2.2rem));
+        padding-left: max(1.1rem, calc(env(safe-area-inset-left, 0px) + 0.4rem));
+        padding-right: max(1.1rem, calc(env(safe-area-inset-right, 0px) + 0.4rem));
         justify-content: center;
+        justify-content: safe center;
         box-sizing: border-box;
         overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Chapter 01: Hero Identity Centering on Mobile (eliminates awkward top-jammed gap) */
     #sec-identity {
         justify-content: center !important;
-        padding-top: 0 !important;
-        padding-bottom: clamp(3rem, 7vh, 5rem) !important;
+        padding-top: max(1rem, env(safe-area-inset-top, 0px)) !important;
+        padding-bottom: max(2.4rem, calc(env(safe-area-inset-bottom, 0px) + 1.8rem)) !important;
         min-height: 100vh !important;
     }
 
@@ -2666,14 +2672,14 @@ body.project-hovered .scroll-indicator {
     }
 
     .scroll-indicator {
-        bottom: 16px;
+        bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 12px));
         padding: 7px 16px;
         font-size: 0.74rem;
     }
 
     #chatbot-toggle {
-        bottom: 14px;
-        right: 14px;
+        bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+        right: max(14px, calc(env(safe-area-inset-right, 0px) + 10px));
         width: 46px;
         height: 46px;
         font-size: 21px;
@@ -2696,8 +2702,8 @@ body.project-hovered .scroll-indicator {
    ========================================================================== */
 @media (max-width: 768px) {
     #sec-sandbox {
-        padding-top: clamp(4.6rem, 11vh, 5.8rem) !important;
-        padding-bottom: clamp(3.5rem, 8vh, 4.2rem) !important;
+        padding-top: max(3.2rem, calc(env(safe-area-inset-top, 0px) + 2.2rem)) !important;
+        padding-bottom: max(3.0rem, calc(env(safe-area-inset-bottom, 0px) + 2.0rem)) !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
         width: 100vw !important;
@@ -2758,9 +2764,9 @@ body.project-hovered .scroll-indicator {
 
     .projects-container .project {
         position: relative !important;
-        flex: 0 0 clamp(235px, 70vw, 265px) !important;
-        width: clamp(235px, 70vw, 265px) !important;
-        height: clamp(275px, 38vh, 315px) !important;
+        flex: 0 0 clamp(225px, 68vw, 260px) !important;
+        width: clamp(225px, 68vw, 260px) !important;
+        height: clamp(235px, 33vh, 290px) !important;
         border-radius: 20px !important;
         overflow: hidden !important;
         background: var(--glass-bg) !important;
@@ -3092,6 +3098,70 @@ body.project-hovered .scroll-indicator {
         border-radius: 6px !important;
         background: var(--accent-cyan) !important;
         box-shadow: 0 0 12px rgba(56, 189, 248, 0.7) !important;
+    }
+}
+
+/* ==========================================================================
+   Compact Viewport Adaptation (Mobile Chrome dual-bars & shorter screens < 780px)
+   Balances layout when browsers display persistent top/bottom toolbars
+   ========================================================================== */
+@media (max-width: 768px) and (max-height: 780px) {
+    .brochure-panel {
+        padding-top: max(2.6rem, calc(env(safe-area-inset-top, 0px) + 1.8rem));
+        padding-bottom: max(2.6rem, calc(env(safe-area-inset-bottom, 0px) + 1.8rem));
+    }
+
+    #sec-identity .my-name span {
+        font-size: clamp(2rem, 7.6vw, 2.7rem) !important;
+    }
+
+    #sec-identity .typing-container h1 {
+        font-size: clamp(1rem, 3.8vw, 1.3rem) !important;
+    }
+
+    #sec-identity .hero-subtext {
+        font-size: 0.76rem !important;
+        margin-top: 8px !important;
+        line-height: 1.4 !important;
+    }
+
+    .spark-card,
+    .spark-card.spacious,
+    .journey-card,
+    .pulse-card,
+    .open-door-card {
+        padding: 10px 12px 8px !important;
+        gap: 5px !important;
+    }
+
+    .spark-card h3,
+    .frontier-meta h3,
+    .repo-name {
+        font-size: 0.88rem !important;
+    }
+
+    .spark-card p,
+    .journey-text,
+    .frontier-narrative,
+    .repo-description,
+    .open-door-narrative {
+        font-size: 0.72rem !important;
+        line-height: 1.36 !important;
+        margin-bottom: 3px !important;
+    }
+
+    .projects-container .project {
+        height: clamp(215px, 30vh, 250px) !important;
+    }
+
+    .projects-showcase-stage {
+        padding: 2px 0 4px !important;
+        margin-top: 0.1rem !important;
+    }
+
+    .scroll-indicator {
+        padding: 5px 13px !important;
+        font-size: 0.7rem !important;
     }
 }
 
