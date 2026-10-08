@@ -407,29 +407,12 @@
   background: rgba(255, 255, 255, 0.45);
 }
 
-/* Mobile Expand/Collapse Header Button */
-.mobile-expand-btn {
-  display: none;
-}
-
-#chatbot-widget.expanded .mobile-expand-btn .expand-icon {
-  display: none;
-}
-
-#chatbot-widget:not(.expanded) .mobile-expand-btn .collapse-icon {
-  display: none;
-}
-
 /* ==========================================================================
    Mobile Bottom Sheet Responsiveness (Screens <= 640px)
    ========================================================================== */
 @media (max-width: 640px) {
   .chatbot-grabber-area {
     display: flex;
-  }
-
-  .mobile-expand-btn {
-    display: inline-flex !important;
   }
 
   #chatbot-widget {

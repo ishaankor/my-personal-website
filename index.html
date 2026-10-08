@@ -1733,7 +1733,6 @@
       const chatbotWidget = document.getElementById('chatbot-widget');
       const chatbotBackdrop = document.getElementById('chatbot-backdrop');
       const chatbotGrabber = document.getElementById('chatbot-grabber');
-      const chatbotExpand = document.getElementById('chatbot-expand');
       const chatbotHeader = document.getElementById('chatbot-header');
       const chatbotMessages = document.getElementById('chatbot-messages');
       const chatbotInput = document.getElementById('chatbot-input');
@@ -1984,13 +1983,6 @@
       if (chatbotBackdrop) {
         chatbotBackdrop.onclick = () => {
           closeChatbot();
-        };
-      }
-
-      if (chatbotExpand) {
-        chatbotExpand.onclick = (e) => {
-          e.stopPropagation();
-          toggleExpandChatbot();
         };
       }
 
