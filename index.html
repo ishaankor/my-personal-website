@@ -1743,6 +1743,27 @@
 
       if (!chatbotWidget) return;
 
+      // Configure marked so all markdown links open in a new tab safely
+      if (typeof marked !== "undefined") {
+        marked.use({
+          renderer: {
+            link({ href, title, text }) {
+              const titleAttr = title ? ` title="${title}"` : '';
+              return `<a href="${href}" target="_blank" rel="noopener noreferrer"${titleAttr}>${text}</a>`;
+            }
+          }
+        });
+      }
+
+      // Ensure all hyperlinks inside the chatbot messages open in new tabs
+      chatbotMessages.addEventListener('click', function (e) {
+        const link = e.target.closest('a');
+        if (link && link.href && (link.href.startsWith('http://') || link.href.startsWith('https://'))) {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+
       let conversationHistory = [];
       const STORAGE_KEY = 'ishaan-chatbot-history';
       const MAX_HISTORY_LENGTH = 20;
@@ -2085,6 +2106,18 @@
       window.addEventListener('hashchange', function () {
         if (window.location.hash === '#chat') {
           openChatbot();
+        }
+      });
+
+      // Global handler: ensure any external links open safely in a new tab
+      document.addEventListener('click', function (e) {
+        const link = e.target.closest('a');
+        if (link && link.href && (link.href.startsWith('http://') || link.href.startsWith('https://'))) {
+          // If not already configured, set target and rel
+          if (!link.target) {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+          }
         }
       });
     });
