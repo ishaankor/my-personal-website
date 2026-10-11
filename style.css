@@ -236,7 +236,6 @@ html[data-initial-chapter="4"] #sec-sandbox,
 html[data-initial-chapter="5"] #sec-rabbitholes,
 html[data-initial-chapter="6"] #sec-portal {
     opacity: 1 !important;
-    transform: scale(1) !important;
     pointer-events: auto !important;
 }
 

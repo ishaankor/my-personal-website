@@ -819,6 +819,17 @@
       const indicatorText = document.getElementById("indicator-text");
       const indicatorArrow = document.getElementById("indicator-arrow");
 
+      // Early initialization for Chapter 05 Sandbox showcase (prevents TDZ ReferenceError on reload)
+      const showcaseStage = document.querySelector(".projects-showcase-stage");
+      const projectsContainer = document.querySelector(".projects-container");
+      const projects = document.querySelectorAll(".project");
+      const showcasePrevBtn = document.querySelector(".showcase-prev-btn");
+      const showcaseNextBtn = document.querySelector(".showcase-next-btn");
+      const showcaseDots = document.querySelectorAll(".showcase-dot");
+      const showcaseStepNum = document.querySelector(".showcase-step-num");
+      const showcaseProjectName = document.querySelector(".showcase-project-name");
+      let activeProjectIndex = 0;
+
       // Coordinates for each chapter: [X in vw, Y in vh]
       // 0: Identity (0, 0)
       // 1: The Spark (28vw, 100vh)   -> Down & Right ↘
@@ -1068,7 +1079,7 @@
       window.addEventListener("resize", () => {
         if (resizeRaf) cancelAnimationFrame(resizeRaf);
         resizeRaf = requestAnimationFrame(() => {
-          updateFlowMode();
+          if (typeof updateFlowMode === "function") updateFlowMode();
           goToPanel(currentIndex, true);
           updateTimelineCoordinates();
         });
@@ -1244,16 +1255,7 @@
       // ==========================================================================
       // 6. Projects Showcase Engine (Chapter 05: The Creative Sandbox)
       // ==========================================================================
-      const showcaseStage = document.querySelector(".projects-showcase-stage");
-      const projectsContainer = document.querySelector(".projects-container");
-      const projects = document.querySelectorAll(".project");
-      const showcasePrevBtn = document.querySelector(".showcase-prev-btn");
-      const showcaseNextBtn = document.querySelector(".showcase-next-btn");
-      const showcaseDots = document.querySelectorAll(".showcase-dot");
-      const showcaseStepNum = document.querySelector(".showcase-step-num");
-      const showcaseProjectName = document.querySelector(".showcase-project-name");
-
-      let activeProjectIndex = 0;
+      // Showcase elements (showcaseStage, projectsContainer, projects, etc.) are initialized at top of DOMContentLoaded
 
       function isMobileShowcaseMode() {
         return window.innerWidth <= 768;
