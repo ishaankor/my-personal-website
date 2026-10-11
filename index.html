@@ -563,7 +563,7 @@
           <div class="pulse-card-header">
             <div class="pulse-status-badge spotify-badge">
               <span class="spotify-beacon" id="spotify-beacon"></span>
-              <span class="beacon-label" id="spotify-status-text">RECENTLY PLAYED</span>
+              <span class="beacon-label" id="spotify-status-text">LAST PLAYED SONG</span>
             </div>
             <!-- Animated Equalizer Bars -->
             <div class="spotify-equalizer active" id="spotify-equalizer">
@@ -576,21 +576,15 @@
 
           <div class="spotify-body">
             <div class="spotify-art-container">
-              <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273abd85351ece4c333a237ff40" alt="Album Artwork" class="spotify-art-img">
+              <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273338fabbb1729a74d655a6a85" alt="Album Artwork" class="spotify-art-img">
               <div class="vinyl-overlay"></div>
             </div>
 
             <div class="spotify-info">
-              <span class="spotify-context-tag" id="spotify-context">HEAVY ROTATION</span>
-              <h3 id="spotify-title" class="track-title">Mike O'Hearn - What Is Love (Ultra Slowed) - TikTok Remix</h3>
-              <p id="spotify-artist" class="track-artist">TommyMuzzic, ZeddMusique, PHAZZED</p>
-              <p id="spotify-album" class="track-album">Single / EP</p>
-            </div>
-          </div>
-
-          <div class="spotify-progress-container">
-            <div class="spotify-progress-bar">
-              <div class="spotify-progress-fill" id="spotify-progress" style="width: 52%;"></div>
+              <!-- <span class="spotify-context-tag" id="spotify-context">RECENT ROTATION</span> -->
+              <h3 id="spotify-title" class="track-title">Real Feel</h3>
+              <p id="spotify-artist" class="track-artist">Trippie Redd</p>
+              <p id="spotify-album" class="track-album">A Love Letter To You 4</p>
             </div>
           </div>
 
@@ -1616,58 +1610,6 @@
           console.warn('GitHub meta-fetcher notice:', err);
         }
 
-        // 2. Fetch Spotify Live Status
-        const SPOTIFY_ENDPOINT_URL = "/api/spotify";
-
-        async function fetchSpotifyTelemetry() {
-          if (!SPOTIFY_ENDPOINT_URL) return;
-          try {
-            const spotRes = await fetch(SPOTIFY_ENDPOINT_URL);
-            if (spotRes.ok) {
-              const spot = await spotRes.json();
-              if (spot.title) {
-                const titleEl = document.getElementById('spotify-title');
-                const artistEl = document.getElementById('spotify-artist');
-                const albumEl = document.getElementById('spotify-album');
-                const artEl = document.getElementById('spotify-art');
-                const linkEl = document.getElementById('spotify-link');
-                const statusText = document.getElementById('spotify-status-text');
-                const contextTag = document.getElementById('spotify-context');
-                const eq = document.getElementById('spotify-equalizer');
-                const beacon = document.getElementById('spotify-beacon');
-                const prog = document.getElementById('spotify-progress');
-
-                if (titleEl) titleEl.textContent = spot.title;
-                if (artistEl) artistEl.textContent = spot.artist || 'Unknown Artist';
-                if (albumEl) albumEl.textContent = spot.album || 'Single';
-                if (artEl && spot.albumImageUrl) artEl.src = spot.albumImageUrl;
-                if (linkEl && spot.songUrl) linkEl.href = spot.songUrl;
-
-                if (spot.isPlaying) {
-                  if (statusText) statusText.textContent = 'LISTENING ON SPOTIFY';
-                  if (contextTag) contextTag.textContent = 'NOW PLAYING';
-                  if (eq) eq.classList.add('active');
-                  if (beacon) beacon.classList.add('playing');
-                } else {
-                  if (statusText) statusText.textContent = 'RECENTLY PLAYED';
-                  if (contextTag) contextTag.textContent = 'HEAVY ROTATION';
-                  if (eq) eq.classList.add('active');
-                  if (beacon) beacon.classList.remove('playing');
-                }
-
-                if (prog && spot.durationMs && spot.progressMs) {
-                  const pct = Math.min(100, Math.round((spot.progressMs / spot.durationMs) * 100));
-                  prog.style.width = pct + '%';
-                }
-              }
-            }
-          } catch (e) {
-            // Silently maintain current live display
-          }
-        }
-
-        fetchSpotifyTelemetry();
-        setInterval(fetchSpotifyTelemetry, 25000);
       }
 
       // 8b. Chapter 06: Mobile Telemetry Switcher
