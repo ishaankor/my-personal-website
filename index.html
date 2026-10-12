@@ -609,6 +609,60 @@
           </div>
         </div>
       </div>
+
+      <!-- Pre-Paint Synchronous Hydration: executes during HTML parse before layout/paint -->
+      <script>
+        (function() {
+          try {
+            var g = localStorage.getItem('ishaan_pulse_github');
+            if (g) {
+              var d = JSON.parse(g);
+              var repo = d.repos && d.repos[0];
+              var commit = (d.commits && d.commits[0]) || d.latestCommit;
+              if (repo) {
+                var nr = document.getElementById('gh-repo-name'); if (nr) nr.textContent = repo.name;
+                var lr = document.getElementById('gh-repo-lang'); if (lr) lr.textContent = repo.language || 'Code';
+                var dr = document.getElementById('gh-repo-desc'); if (dr && repo.description) dr.textContent = repo.description;
+                var lk = document.getElementById('gh-repo-link'); if (lk && repo.html_url) lk.href = repo.html_url;
+              }
+              if (commit) {
+                var mc = document.getElementById('gh-commit-msg'); if (mc) mc.textContent = '"' + commit.message + '"';
+                var sc = document.getElementById('gh-commit-sha'); if (sc) sc.textContent = 'sha: ' + (commit.shortSha || (commit.sha ? commit.sha.slice(0, 7) : 'f622372'));
+                var tc = document.getElementById('gh-commit-time'); if (tc) tc.textContent = commit.timeAgo || 'recently';
+              }
+              if (d.totalRepos) {
+                var rc = document.getElementById('gh-repos-count'); if (rc) rc.textContent = d.totalRepos + ' Public Repositories';
+              }
+            }
+            var s = localStorage.getItem('ishaan_pulse_spotify');
+            if (s) {
+              var sp = JSON.parse(s);
+              if (sp && sp.title) {
+                var st = document.getElementById('spotify-title'); if (st) st.textContent = sp.title;
+                var sa = document.getElementById('spotify-artist'); if (sa) sa.textContent = sp.artist || 'Unknown Artist';
+                var sb = document.getElementById('spotify-album'); if (sb) sb.textContent = sp.album || '';
+                var si = document.getElementById('spotify-art'); if (si && sp.albumImageUrl) { si.src = sp.albumImageUrl; si.alt = sp.title + ' Album Artwork'; }
+                var sl = document.getElementById('spotify-link'); if (sl && sp.songUrl) sl.href = sp.songUrl;
+                var stx = document.getElementById('spotify-status-text');
+                var sbc = document.getElementById('spotify-beacon');
+                var seq = document.getElementById('spotify-equalizer');
+                var smt = document.getElementById('spotify-meta-text');
+                if (sp.isPlaying) {
+                  if (stx) stx.textContent = 'LISTENING ON SPOTIFY';
+                  if (sbc) sbc.classList.remove('idle');
+                  if (seq) seq.classList.add('active');
+                  if (smt) smt.textContent = sp.primaryGenre ? sp.primaryGenre + ' • Live Audio' : 'Live Playback Audio';
+                } else {
+                  if (stx) stx.textContent = 'LAST PLAYED SONG';
+                  if (sbc) sbc.classList.add('idle');
+                  if (seq) seq.classList.remove('active');
+                  if (smt) smt.textContent = sp.primaryGenre ? sp.primaryGenre + ' • Recent Rotation' : 'Recently Played';
+                }
+              }
+            }
+          } catch(e) {}
+        })();
+      </script>
     </section>
 
     <!-- ==========================================================================
