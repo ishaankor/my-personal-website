@@ -576,15 +576,22 @@
 
           <div class="spotify-body">
             <div class="spotify-art-container">
-              <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273338fabbb1729a74d655a6a85" alt="Album Artwork" class="spotify-art-img">
+              <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273b92879e45761d711016476df" alt="Album Artwork" class="spotify-art-img">
               <div class="vinyl-overlay"></div>
             </div>
 
             <div class="spotify-info">
               <!-- <span class="spotify-context-tag" id="spotify-context">RECENT ROTATION</span> -->
-              <h3 id="spotify-title" class="track-title">Real Feel</h3>
-              <p id="spotify-artist" class="track-artist">Trippie Redd</p>
-              <p id="spotify-album" class="track-album">A Love Letter To You 4</p>
+              <h3 id="spotify-title" class="track-title">Live Audio Telemetry</h3>
+              <p id="spotify-artist" class="track-artist">Connecting to Spotify...</p>
+              <p id="spotify-album" class="track-album">Real-Time Pulse</p>
+            </div>
+          </div>
+
+          <!-- Playback progress bar: shown only during active playback -->
+          <div class="spotify-progress-container hidden" id="spotify-progress-container">
+            <div class="spotify-progress-bar">
+              <div class="spotify-progress-fill" id="spotify-progress" style="width: 0%;"></div>
             </div>
           </div>
 
@@ -1631,6 +1638,13 @@
                 const eq = document.getElementById('spotify-equalizer');
                 const beacon = document.getElementById('spotify-beacon');
                 const metaText = document.getElementById('spotify-meta-text');
+                const progContainer = document.getElementById('spotify-progress-container');
+                const prog = document.getElementById('spotify-progress');
+
+                if (window._spotifyProgressTimer) {
+                  clearInterval(window._spotifyProgressTimer);
+                  window._spotifyProgressTimer = null;
+                }
 
                 if (titleEl) titleEl.textContent = spotData.title;
                 if (artistEl) artistEl.textContent = spotData.artist || 'Unknown Artist';
@@ -1648,12 +1662,35 @@
                   if (metaText) {
                     metaText.textContent = spotData.primaryGenre ? `${spotData.primaryGenre} • Live Audio` : 'Live Playback Audio';
                   }
+
+                  // Show playback progress bar ONLY when active
+                  if (progContainer) {
+                    progContainer.classList.remove('hidden');
+                  }
+                  if (prog && spotData.durationMs) {
+                    let currentMs = spotData.progressMs || 0;
+                    const durationMs = spotData.durationMs;
+                    const updateWidth = () => {
+                      const pct = Math.min(100, Math.max(0, (currentMs / durationMs) * 100));
+                      prog.style.width = pct.toFixed(1) + '%';
+                    };
+                    updateWidth();
+                    window._spotifyProgressTimer = setInterval(() => {
+                      currentMs += 1000;
+                      updateWidth();
+                    }, 1000);
+                  }
                 } else {
                   if (statusText) statusText.textContent = 'LAST PLAYED SONG';
                   if (beacon) beacon.classList.add('idle');
                   if (eq) eq.classList.remove('active');
                   if (metaText) {
                     metaText.textContent = spotData.primaryGenre ? `${spotData.primaryGenre} • Recent Rotation` : 'Recently Played';
+                  }
+
+                  // Hide playback progress bar when inactive / paused
+                  if (progContainer) {
+                    progContainer.classList.add('hidden');
                   }
                 }
               }
