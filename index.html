@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #060913; color-scheme: dark;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+  <meta name="theme-color" content="#060913">
+  <meta name="color-scheme" content="dark">
   <title>Ishaan Koradia | Personal Website</title>
   <link rel="icon" href="./favicon.ico">
+
+  <!-- Instant High-Priority Preload for Lightweight WebP Wallpaper (68KB) -->
+  <link rel="preload" as="image" href="./assets/website-wallpaper.webp" type="image/webp" fetchpriority="high">
+  
+  <!-- Critical Inlined Background Styles (Guarantees Frame-0 Dark Cosmic Canvas) -->
+  <style>
+    :root, html, body {
+      background-color: #060913 !important;
+      color-scheme: dark;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #060913;
+      background-image: url('./assets/website-wallpaper.webp'), url('./assets/website-wallpaper.png');
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+  </style>
   
   <!-- Pre-render Critical Chapter Synchronization (Zero-Flicker Restore) -->
   <script>
@@ -48,13 +73,13 @@
   <link href="./style.css" rel="stylesheet">
   <link href="./chatbot-widget.css" rel="stylesheet">
 
-  <!-- Libraries -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2/tsparticles.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Non-blocking Deferred Libraries -->
+  <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.2/tsparticles.bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body style="background-color: #060913;">
   <!-- Fixed Cosmic Starfield -->
   <div id="tsparticles"></div>
 

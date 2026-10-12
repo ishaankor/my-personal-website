@@ -49,6 +49,7 @@ html, body {
     position: fixed;
     background-color: #060913;
     background-image: url('./assets/website-wallpaper.png');
+    background-image: url('./assets/website-wallpaper.webp');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -73,6 +74,8 @@ html, body {
     height: 100%;
     z-index: 0;
     pointer-events: none;
+    background: radial-gradient(circle at 50% 25%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
 }
 
 /* ==========================================================================
@@ -362,6 +365,12 @@ html[data-initial-chapter="6"] .timeline-node[data-index="6"] {
     z-index: 1;
     overflow: visible;
     opacity: 1;
+    animation: timelineFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes timelineFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 #brochure-canvas.gliding .timeline-path {
