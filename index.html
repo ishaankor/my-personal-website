@@ -30,6 +30,10 @@
         }
         if (idx > 0) {
           document.documentElement.setAttribute("data-initial-chapter", idx);
+          // Safety failsafe: automatically clear data-initial-chapter if JS initialization is interrupted
+          setTimeout(function () {
+            document.documentElement.removeAttribute("data-initial-chapter");
+          }, 1500);
         }
       } catch (e) {}
     })();
@@ -90,6 +94,20 @@
         <span class="pill-label">Connect</span>
       </button>
     </nav>
+    <!-- Pre-Paint Synchronous Hydration for HUD Navigation (Prevents Quick-Select Jump) -->
+    <script>
+      (function() {
+        try {
+          var initChapter = document.documentElement.getAttribute("data-initial-chapter");
+          if (initChapter && initChapter !== "0") {
+            var pills = document.querySelectorAll(".hud-pill");
+            for (var i = 0; i < pills.length; i++) {
+              pills[i].classList.toggle("active", pills[i].getAttribute("data-index") === initChapter);
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
   </header>
 
   <!-- 2D Canvas Stage: Option A Cinematic Glide (Down & Sideways) -->
@@ -116,6 +134,20 @@
         <circle class="timeline-node" data-index="6" cx="500" cy="6180" r="4.2" />
       </g>
     </svg>
+    <!-- Pre-Paint Synchronous Hydration for Timeline Nodes (Prevents Stale Node on Reload) -->
+    <script>
+      (function() {
+        try {
+          var initChapter = document.documentElement.getAttribute("data-initial-chapter");
+          if (initChapter && initChapter !== "0") {
+            var nodes = document.querySelectorAll(".timeline-node");
+            for (var i = 0; i < nodes.length; i++) {
+              nodes[i].classList.toggle("active", nodes[i].getAttribute("data-index") === initChapter);
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
 
     <!-- ==========================================================================
          Chapter 01: The Identity (The Cinematic Hero Entrance)
@@ -724,6 +756,29 @@
     <span id="indicator-text">Scroll Down</span>
     <span id="indicator-arrow" class="indicator-arrow">↘</span>
   </button>
+  <!-- Pre-Paint Synchronous Hydration for Scroll Indicator -->
+  <script>
+    (function() {
+      try {
+        var initChapter = document.documentElement.getAttribute("data-initial-chapter");
+        if (initChapter && initChapter !== "0") {
+          var idx = parseInt(initChapter, 10);
+          var arrowEl = document.getElementById("indicator-arrow");
+          var textEl = document.getElementById("indicator-text");
+          var indEl = document.getElementById("scroll-indicator");
+          var arrowMap = ["↘", "↙", "↘", "↙", "↘", "↓"];
+          if (idx < 6) {
+            if (arrowEl) arrowEl.textContent = arrowMap[idx] || "↓";
+            if (textEl) textEl.textContent = (window.innerWidth <= 768 && ("ontouchstart" in window || navigator.maxTouchPoints > 0)) ? "Swipe Down" : "Scroll Down";
+          } else {
+            if (indEl) indEl.classList.add("is-top");
+            if (arrowEl) arrowEl.textContent = "↖";
+            if (textEl) textEl.textContent = "Back to Top";
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
 
   <!-- ==========================================================================
        Chatbot Widget (IshaanBot - Digital Twin)
@@ -774,84 +829,106 @@
        Interactive Scripts (Starfield, Typed.js, 7-Chapter 2D Glide, Chatbot)
        ========================================================================== -->
   <script>
-    // 1. Starfield Particles Load
+    // Universal Ready-State Helper: fires immediately if DOM is already parsed/cached
+    function runWhenReady(fn) {
+      if (document.readyState === "interactive" || document.readyState === "complete") {
+        setTimeout(fn, 0);
+      } else {
+        document.addEventListener("DOMContentLoaded", fn);
+      }
+    }
+    window.runWhenReady = runWhenReady;
+
+    // 1. Starfield Particles Load (Safely guarded against aborted/delayed CDN scripts)
     if (typeof tsParticles !== "undefined") {
-      tsParticles.load("tsparticles", {
-        background: {
-          color: { value: "transparent" }
-        },
-        particles: {
-          number: {
-            value: 28,
-            density: {
-              enable: true,
-              value_area: 850
-            }
+      try {
+        tsParticles.load("tsparticles", {
+          background: {
+            color: { value: "transparent" }
           },
-          color: {
-            value: ["#ffffff", "#38bdf8", "#818cf8"]
-          },
-          shape: {
-            type: "star"
-          },
-          opacity: {
-            value: 0.75,
-            random: true
-          },
-          size: {
-            value: 2.5,
-            random: true
-          },
-          move: {
-            enable: true,
-            speed: 1.2,
-            direction: "none",
-            outMode: "bounce"
-          }
-        },
-        interactivity: {
-          detectsOn: "window",
-          events: {
-            onHover: {
-              enable: false,
-              mode: "grab"
-            },
-            onClick: {
-              enable: true,
-              mode: "push"
-            }
-          },
-          modes: {
-            grab: {
-              distance: 180,
-              lineLinked: {
-                opacity: 0.45,
-                color: "#38bdf8"
+          particles: {
+            number: {
+              value: 28,
+              density: {
+                enable: true,
+                value_area: 850
               }
             },
-            push: {
-              particles_nb: 3
+            color: {
+              value: ["#ffffff", "#38bdf8", "#818cf8"]
+            },
+            shape: {
+              type: "star"
+            },
+            opacity: {
+              value: 0.75,
+              random: true
+            },
+            size: {
+              value: 2.5,
+              random: true
+            },
+            move: {
+              enable: true,
+              speed: 1.2,
+              direction: "none",
+              outMode: "bounce"
             }
-          }
-        },
-        retina_detect: true
-      });
+          },
+          interactivity: {
+            detectsOn: "window",
+            events: {
+              onHover: {
+                enable: false,
+                mode: "grab"
+              },
+              onClick: {
+                enable: true,
+                mode: "push"
+              }
+            },
+            modes: {
+              grab: {
+                distance: 180,
+                lineLinked: {
+                  opacity: 0.45,
+                  color: "#38bdf8"
+                }
+              },
+              push: {
+                particles_nb: 3
+              }
+            }
+          },
+          retina_detect: true
+        });
+      } catch (err) {
+        console.warn("tsParticles initialization notice:", err);
+      }
     }
 
-    // 2. Typed.js Initialization
-    new Typed(".typing-text", {
-      strings: [
-        "an AI Systems Engineer.",
-        "a curious automater.",
-        "a cognitive science thinker.",
-        "a builder of autonomous agents.",
-        "a tinkerer at heart."
-      ],
-      typeSpeed: 85,
-      backSpeed: 50,
-      backDelay: 1700,
-      loop: true,
-    });
+    // 2. Typed.js Initialization (Safely guarded against aborted/delayed CDN script loading on rapid reloads)
+    function initTyped() {
+      if (typeof Typed !== "undefined" && document.querySelector(".typing-text")) {
+        try {
+          new Typed(".typing-text", {
+            strings: [
+              "an AI Systems Engineer.",
+              "a curious automater.",
+              "a cognitive science thinker.",
+              "a builder of autonomous agents.",
+              "a tinkerer at heart."
+            ],
+            typeSpeed: 85,
+            backSpeed: 50,
+            backDelay: 1700,
+            loop: true,
+          });
+        } catch (e) {
+          console.warn("Typed.js initialization notice:", e);
+        }
+      }
+    }
 
     // 3. Helper Functions
     function isTouchMobile() {
@@ -861,7 +938,8 @@
     }
 
     // 4. Option A: 7-Chapter 2D Canvas Glide Engine (Down & Sideways Timeline)
-    document.addEventListener("DOMContentLoaded", function () {
+    runWhenReady(function () {
+      initTyped();
       setTimeout(() => {
         document.body.classList.add("loaded");
       }, 50);
@@ -1030,9 +1108,13 @@
         if (instant) {
           brochureCanvas.style.transition = "none";
           brochureCanvas.style.transform = `translate3d(${-targetX}vw, ${-targetY}vh, 0)`;
+          hudPills.forEach((p) => (p.style.transition = "none"));
+          panels.forEach((p) => (p.style.transition = "none"));
           void brochureCanvas.offsetHeight;
           setTimeout(() => {
             brochureCanvas.style.transition = "";
+            hudPills.forEach((p) => (p.style.transition = ""));
+            panels.forEach((p) => (p.style.transition = ""));
             updateTimelineCoordinates();
           }, 50);
         } else {
@@ -1104,13 +1186,18 @@
       }
 
       // Initial Indicator Setup & Restore Last Chapter on Reload
-      const initialIndex = getInitialChapterIndex();
-      if (initialIndex > 0) {
-        goToPanel(initialIndex, true);
-      } else {
-        updateScrollIndicator();
+      try {
+        const initialIndex = getInitialChapterIndex();
+        if (initialIndex > 0) {
+          goToPanel(initialIndex, true);
+        } else {
+          updateScrollIndicator();
+        }
+      } catch (err) {
+        console.warn("Initial panel setup notice:", err);
+      } finally {
+        document.documentElement.removeAttribute("data-initial-chapter");
       }
-      document.documentElement.removeAttribute("data-initial-chapter");
 
       // Initial Dynamic Timeline Coordinate Calculation
       updateTimelineCoordinates();
@@ -1289,18 +1376,34 @@
             const phaseIndex = parseInt(this.getAttribute("data-phase"));
             const phaseData = foundationPhases[phaseIndex];
 
-            $("#sec-mind .journey-card").fadeOut(150, function () {
-              foundationTitle.textContent = phaseData.title;
-              foundationBadge.textContent = phaseData.badge;
-              foundationAvatar.src = phaseData.avatar;
-              foundationNarrative.textContent = phaseData.text;
+            const card = document.querySelector("#sec-mind .journey-card");
+            if (typeof $ !== "undefined") {
+              $("#sec-mind .journey-card").fadeOut(150, function () {
+                foundationTitle.textContent = phaseData.title;
+                foundationBadge.textContent = phaseData.badge;
+                foundationAvatar.src = phaseData.avatar;
+                foundationNarrative.textContent = phaseData.text;
 
-              foundationTags.innerHTML = phaseData.tags
-                .map((tag) => `<span class="journey-pill">${tag}</span>`)
-                .join("");
+                foundationTags.innerHTML = phaseData.tags
+                  .map((tag) => `<span class="journey-pill">${tag}</span>`)
+                  .join("");
 
-              $("#sec-mind .journey-card").fadeIn(200);
-            });
+                $("#sec-mind .journey-card").fadeIn(200);
+              });
+            } else if (card) {
+              card.style.opacity = "0";
+              setTimeout(() => {
+                foundationTitle.textContent = phaseData.title;
+                foundationBadge.textContent = phaseData.badge;
+                foundationAvatar.src = phaseData.avatar;
+                foundationNarrative.textContent = phaseData.text;
+
+                foundationTags.innerHTML = phaseData.tags
+                  .map((tag) => `<span class="journey-pill">${tag}</span>`)
+                  .join("");
+                card.style.opacity = "1";
+              }, 150);
+            }
           });
         });
       }
@@ -1838,7 +1941,13 @@
        Chatbot Logic (IshaanBot - Digital Twin)
        ========================================================================== -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    (window.runWhenReady || function (fn) {
+      if (document.readyState === "interactive" || document.readyState === "complete") {
+        setTimeout(fn, 0);
+      } else {
+        document.addEventListener("DOMContentLoaded", fn);
+      }
+    })(function () {
       const chatbotToggle = document.getElementById('chatbot-toggle');
       const chatbotWidget = document.getElementById('chatbot-widget');
       const chatbotBackdrop = document.getElementById('chatbot-backdrop');
