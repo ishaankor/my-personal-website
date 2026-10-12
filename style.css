@@ -1426,8 +1426,8 @@ body.project-hovered .scroll-indicator {
 }
 
 .spotify-beacon.idle {
-    background: #38bdf8;
-    box-shadow: 0 0 10px #38bdf8;
+    background: #1db954;
+    box-shadow: 0 0 10px #1db954;
     animation: beaconPulse 3.5s infinite ease-in-out;
 }
 
