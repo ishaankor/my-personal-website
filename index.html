@@ -2119,14 +2119,6 @@
         chatbotWidget.classList.toggle('expanded');
       }
 
-      // Warn before reload if mid-generation
-      window.addEventListener('beforeunload', function (e) {
-        if (isGenerating) {
-          e.preventDefault();
-          e.returnValue = '';
-        }
-      });
-
       // Toggle Open/Close
       if (chatbotToggle) {
         chatbotToggle.onclick = () => {
