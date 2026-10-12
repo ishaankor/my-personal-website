@@ -1571,86 +1571,62 @@
       // ==========================================================================
       async function initLivePulse() {
         // 1. Fetch GitHub Meta
-        const GITHUB_ENDPOINTS = [
-          'https://personal-meta-fetcher.vercel.app/api/github',
-          'https://github-meta-fetcher.vercel.app/api/github'
-        ];
+        try {
+          const ghRes = await fetch('https://personal-meta-fetcher.vercel.app/api/github');
+          if (ghRes.ok) {
+            const data = await ghRes.json();
+            const latestRepo = data.repos && data.repos[0];
+            const latestCommit = data.commits && data.commits[0];
 
-        for (const url of GITHUB_ENDPOINTS) {
-          try {
-            const ghRes = await fetch(url);
-            if (ghRes.ok) {
-              const data = await ghRes.json();
-              const latestRepo = data.repos && data.repos[0];
-              const latestCommit = data.commits && data.commits[0];
-
-              if (latestRepo) {
-                const nameEl = document.getElementById('gh-repo-name');
-                const langEl = document.getElementById('gh-repo-lang');
-                const descEl = document.getElementById('gh-repo-desc');
-                const linkEl = document.getElementById('gh-repo-link');
-                if (nameEl) nameEl.textContent = latestRepo.name;
-                if (langEl) langEl.textContent = latestRepo.language || 'Code';
-                if (descEl && latestRepo.description) descEl.textContent = latestRepo.description;
-                if (linkEl && latestRepo.html_url) linkEl.href = latestRepo.html_url;
-              }
-
-              if (latestCommit) {
-                const msgEl = document.getElementById('gh-commit-msg');
-                const shaEl = document.getElementById('gh-commit-sha');
-                const timeEl = document.getElementById('gh-commit-time');
-                if (msgEl) msgEl.textContent = `"${latestCommit.message}"`;
-                if (shaEl) shaEl.textContent = `sha: ${latestCommit.shortSha || (latestCommit.sha ? latestCommit.sha.slice(0, 7) : '33cf916')}`;
-                if (timeEl) timeEl.textContent = latestCommit.timeAgo || 'recently';
-              }
-
-              if (data.totalRepos) {
-                const countEl = document.getElementById('gh-repos-count');
-                if (countEl) countEl.textContent = `${data.totalRepos} Public Repositories`;
-              }
-
-              const syncEl = document.getElementById('gh-sync-time');
-              if (syncEl) syncEl.textContent = 'Live Synced';
-              break;
+            if (latestRepo) {
+              const nameEl = document.getElementById('gh-repo-name');
+              const langEl = document.getElementById('gh-repo-lang');
+              const descEl = document.getElementById('gh-repo-desc');
+              const linkEl = document.getElementById('gh-repo-link');
+              if (nameEl) nameEl.textContent = latestRepo.name;
+              if (langEl) langEl.textContent = latestRepo.language || 'Code';
+              if (descEl && latestRepo.description) descEl.textContent = latestRepo.description;
+              if (linkEl && latestRepo.html_url) linkEl.href = latestRepo.html_url;
             }
-          } catch (err) {
-            // try fallback endpoint
+
+            if (latestCommit) {
+              const msgEl = document.getElementById('gh-commit-msg');
+              const shaEl = document.getElementById('gh-commit-sha');
+              const timeEl = document.getElementById('gh-commit-time');
+              if (msgEl) msgEl.textContent = `"${latestCommit.message}"`;
+              if (shaEl) shaEl.textContent = `sha: ${latestCommit.shortSha || (latestCommit.sha ? latestCommit.sha.slice(0, 7) : '33cf916')}`;
+              if (timeEl) timeEl.textContent = latestCommit.timeAgo || 'recently';
+            }
+
+            if (data.totalRepos) {
+              const countEl = document.getElementById('gh-repos-count');
+              if (countEl) countEl.textContent = `${data.totalRepos} Public Repositories`;
+            }
+
+            const syncEl = document.getElementById('gh-sync-time');
+            if (syncEl) syncEl.textContent = 'Live Synced';
           }
+        } catch (err) {
+          console.warn('Personal meta-fetcher notice:', err);
         }
 
         // 2. Fetch Spotify Live Telemetry (Vercel Serverless)
-        const SPOTIFY_ENDPOINTS = [
-          'https://personal-meta-fetcher.vercel.app/api/spotify',
-          'https://github-meta-fetcher.vercel.app/api/spotify'
-        ];
+        const SPOTIFY_ENDPOINT = 'https://personal-meta-fetcher.vercel.app/api/spotify';
 
         async function fetchSpotifyTelemetry() {
-          let spotData = null;
-
-          for (const url of SPOTIFY_ENDPOINTS) {
-            try {
-              const controller = new AbortController();
-              const timeoutId = setTimeout(() => controller.abort(), 6000);
-              const spotRes = await fetch(url, { signal: controller.signal });
-              clearTimeout(timeoutId);
-              if (spotRes.ok) {
-                const data = await spotRes.json();
-                if (data && (data.title || data.isPlaying !== undefined)) {
-                  spotData = data;
-                  break;
-                }
-              }
-            } catch (e) {
-              // try next endpoint fallback
-            }
-          }
-
-          if (spotData && spotData.title) {
-            const titleEl = document.getElementById('spotify-title');
-            const artistEl = document.getElementById('spotify-artist');
-            const albumEl = document.getElementById('spotify-album');
-            const artEl = document.getElementById('spotify-art');
-            const linkEl = document.getElementById('spotify-link');
+          try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 6000);
+            const spotRes = await fetch(SPOTIFY_ENDPOINT, { signal: controller.signal });
+            clearTimeout(timeoutId);
+            if (spotRes.ok) {
+              const spotData = await spotRes.json();
+              if (spotData && spotData.title) {
+                const titleEl = document.getElementById('spotify-title');
+                const artistEl = document.getElementById('spotify-artist');
+                const albumEl = document.getElementById('spotify-album');
+                const artEl = document.getElementById('spotify-art');
+                const linkEl = document.getElementById('spotify-link');
                 const statusText = document.getElementById('spotify-status-text');
                 const eq = document.getElementById('spotify-equalizer');
                 const beacon = document.getElementById('spotify-beacon');
